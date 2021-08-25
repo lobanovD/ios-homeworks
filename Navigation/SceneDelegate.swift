@@ -12,11 +12,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
 
+
+    
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let scene = (scene as? UIWindowScene) else { return }
+        
+        let window = UIWindow(windowScene: scene)
+        
+        // VC
+        let profileVC = ProfileViewController()
+        let feedVC = FeedViewController()
+
+        // Navigation VC
+        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        let feedNavigationVC = UINavigationController(rootViewController: feedVC)
+        
+        
+        // Иконки и текст TabBarItems для NavigationVC
+        profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
+        
+
+        // создаем TabBar
+        let tabBar = UITabBarController()
+        
+        // помещаем в TabBar VC
+        tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
+        
+        
+        // указываем с чего загружаться
+        window.rootViewController = tabBar
+        
+        window.makeKeyAndVisible()
+        self.window = window
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
