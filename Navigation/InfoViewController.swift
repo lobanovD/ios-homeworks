@@ -16,20 +16,16 @@ class InfoViewController: UIViewController {
         
         view.backgroundColor = .gray
         
-        // настраиваем кнопку
         alertButton = UIButton(frame: CGRect(x: view.frame.width/2-100, y: view.frame.height/2-25, width: 200, height: 50))
         alertButton.layer.cornerRadius = 25
         alertButton.backgroundColor = .green
         alertButton.setTitle("Alert", for: .normal)
         
-        //        добавляем действие для кнопки
         alertButton.addTarget(self, action: #selector(alert), for: .touchUpInside)
-        // отображаем кнопку
+
         view.addSubview(alertButton)
     }
     
-    
-    // метод Alert
     @objc func alert() {
         let alert = UIAlertController(title: "AlertTitle", message: "AlertMessage", preferredStyle: .alert)
         let firstAlertAction = UIAlertAction(title: "FirstAlertAction", style: .default) { _ in
@@ -42,12 +38,7 @@ class InfoViewController: UIViewController {
         alert.addAction(secondAlertAction)
         
         self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    
-    
-    
+    }   
 }
 
 
