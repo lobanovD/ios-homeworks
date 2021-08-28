@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */; };
 		28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F5226D42C1200482FD5 /* AppDelegate.swift */; };
 		28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F5426D42C1200482FD5 /* SceneDelegate.swift */; };
 		28608F5C26D42C2700482FD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28608F5B26D42C2700482FD5 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		28608F4F26D42C1200482FD5 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28608F5226D42C1200482FD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28608F5426D42C1200482FD5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		282BCB3426DAC8A10042DF15 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				28608F6826D43A0400482FD5 /* ProfileViewController.swift */,
+				282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		28608F4626D42C1100482FD5 = {
 			isa = PBXGroup;
 			children = (
@@ -62,10 +73,10 @@
 		28608F5126D42C1200482FD5 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				282BCB3426DAC8A10042DF15 /* Profile */,
 				28608F5226D42C1200482FD5 /* AppDelegate.swift */,
 				28608F5426D42C1200482FD5 /* SceneDelegate.swift */,
 				28608F6C26D5A2A000482FD5 /* Post.swift */,
-				28608F6826D43A0400482FD5 /* ProfileViewController.swift */,
 				28608F6626D439E800482FD5 /* FeedViewController.swift */,
 				28608F6A26D43B2F00482FD5 /* PostViewController.swift */,
 				28608F6E26D5A8E100482FD5 /* InfoViewController.swift */,
@@ -152,6 +163,7 @@
 				28608F6D26D5A2A000482FD5 /* Post.swift in Sources */,
 				28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */,
 				28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */,
+				282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
