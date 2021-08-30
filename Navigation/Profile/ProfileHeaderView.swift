@@ -153,4 +153,5 @@ class ProfileHeaderView: UIView {
         guard let text = textField.text else { return }
         statusText = text
     }
+
 }
