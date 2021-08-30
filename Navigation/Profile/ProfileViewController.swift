@@ -11,20 +11,23 @@ class ProfileViewController: UIViewController {
     
     let header = ProfileHeaderView()
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(header)
-        
         view.backgroundColor = .lightGray
+        view.addSubview(header)
+        header.addView()
         self.title = "Profile"
     }
     
     override func viewWillLayoutSubviews() {
-        self.header.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height)
+        
+        guard let navigationController = navigationController else { return }
+        
+        header.frame = CGRect(x: view.frame.minX,
+                              y: view.frame.minY +  navigationController.navigationBar.frame.maxY,
+                              width: view.frame.width,
+                              height: view.frame.height -
+                                view.safeAreaInsets.top -
+                                view.safeAreaInsets.bottom)
     }
-    
-
 }
