@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    private var statusText: String = ""
+    
     /*--------------------------------------------------------------*/
     // аватар
     var avatar: UIImageView = {
@@ -49,7 +51,6 @@ class ProfileHeaderView: UIView {
     }
     /*--------------------------------------------------------------*/
     // кнопка
-    
     var button: UIButton = {
         let button = UIButton()
         return button
@@ -63,13 +64,13 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 4
-        button.setTitle("Show status", for: .normal)
+        button.setTitle("Set status", for: .normal)
         button.setTitleColor(.lightGray, for: .highlighted)
         button.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
         NSLayoutConstraint.activate([
             button.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
-            button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 16),
+            button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 42),
             button.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -83,16 +84,46 @@ class ProfileHeaderView: UIView {
     private func statusLabelBuild() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.text = "Waiting for something"
+//        statusLabel.lineBreakMode = .byWordWrapping
+        statusLabel.numberOfLines = 2
         statusLabel.textColor = .gray
         statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         
         NSLayoutConstraint.activate([
             statusLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 20),
-            statusLabel.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -34)
+            statusLabel.bottomAnchor.constraint(equalTo: setStatusTF.topAnchor, constant: -6),
+            statusLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
         ])
     }
     /*--------------------------------------------------------------*/
+//    TF
+    var setStatusTF: UITextField = {
+        let setStatusTF = UITextField()
+        return setStatusTF
+    }()
     
+    private func setStatusTFBuild() {
+        setStatusTF.translatesAutoresizingMaskIntoConstraints = false
+        setStatusTF.layer.borderWidth = 1
+        setStatusTF.layer.borderColor = UIColor.black.cgColor
+        setStatusTF.layer.cornerRadius = 12
+        setStatusTF.backgroundColor = .white
+        setStatusTF.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        setStatusTF.textColor = .black
+        setStatusTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: setStatusTF.frame.height))
+        setStatusTF.leftViewMode = .always
+        setStatusTF.placeholder = "Set status"
+        setStatusTF.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        
+        NSLayoutConstraint.activate([
+            setStatusTF.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 20),
+            setStatusTF.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -10),
+            setStatusTF.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            setStatusTF.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+    }
+    /*--------------------------------------------------------------*/
     //    метод отображения всех элементов
     func addView() {
         self.addSubview(avatar)
@@ -101,17 +132,24 @@ class ProfileHeaderView: UIView {
         nameLabelBuild()
         self.addSubview(button)
         buttonBuild()
+        self.addSubview(setStatusTF)
+        setStatusTFBuild()
         self.addSubview(statusLabel)
         statusLabelBuild()
-        
     }
     
     // метод нажатия на кнопку
     @objc func pressButton(){
-        if statusLabel.text != nil {
-            print(statusLabel.text!)
+        if statusLabel.text != nil && statusText != "" {
+            statusLabel.text = statusText
+            setStatusTF.text = ""
         }
         
     }
     
+    // метод для TF
+    @objc func statusTextChanged(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        statusText = text
+    }  
 }
