@@ -143,6 +143,7 @@ class ProfileHeaderView: UIView {
         if statusLabel.text != nil && statusText != "" {
             statusLabel.text = statusText
             setStatusTF.text = ""
+            setStatusTF.resignFirstResponder()
         }
         
     }
@@ -151,5 +152,5 @@ class ProfileHeaderView: UIView {
     @objc func statusTextChanged(_ textField: UITextField) {
         guard let text = textField.text else { return }
         statusText = text
-    }  
+    }
 }
