@@ -13,22 +13,20 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
-        view.addSubview(header)
+        self.view.backgroundColor = .lightGray
+        self.view.addSubview(header)
         header.addView()
         self.title = "Profile"
     }
     
     override func viewWillLayoutSubviews() {
-        
-        guard let navigationController = navigationController else { return }
-        
-        header.frame = CGRect(x: view.frame.minX,
-                              y: view.frame.minY +  navigationController.navigationBar.frame.maxY,
-                              width: view.frame.width,
-                              height: view.frame.height -
-                                view.safeAreaInsets.top -
-                                view.safeAreaInsets.bottom)
+        header.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            header.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            header.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            header.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            header.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
