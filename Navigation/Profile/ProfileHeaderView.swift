@@ -89,17 +89,17 @@ class ProfileHeaderView: UIView {
             nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
             
             button.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            button.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            button.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
             button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 42),
             button.heightAnchor.constraint(equalToConstant: 50),
             
             statusLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 20),
             statusLabel.bottomAnchor.constraint(equalTo: setStatusTF.topAnchor, constant: -6),
-            statusLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            statusLabel.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
             
             setStatusTF.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 20),
             setStatusTF.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -10),
-            setStatusTF.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            setStatusTF.rightAnchor.constraint(greaterThanOrEqualTo: self.rightAnchor, constant: -16),
             setStatusTF.heightAnchor.constraint(equalToConstant: 40),
             
         ])
