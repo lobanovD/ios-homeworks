@@ -16,18 +16,10 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .lightGray
         self.view.addSubview(header)
         header.addView()
+        header.backgroundColor = .black
         self.title = "Profile"
     }
     
-    override func viewWillLayoutSubviews() {
-        header.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            header.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            header.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            header.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            header.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

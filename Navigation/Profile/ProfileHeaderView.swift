@@ -11,6 +11,8 @@ class ProfileHeaderView: UIView {
         
     private var statusText: String = ""
     
+    
+    
     // MARK: Avatar image
     private lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
@@ -79,7 +81,17 @@ class ProfileHeaderView: UIView {
     
     // MARK: Constraints
     private func setupConstraints() {
+
+        self.translatesAutoresizingMaskIntoConstraints = false
+        guard let superView = superview else { return }
+        
         NSLayoutConstraint.activate([
+    
+            self.leftAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.leftAnchor),
+            self.rightAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.rightAnchor),
+            self.topAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor),
+            self.heightAnchor.constraint(equalToConstant: 220),
+            
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             avatarImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
