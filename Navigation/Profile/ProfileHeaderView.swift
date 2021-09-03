@@ -115,6 +115,9 @@ class ProfileHeaderView: UIView {
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             
         ])
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
     
     
