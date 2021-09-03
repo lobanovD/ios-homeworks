@@ -22,8 +22,8 @@ class ProfileViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         header.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            header.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            header.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            header.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            header.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             header.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             header.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
