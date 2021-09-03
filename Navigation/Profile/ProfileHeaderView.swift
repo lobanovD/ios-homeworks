@@ -9,12 +9,12 @@ import UIKit
 
 class ProfileHeaderView: UIView {
         
-    private var statusText: String = ""
+    private(set) var statusText: String = ""
     
     
     
     // MARK: Avatar image
-    private lazy var avatarImageView: UIImageView = {
+    private(set) lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.clipsToBounds = true
@@ -26,7 +26,7 @@ class ProfileHeaderView: UIView {
     }()
     
     // MARK: Name label
-    private lazy var fullNameLabel: UILabel = {
+    private(set) lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         fullNameLabel.text = "Dmitriy Lobanov"
@@ -36,10 +36,10 @@ class ProfileHeaderView: UIView {
     }()
     
     // MARK: Set status Button
-    private lazy var setStatusButton: UIButton = {
+    private(set) lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-        setStatusButton.backgroundColor = UIColor(cgColor: CGColor(red: 2/255, green: 122/255, blue: 255/255, alpha: 1))
+        setStatusButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -52,7 +52,7 @@ class ProfileHeaderView: UIView {
     }()
     
     // MARK: Status label
-    private lazy var statusLabel: UILabel = {
+    private(set) lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.text = "Waiting for something"
@@ -63,7 +63,7 @@ class ProfileHeaderView: UIView {
     }()
     
     // MARK: TF for status setting
-    private lazy var statusTextField: UITextField = {
+    private(set) lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         statusTextField.layer.borderWidth = 1
