@@ -17,6 +17,7 @@
 		28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6A26D43B2F00482FD5 /* PostViewController.swift */; };
 		28608F6D26D5A2A000482FD5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6C26D5A2A000482FD5 /* Post.swift */; };
 		28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6E26D5A8E100482FD5 /* InfoViewController.swift */; };
+		28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C4B18026E4DC3000A799EA /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		28608F6A26D43B2F00482FD5 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		28608F6C26D5A2A000482FD5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		28608F6E26D5A8E100482FD5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		28C4B18026E4DC3000A799EA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			children = (
 				28608F6826D43A0400482FD5 /* ProfileViewController.swift */,
 				282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */,
+				28C4B18026E4DC3000A799EA /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			files = (
 				28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */,
 				28608F6926D43A0400482FD5 /* ProfileViewController.swift in Sources */,
+				28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */,
 				28608F6726D439E800482FD5 /* FeedViewController.swift in Sources */,
 				28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */,
 				28608F6D26D5A2A000482FD5 /* Post.swift in Sources */,

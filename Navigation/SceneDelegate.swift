@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // VC
         let profileVC = ProfileViewController()
         let feedVC = FeedViewController()
+        let logInVC = LogInViewController()
 
         // Navigation VC
         let profileNavigationVC = UINavigationController(rootViewController: profileVC)
@@ -29,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         // Иконки и текст TabBarItems для NavigationVC
-        profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
         
 
@@ -37,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBar = UITabBarController()
         
         // помещаем в TabBar VC
-        tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
+        tabBar.viewControllers = [logInVC, feedNavigationVC]
         
         
         // указываем с чего загружаться
