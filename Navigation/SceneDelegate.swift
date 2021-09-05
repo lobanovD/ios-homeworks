@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let logInVC = LogInViewController()
 
         // Navigation VC
-        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         
         
@@ -38,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBar = UITabBarController()
         
         // помещаем в TabBar VC
-        tabBar.viewControllers = [logInVC, feedNavigationVC]
+        tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
         
         
         // указываем с чего загружаться
