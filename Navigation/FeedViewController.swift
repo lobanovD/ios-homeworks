@@ -21,7 +21,7 @@ class FeedViewController: UIViewController {
         firstButton.layer.shadowRadius = 4
         firstButton.setTitle("First Button", for: .normal)
         firstButton.setTitleColor(.lightGray, for: .highlighted)
-        firstButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        firstButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
         return firstButton
     }()
     
@@ -35,7 +35,7 @@ class FeedViewController: UIViewController {
         secondButton.layer.shadowRadius = 4
         secondButton.setTitle("Second Button", for: .normal)
         secondButton.setTitleColor(.lightGray, for: .highlighted)
-        secondButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        secondButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
         return secondButton
     }()
     
@@ -72,7 +72,7 @@ class FeedViewController: UIViewController {
         ])
     }
     
-    @objc private func pressButton() {
+    @objc private func openPostVC() {
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
         postVC.postTitle = post.title
