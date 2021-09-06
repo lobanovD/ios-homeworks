@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         
         // VC
-        let profileVC = ProfileViewController()
+        //let profileVC = ProfileViewController()
         let feedVC = FeedViewController()
         let logInVC = LogInViewController()
 
