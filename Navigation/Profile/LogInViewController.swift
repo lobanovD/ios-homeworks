@@ -7,15 +7,14 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    @objc func kbWillShow(){
-        loginScrollView.contentOffset = CGPoint(x: 0, y: 50)
-    }
+    var isLogin: Bool = false
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loginTF.delegate = self
+        self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
         view.addSubview(loginScrollView)
@@ -27,31 +26,35 @@ class LogInViewController: UIViewController {
         loginFormStackView.addArrangedSubview(passwordTF)
         setupConstraints()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
-    let loginScrollView: UIScrollView = {
-        var loginScrollView = UIScrollView()
+    // MARK: LoginScrollView
+   private lazy var loginScrollView: UIScrollView = {
+        let loginScrollView = UIScrollView()
         loginScrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         return loginScrollView
     }()
     
-    let contentView: UIView = {
-        var contentView = UIView()
+    private lazy var contentView: UIView = {
+        let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    let VKIcon: UIImageView = {
-        var VKIcon = UIImageView()
+    private lazy var VKIcon: UIImageView = {
+        let VKIcon = UIImageView()
         VKIcon.image = #imageLiteral(resourceName: "logo")
         VKIcon.translatesAutoresizingMaskIntoConstraints = false
         return VKIcon
     }()
     
-    let loginFormStackView: UIStackView = {
-        var loginFormStackView = UIStackView()
+    private lazy var loginFormStackView: UIStackView = {
+        let loginFormStackView = UIStackView()
         loginFormStackView.translatesAutoresizingMaskIntoConstraints = false
         loginFormStackView.axis = .vertical
         loginFormStackView.layer.borderColor = UIColor.lightGray.cgColor
@@ -63,8 +66,8 @@ class LogInViewController: UIViewController {
         return loginFormStackView
     }()
     
-    let loginTF: UITextField = {
-        var loginTF = UITextField()
+    private lazy var loginTF: UITextField = {
+        let loginTF = UITextField()
         loginTF.translatesAutoresizingMaskIntoConstraints = false
         loginTF.leftViewMode = .always
         loginTF.placeholder = "Email or phone"
@@ -79,10 +82,8 @@ class LogInViewController: UIViewController {
         return loginTF
     }()
     
-    
-    
-    let passwordTF: UITextField = {
-        var passwordTF = UITextField()
+    private lazy var passwordTF: UITextField = {
+        let passwordTF = UITextField()
         passwordTF.translatesAutoresizingMaskIntoConstraints = false
         passwordTF.leftViewMode = .always
         passwordTF.placeholder = "Password"
@@ -97,23 +98,33 @@ class LogInViewController: UIViewController {
         return passwordTF
     }()
     
-    let loginButton: UIButton = {
-        var loginButton = UIButton()
+    private lazy var loginButton: UIButton = {
+        let loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        if let patternImage = UIImage(named: "blue_pixel") {
-            loginButton.backgroundColor = UIColor(patternImage: patternImage)
+        if let image = UIImage(named: "blue_pixel") {
+            loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .selected)
+            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .highlighted)
+            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .disabled)
         }
+        
+        loginButton.setTitle("Log In", for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+        loginButton.layer.cornerRadius = 10
+        loginButton.clipsToBounds = true
         return loginButton
+        
     }()
     
-    
+    // MARK: Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-        
+            
             loginScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             loginScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             loginScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            loginScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loginScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: loginScrollView.topAnchor),
             contentView.trailingAnchor.constraint(equalTo: loginScrollView.trailingAnchor),
@@ -127,7 +138,6 @@ class LogInViewController: UIViewController {
             VKIcon.heightAnchor.constraint(equalToConstant: 100),
             VKIcon.widthAnchor.constraint(equalToConstant: 100),
             
-
             loginFormStackView.topAnchor.constraint(equalTo: VKIcon.bottomAnchor, constant: 120),
             loginFormStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginFormStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -136,13 +146,56 @@ class LogInViewController: UIViewController {
             loginButton.topAnchor.constraint(equalTo: loginFormStackView.bottomAnchor, constant: 16),
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
         ])
-
     }
     
-
+    //MARK: Login button action
+    @objc private func loginButtonPressed() {
+        isLogin = true
+        loginButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").image(alpha: 0.8), for: .normal)
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.loginButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").image(alpha: 1), for: .normal)
+        }
+        let profileVC = ProfileViewController()
+        navigationController?.pushViewController(profileVC, animated: false)
+        
+        if isLogin {
+            navigationController?.setViewControllers([profileVC], animated: true)
+        }
+    }
     
+    // MARK: Keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        loginTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
+        return true;
+    }
     
+    @objc func tap() {
+        passwordTF.resignFirstResponder()
+        loginTF.resignFirstResponder()
+    }
+    
+    @objc func keyboardShow(_ notification: Notification){
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            loginScrollView.contentOffset.y = keyboardRectangle.height - (loginScrollView.frame.height - loginButton.frame.minY) + 16
+        }
+    }
+    
+    @objc func keyboardHide(_ notification: Notification){
+            loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }
+}
 
+// MARK: Alpha UIImage
+extension UIImage {
+    func image(alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: alpha)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
 }

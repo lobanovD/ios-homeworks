@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     lazy private(set) var header = ProfileHeaderView()
     
     lazy private(set) var setTitleButton:UIButton = {
-        var setTitleButton = UIButton()
+        let setTitleButton = UIButton()
         setTitleButton.translatesAutoresizingMaskIntoConstraints = false
         setTitleButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         setTitleButton.setTitle("Set title", for: .normal)
