@@ -9,55 +9,61 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    lazy private(set) var header = ProfileHeaderView()
-    
-    lazy private(set) var setTitleButton:UIButton = {
-        let setTitleButton = UIButton()
-        setTitleButton.translatesAutoresizingMaskIntoConstraints = false
-        setTitleButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
-        setTitleButton.setTitle("Set title", for: .normal)
-        setTitleButton.setTitleColor(.lightGray, for: .highlighted)
-        setTitleButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
-        return setTitleButton
-    }()
-    
-    @objc private func pressButton() {
-        self.title = "New title"
-    }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            setTitleButton.leftAnchor.constraint(equalTo: view.leftAnchor),
-            setTitleButton.rightAnchor.constraint(equalTo: view.rightAnchor),
-            setTitleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            setTitleButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
-    
- 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .lightGray
-        self.view.addSubview(header)
-        header.addView()
-        self.title = "Profile"
-        self.view.addSubview(setTitleButton)
-        self.setupConstraints()
+        view.backgroundColor = .white
+        view.addSubview(postTableView)
+        setupConstraints()
+        postTableView.dataSource = self
+        postTableView.delegate = self
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    // MARK: Posts table view
+    private lazy var postTableView: UITableView = {
+        let postTableView = UITableView()
+        postTableView.translatesAutoresizingMaskIntoConstraints = false
+        postTableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
+        postTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
+        postTableView.separatorInset = .zero
+        return postTableView
+    }()
+
+    // MARK: Constraints
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
     }
 }
 
 
-extension UIColor {
-    class func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat) -> UIColor {
-        let color = UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: alpha)
-        return color
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return postArray.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = postTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
+        cell.configureCell(title: postArray[indexPath.row].title,
+                            image: postArray[indexPath.row].image,
+                            description: postArray[indexPath.row].description,
+                            likes: postArray[indexPath.row].likes,
+                            views: postArray[indexPath.row].views)
+        print(indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
+        return headerView
     }
 }
-
 
