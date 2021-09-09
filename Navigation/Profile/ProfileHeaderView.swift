@@ -80,24 +80,16 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Constraints
     private func setupConstraints() {
-
-
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-    
-            self.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            self.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
-            self.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 220),
             
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
-            fullNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
+            fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
             
             setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
