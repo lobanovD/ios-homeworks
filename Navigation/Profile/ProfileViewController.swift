@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
         setupConstraints()
         postTableView.dataSource = self
         postTableView.delegate = self
+        postTableView.refreshControl = UIRefreshControl()
+        postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
     }
     
     // MARK: Posts table view
@@ -62,8 +64,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
-        return headerView
+        if section == 0 {
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
+            return headerView
+        } else { return nil }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -71,3 +75,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+extension ProfileViewController {
+    @objc func updatePostArray() {
+        print("данные успешно обновлены")
+        postTableView.refreshControl?.endRefreshing()
+    }
+}
