@@ -18,18 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         
         // VC
-        let profileVC = ProfileViewController()
+        //let profileVC = ProfileViewController()
         let feedVC = FeedViewController()
+        let logInVC = LogInViewController()
 
         // Navigation VC
-        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         
         
         
         
         // Иконки и текст TabBarItems для NavigationVC
-        profileNavigationVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
         
 
@@ -77,5 +78,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
+}
+
+extension UIColor {
+    class func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat) -> UIColor {
+        let color = UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: alpha)
+        return color
+    }
 }
 

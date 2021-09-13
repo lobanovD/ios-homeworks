@@ -9,11 +9,11 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    let post = Post(title: "Post")
+//    let post = Post(title: "Post")
     
     lazy private var firstButton: UIButton = {
         var firstButton = UIButton()
-        firstButton.translatesAutoresizingMaskIntoConstraints = false
+        firstButton.toAutoLayout()
         firstButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         firstButton.layer.shadowColor = UIColor.black.cgColor
         firstButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -27,7 +27,7 @@ class FeedViewController: UIViewController {
     
     lazy private var secondButton: UIButton = {
         var secondButton = UIButton()
-        secondButton.translatesAutoresizingMaskIntoConstraints = false
+        secondButton.toAutoLayout()
         secondButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         secondButton.layer.shadowColor = UIColor.black.cgColor
         secondButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -41,7 +41,7 @@ class FeedViewController: UIViewController {
     
     lazy private var stackView: UIStackView = {
         var stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.toAutoLayout()
         stackView.axis = .vertical
         stackView.spacing = 10
         
@@ -75,7 +75,7 @@ class FeedViewController: UIViewController {
     @objc private func openPostVC() {
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
-        postVC.postTitle = post.title
+//        postVC.postTitle = post.title
     }
     
 }
