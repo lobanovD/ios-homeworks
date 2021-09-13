@@ -21,6 +21,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         // скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
+    
     }
     
     

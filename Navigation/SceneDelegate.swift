@@ -44,6 +44,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // указываем с чего загружаться
         window.rootViewController = tabBar
         
+        // генерируем массив фотографий
+        createPhotosArray()
+        
         window.makeKeyAndVisible()
         self.window = window
         
