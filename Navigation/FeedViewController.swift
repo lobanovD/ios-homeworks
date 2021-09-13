@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     
     lazy private var firstButton: UIButton = {
         var firstButton = UIButton()
-        firstButton.translatesAutoresizingMaskIntoConstraints = false
+        firstButton.toAutoLayout()
         firstButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         firstButton.layer.shadowColor = UIColor.black.cgColor
         firstButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -27,7 +27,7 @@ class FeedViewController: UIViewController {
     
     lazy private var secondButton: UIButton = {
         var secondButton = UIButton()
-        secondButton.translatesAutoresizingMaskIntoConstraints = false
+        secondButton.toAutoLayout()
         secondButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         secondButton.layer.shadowColor = UIColor.black.cgColor
         secondButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -41,7 +41,7 @@ class FeedViewController: UIViewController {
     
     lazy private var stackView: UIStackView = {
         var stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.toAutoLayout()
         stackView.axis = .vertical
         stackView.spacing = 10
         

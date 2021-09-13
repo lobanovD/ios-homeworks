@@ -16,19 +16,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.loginTF.delegate = self
         self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .white
-        view.addSubview(loginScrollView)
-        loginScrollView.addSubview(contentView)
-        contentView.addSubview(VKIcon)
-        contentView.addSubview(loginFormStackView)
-        contentView.addSubview(loginButton)
-        loginFormStackView.addArrangedSubview(loginTF)
-        loginFormStackView.addArrangedSubview(passwordTF)
-        setupConstraints()
+        setupViews()
         
+        // скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -43,26 +37,26 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     // MARK: LoginScrollView
    private lazy var loginScrollView: UIScrollView = {
         let loginScrollView = UIScrollView()
-        loginScrollView.translatesAutoresizingMaskIntoConstraints = false
+        loginScrollView.toAutoLayout()
         return loginScrollView
     }()
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.toAutoLayout()
         return contentView
     }()
     
     private lazy var VKIcon: UIImageView = {
         let VKIcon = UIImageView()
-        VKIcon.image = #imageLiteral(resourceName: "logo")
-        VKIcon.translatesAutoresizingMaskIntoConstraints = false
+        VKIcon.image = UIImage(named: "logo")
+        VKIcon.toAutoLayout()
         return VKIcon
     }()
     
     private lazy var loginFormStackView: UIStackView = {
         let loginFormStackView = UIStackView()
-        loginFormStackView.translatesAutoresizingMaskIntoConstraints = false
+        loginFormStackView.toAutoLayout()
         loginFormStackView.axis = .vertical
         loginFormStackView.layer.borderColor = UIColor.lightGray.cgColor
         loginFormStackView.layer.borderWidth = 0.5
@@ -75,7 +69,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var loginTF: UITextField = {
         let loginTF = UITextField()
-        loginTF.translatesAutoresizingMaskIntoConstraints = false
+        loginTF.toAutoLayout()
         loginTF.leftViewMode = .always
         loginTF.placeholder = "Email or phone"
         loginTF.layer.borderColor = UIColor.lightGray.cgColor
@@ -91,7 +85,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var passwordTF: UITextField = {
         let passwordTF = UITextField()
-        passwordTF.translatesAutoresizingMaskIntoConstraints = false
+        passwordTF.toAutoLayout()
         passwordTF.leftViewMode = .always
         passwordTF.placeholder = "Password"
         passwordTF.layer.borderColor = UIColor.lightGray.cgColor
@@ -107,7 +101,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var loginButton: UIButton = {
         let loginButton = UIButton()
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.toAutoLayout()
         if let image = UIImage(named: "blue_pixel") {
             loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .selected)
@@ -146,24 +140,38 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             VKIcon.widthAnchor.constraint(equalToConstant: 100),
             
             loginFormStackView.topAnchor.constraint(equalTo: VKIcon.bottomAnchor, constant: 120),
-            loginFormStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginFormStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            loginFormStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            loginFormStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             loginFormStackView.heightAnchor.constraint(equalToConstant: 100),
             
-            loginButton.topAnchor.constraint(equalTo: loginFormStackView.bottomAnchor, constant: 16),
-            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            loginButton.topAnchor.constraint(equalTo: loginFormStackView.bottomAnchor, constant: Constants.indent),
+            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
         ])
+    }
+    
+    // MARK: Setup View
+    private func setupViews() {
+        view.backgroundColor = .white
+        view.addSubview(loginScrollView)
+        loginScrollView.addSubview(contentView)
+        contentView.addSubviews(VKIcon, loginFormStackView, loginButton)
+        loginFormStackView.addArrangedSubview(loginTF)
+        loginFormStackView.addArrangedSubview(passwordTF)
+        setupConstraints()
     }
     
     //MARK: Login button action
     @objc private func loginButtonPressed() {
         isLogin = true
-        loginButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").image(alpha: 0.8), for: .normal)
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-            self.loginButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").image(alpha: 1), for: .normal)
+        if let image = UIImage(named: "blue_pixel") {
+            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            }
         }
+
         let profileVC = ProfileViewController()
         navigationController?.pushViewController(profileVC, animated: false)
         
@@ -187,7 +195,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func keyboardShow(_ notification: Notification){
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            loginScrollView.contentOffset.y = keyboardRectangle.height - (loginScrollView.frame.height - loginButton.frame.minY) + 16
+            loginScrollView.contentOffset.y = keyboardRectangle.height - (loginScrollView.frame.height - loginButton.frame.minY) + Constants.indent
         }
     }
     

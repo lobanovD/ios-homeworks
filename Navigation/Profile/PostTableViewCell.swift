@@ -29,7 +29,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: Post title
     private lazy var postTitle: UILabel = {
         let postTitle = UILabel()
-        postTitle.translatesAutoresizingMaskIntoConstraints = false
+        postTitle.toAutoLayout()
         postTitle.numberOfLines = 2
         postTitle.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return postTitle
@@ -38,7 +38,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: Post image
     private lazy var postImage: UIImageView = {
         let postImage = UIImageView()
-        postImage.translatesAutoresizingMaskIntoConstraints = false
+        postImage.toAutoLayout()
         postImage.backgroundColor = .black
         postImage.contentMode = .scaleAspectFit
         return postImage
@@ -47,7 +47,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: Post description
     private lazy var postDescription: UILabel = {
         let postDescription = UILabel()
-        postDescription.translatesAutoresizingMaskIntoConstraints = false
+        postDescription.toAutoLayout()
         postDescription.font = UIFont.systemFont(ofSize: 14)
         postDescription.textColor = .systemGray
         postDescription.numberOfLines = 0
@@ -58,7 +58,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: Post likes
     private lazy var postLikes: UILabel = {
         let postLikes = UILabel()
-        postLikes.translatesAutoresizingMaskIntoConstraints = false
+        postLikes.toAutoLayout()
         postLikes.font = UIFont.systemFont(ofSize: 16)
         postLikes.textColor = .black
         return postLikes
@@ -67,7 +67,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: Post views
     private lazy var postViews: UILabel = {
         let postViews = UILabel()
-        postViews.translatesAutoresizingMaskIntoConstraints = false
+        postViews.toAutoLayout()
         postLikes.font = UIFont.systemFont(ofSize: 16)
         postLikes.textColor = .black
         return postViews
@@ -79,29 +79,33 @@ class PostTableViewCell: UITableViewCell {
             
             contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
             
-            postTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            postTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            postTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            postTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.indent),
+            postTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            postTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             
             postImage.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             postImage.heightAnchor.constraint(equalTo: postImage.widthAnchor),
-            postImage.topAnchor.constraint(equalTo: postTitle.bottomAnchor, constant: 16),
+            postImage.topAnchor.constraint(equalTo: postTitle.bottomAnchor, constant: Constants.indent),
             
-            postDescription.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 16),
-            postDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            postDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 16),
+            postDescription.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: Constants.indent),
+            postDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            postDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             
-            postLikes.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: 16),
-            postLikes.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            postLikes.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            postLikes.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: Constants.indent),
+            postLikes.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            postLikes.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.trailingMargin),
             
-            postViews.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: 16),
-            postViews.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            postViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            postViews.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: Constants.indent),
+            postViews.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            postViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.indent),
         ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }

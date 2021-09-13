@@ -15,7 +15,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     // MARK: Avatar image
     private(set) lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.toAutoLayout()
         avatarImageView.clipsToBounds = true
         avatarImageView.image = UIImage(named: "avatar")
         avatarImageView.layer.cornerRadius = 50
@@ -27,7 +27,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     // MARK: Name label
     private(set) lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
-        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        fullNameLabel.toAutoLayout()
         fullNameLabel.text = "Dmitriy Lobanov"
         fullNameLabel.textColor = .black
         fullNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -37,7 +37,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     // MARK: Set status Button
     private(set) lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
-        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        setStatusButton.toAutoLayout()
         setStatusButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
@@ -53,7 +53,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     // MARK: Status label
     private(set) lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.toAutoLayout()
         statusLabel.text = "Waiting for something"
         statusLabel.numberOfLines = 2
         statusLabel.textColor = .gray
@@ -64,7 +64,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     // MARK: TF for status setting
     private(set) lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        statusTextField.toAutoLayout()
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.borderColor = UIColor.black.cgColor
         statusTextField.layer.cornerRadius = 12
@@ -85,24 +85,24 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.leadingMargin),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.indent),
             
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
             
-            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.leadingMargin),
+            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingMargin),
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 42),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
 
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -6),
-            statusLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
+            statusLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -10),
-            statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -16),
+            statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             
         ])
@@ -145,9 +145,18 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
 
 
 public extension UIView {
+    
     func addSubviews(_ subviews: UIView...) {
         for subview in subviews {
             self.addSubview(subview)
         }
     }
+    
+    func toAutoLayout() {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
 }
+
+
+
+
