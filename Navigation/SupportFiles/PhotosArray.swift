@@ -7,10 +7,12 @@
 
 import UIKit
 
+var photosArray:[UIImage] = []
+
 func createPhotosArray() {
-    var photosArray:[UIImage] = []
+    
     photosArray = (0...19).compactMap { UIImage(named: "IMG\($0)") }
-    print(photosArray)
+    //print(photosArray)
 }
 
 

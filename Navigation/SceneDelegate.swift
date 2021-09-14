@@ -18,12 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         
         // VC
-        //let profileVC = ProfileViewController()
+        let profileVC = ProfileViewController()
         let feedVC = FeedViewController()
         let logInVC = LogInViewController()
 
         // Navigation VC
-        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
+        let profileNavigationVC = UINavigationController(rootViewController: profileVC)
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         
         
