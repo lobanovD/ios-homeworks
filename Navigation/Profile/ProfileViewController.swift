@@ -20,14 +20,17 @@ class ProfileViewController: UIViewController {
         postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     // MARK: Posts table view
     private lazy var postTableView: UITableView = {
         let postTableView = UITableView(frame: .zero, style: .grouped)
-        //        let postTableView = UITableView()
         postTableView.toAutoLayout()
         postTableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
         postTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
-        postTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifire)
+        postTableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: PhotoTableViewCell.identifire)
         postTableView.separatorInset = .zero
         return postTableView
     }()
@@ -68,11 +71,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                description: postArray[indexPath.row].description,
                                likes: postArray[indexPath.row].likes,
                                views: postArray[indexPath.row].views)
-            //        print(indexPath.row)
             return cell
         } else {
-            let cell = postTableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifire, for: indexPath) as! PhotosTableViewCell
+            let cell = postTableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifire, for: indexPath) as! PhotoTableViewCell
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let photoVC = PhotoViewController()
+            navigationController?.pushViewController(photoVC, animated: true)
         }
     }
     
@@ -105,3 +114,5 @@ extension ProfileViewController {
         print("данные успешно обновлены")
     }
 }
+
+

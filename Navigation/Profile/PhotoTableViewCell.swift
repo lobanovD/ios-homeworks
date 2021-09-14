@@ -7,14 +7,15 @@
 
 import UIKit
 
-class PhotosTableViewCell: UITableViewCell {
+class PhotoTableViewCell: UITableViewCell {
     
     static let identifire = "PhotosTableViewCell"
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.toAutoLayout()
-        contentView.addSubviews(photosLabel, arrowButton, previewStackView)
+        self.selectionStyle = .none
+        contentView.addSubviews(photosLabel, arrowImage, previewStackView)
         previewStackView.addArrangedSubviews(previewImage1, previewImage2, previewImage3, previewImage4)
         setupConstraints()
     }
@@ -30,17 +31,14 @@ class PhotosTableViewCell: UITableViewCell {
     }()
 
     // MARK: Arrow
-    private lazy var arrowButton: UIButton = {
-        let arrowButton = UIButton()
-        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .regular))?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        arrowButton.addTarget(self, action: #selector(arrowButtonPressed), for: .touchUpInside)
-        arrowButton.toAutoLayout()
-        return arrowButton
+    private lazy var arrowImage: UIImageView = {
+        let arrowImage = UIImageView()
+        arrowImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        arrowImage.toAutoLayout()
+        return arrowImage
     }()
     
-    @objc func arrowButtonPressed() {
-        print(1)
-    }
+    
     
     // MARK: PreviewStackView
     private lazy var previewStackView: UIStackView = {
@@ -50,7 +48,6 @@ class PhotosTableViewCell: UITableViewCell {
         previewStackView.distribution = .fillEqually
         previewStackView.alignment = .center
         previewStackView.spacing = 8
-        
         return previewStackView
     }()
     
@@ -94,19 +91,21 @@ class PhotosTableViewCell: UITableViewCell {
         return previewImage4
     }()
 
-
-
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            
+            // комментарий для Алексея
+            // я вынес те константы, как вы написали в замечаниях, в отдельный файл, но тут у нас другие значения... Если и их вынести в еще одну структуру, разве не будет путать это все?
+//            В чем профит тогда от вынесения констант в структуру в отдельном файле?
+//            Разве не удобнее писать как тут - сразу значения и потом при необходимости менять их и понимать, чтоты меняешь...
     
             photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             
-            arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            arrowButton.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
-            arrowButton.heightAnchor.constraint(equalToConstant: 40),
-            arrowButton.widthAnchor.constraint(equalToConstant: 40),
+            arrowImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            arrowImage.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
+            arrowImage.heightAnchor.constraint(equalToConstant: 40),
+            arrowImage.widthAnchor.constraint(equalToConstant: 40),
             
             previewStackView.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: 12),
             previewStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -128,9 +127,6 @@ class PhotosTableViewCell: UITableViewCell {
         ])
     }
 
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
