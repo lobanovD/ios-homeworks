@@ -64,13 +64,9 @@
 		282BCB3426DAC8A10042DF15 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				28C4B18026E4DC3000A799EA /* LogInViewController.swift */,
 				28608F6826D43A0400482FD5 /* ProfileViewController.swift */,
 				282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */,
 				2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */,
-				28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */,
-				28C09CC426F1215900062B83 /* PhotoViewController.swift */,
-				28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -94,7 +90,9 @@
 		28608F5126D42C1200482FD5 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				28C09D0626F3DC5700062B83 /* Login */,
 				282BCB3426DAC8A10042DF15 /* Profile */,
+				28C09D0726F3DC8900062B83 /* Photo */,
 				28C09CBF26F00D4C00062B83 /* SupportFiles */,
 				28608F5226D42C1200482FD5 /* AppDelegate.swift */,
 				28608F5426D42C1200482FD5 /* SceneDelegate.swift */,
@@ -117,6 +115,24 @@
 				28C09CC226F11EFF00062B83 /* Extension.swift */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		28C09D0626F3DC5700062B83 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				28C4B18026E4DC3000A799EA /* LogInViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		28C09D0726F3DC8900062B83 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */,
+				28C09CC426F1215900062B83 /* PhotoViewController.swift */,
+				28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */,
+			);
+			path = Photo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
