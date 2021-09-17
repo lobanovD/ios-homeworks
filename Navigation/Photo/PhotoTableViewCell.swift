@@ -93,11 +93,6 @@ class PhotoTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            
-            // комментарий для Алексея
-            // я вынес те константы, как вы написали в замечаниях, в отдельный файл, но тут у нас другие значения... Если и их вынести в еще одну структуру, разве не будет путать это все?
-//            В чем профит тогда от вынесения констант в структуру в отдельном файле?
-//            Разве не удобнее писать как тут - сразу значения и потом при необходимости менять их и понимать, чтоты меняешь...
     
             photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),

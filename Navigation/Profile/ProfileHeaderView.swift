@@ -13,14 +13,12 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     static let identifire = "ProfileHeaderView"
     
     
-//    static let ppView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-    
     //MARK: Plag View
     private lazy var plagView: UIView = {
         let plagView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        plagView.backgroundColor = .lightGray
-        plagView.alpha = 0.9
-        plagView.isHidden = true
+        plagView.toAutoLayout()
+        plagView.backgroundColor = .gray
+        plagView.alpha = 0
         return plagView
     }()
     
@@ -30,11 +28,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         plagEscButton.toAutoLayout()
         plagEscButton.setImage(UIImage(named: "esc"), for: .normal)
         plagEscButton.imageView?.contentMode = .scaleAspectFit
-//        plagEscButton.addTarget(self, action: #selector(tapPlagEscButton), for: .touchUpInside)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapPlagEscButton))
         plagEscButton.addGestureRecognizer(gesture)
         plagEscButton.isUserInteractionEnabled = true
-//        plagEscButton.isHidden = true
+        plagEscButton.alpha = 0
         return plagEscButton
     }()
     
@@ -48,7 +45,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         avatarImageView.layer.cornerRadius = 50
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
-        // add gesture on avatar
+    ///add gesture on avatar
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnAvatar))
         avatarImageView.addGestureRecognizer(gesture)
         avatarImageView.isUserInteractionEnabled = true
@@ -56,33 +53,53 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     
     // MARK: Avatar Action
+    var defaultAvatarCenter: CGPoint = CGPoint(x: 0, y: 0)
+    
     @objc func tapOnAvatar() {
-        UIImageView.animate(withDuration: 0.5) {
-            self.avatarImageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-            
-            self.avatarImageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.avatarImageView.frame.width, y: self.contentView.frame.width / self.avatarImageView.frame.width)
-
-            
-            self.plagView.isHidden = false
-            // появление кнопки
-            self.plagEscButton.isHidden = false
-            self.plagEscButton.isEnabled = true
-            self.plagEscButton.isUserInteractionEnabled = true
-            ProfileViewController.postTableView.isScrollEnabled = false
-            ProfileViewController.postTableView.isUserInteractionEnabled = false
-            // потому что хедер является частью этой таблицы!
-            
-//            self.plagView.isUserInteractionEnabled = false
-//            self.plagEscButton.isEnabled = true
-//            self.plagEscButton.isUserInteractionEnabled = true
-            
-
-
-           
-            
-           
-        }
+        
+        UIImageView.animate(withDuration: 0.5,
+                            animations: {
+                                self.defaultAvatarCenter = self.avatarImageView.center
+                                self.avatarImageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                                self.avatarImageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.avatarImageView.frame.width, y: self.contentView.frame.width / self.avatarImageView.frame.width)
+                                self.avatarImageView.layer.cornerRadius = 0
+                                self.plagView.alpha = 0.5
+                                ProfileViewController.postTableView.isScrollEnabled = false
+                                ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = false
+                                self.avatarImageView.isUserInteractionEnabled = false
+                            },
+                            completion: { _ in
+                                UIImageView.animate(withDuration: 0.3) {
+                                    self.plagEscButton.alpha = 1
+                                }
+                            })
     }
+    
+
+    // MARK: Plag View Esc Button Action
+    @objc func tapPlagEscButton() {
+        
+        UIImageView.animate(withDuration: 0.3,
+                            animations: {
+                                self.plagEscButton.alpha = 0
+                            },
+                            completion: { _ in
+                                UIImageView.animate(withDuration: 0.5) {
+                                    self.avatarImageView.center = self.defaultAvatarCenter
+                                    self.avatarImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width / 2
+                                    self.plagView.alpha = 0
+                                    ProfileViewController.postTableView.isScrollEnabled = true
+                                    ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = true
+                                    self.avatarImageView.isUserInteractionEnabled = true
+                                }
+                            })
+    }
+    
+    
+    
+    
+    
     
     // MARK: Name label
     private(set) lazy var fullNameLabel: UILabel = {
@@ -170,12 +187,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             plagEscButton.widthAnchor.constraint(equalToConstant: 30),
             plagEscButton.heightAnchor.constraint(equalToConstant: 30),
             
-            
-//            plagView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-//            plagView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-//            plagView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-//            plagView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            
         ])
     }
     
@@ -206,10 +217,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
     }
     
-    // MARK: Plag View Esc Button Action
-    @objc func tapPlagEscButton() {
-        print(1)
-    }
+
     
     // MARK: TF Action
     @objc func statusTextChanged(_ textField: UITextField) {
