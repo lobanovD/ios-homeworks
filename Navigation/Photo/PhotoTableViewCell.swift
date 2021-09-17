@@ -16,7 +16,7 @@ class PhotoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.toAutoLayout()
         self.selectionStyle = .none
-        contentView.addSubviews(photosLabel, arrowImage, previewStackView)
+        contentView.addSubviews(photosLabel, PhotoTableViewCell.arrowButton, previewStackView)
         previewStackView.addArrangedSubviews(previewImage1, previewImage2, previewImage3, previewImage4)
         setupConstraints()
     }
@@ -32,13 +32,14 @@ class PhotoTableViewCell: UITableViewCell {
         photosLabel.toAutoLayout()
         return photosLabel
     }()
-
-    /// Arrow
-    private lazy var arrowImage: UIImageView = {
-        let arrowImage = UIImageView()
-        arrowImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        arrowImage.toAutoLayout()
-        return arrowImage
+    
+    /// Arrow Button
+    static var arrowButton: UIButton = {
+        let arrowButton = UIButton()
+        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .highlighted)
+        arrowButton.toAutoLayout()
+        return arrowButton
     }()
     
     
@@ -93,9 +94,9 @@ class PhotoTableViewCell: UITableViewCell {
         previewImage4.clipsToBounds = true
         return previewImage4
     }()
-
     
-
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -111,14 +112,14 @@ extension PhotoTableViewCell {
     /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-    
+            
             photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PhotoTableViewCellConstants.photosLabelLeading),
             photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: PhotoTableViewCellConstants.photosLabelTop),
             
-            arrowImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: PhotoTableViewCellConstants.arrowImageTrailing),
-            arrowImage.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
-            arrowImage.heightAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowImageHeight),
-            arrowImage.widthAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowImageWidth),
+            PhotoTableViewCell.arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: PhotoTableViewCellConstants.arrowButtonTrailing),
+            PhotoTableViewCell.arrowButton.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
+            PhotoTableViewCell.arrowButton.heightAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowButtonHeight),
+            PhotoTableViewCell.arrowButton.widthAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowButtonWidth),
             
             previewStackView.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: PhotoTableViewCellConstants.previewStackViewTop),
             previewStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PhotoTableViewCellConstants.previewStackViewLeading),
@@ -127,7 +128,7 @@ extension PhotoTableViewCell {
             
             previewImage1.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 16) / 4),
             previewImage1.heightAnchor.constraint(equalTo: previewImage1.widthAnchor),
-
+            
             previewImage2.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 16) / 4),
             previewImage2.heightAnchor.constraint(equalTo: previewImage2.widthAnchor),
             

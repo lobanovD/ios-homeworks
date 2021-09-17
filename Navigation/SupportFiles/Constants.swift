@@ -87,9 +87,9 @@ struct PhotoTableViewCellConstants {
     static let photosLabelLeading: CGFloat = 12
     static let photosLabelTop: CGFloat = 12
     
-    static let arrowImageTrailing: CGFloat = -12
-    static let arrowImageHeight: CGFloat = 40
-    static let arrowImageWidth: CGFloat = 40
+    static let arrowButtonTrailing: CGFloat = -12
+    static let arrowButtonHeight: CGFloat = 40
+    static let arrowButtonWidth: CGFloat = 40
     
     static let previewStackViewTop: CGFloat = 12
     static let previewStackViewLeading: CGFloat = 12

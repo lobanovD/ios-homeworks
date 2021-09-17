@@ -18,7 +18,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
     
-// MARK: UI elements
+    // MARK: UI elements
     
     /// Photo image
     private lazy var photo: UIImageView = {
@@ -44,7 +44,7 @@ extension PhotoCollectionViewCell {
         self.photo.image = image
     }
     
-/// Setup constraints
+    /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             photo.topAnchor.constraint(equalTo: self.topAnchor),

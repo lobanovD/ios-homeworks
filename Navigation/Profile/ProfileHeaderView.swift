@@ -52,7 +52,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         avatarImageView.isUserInteractionEnabled = true
         return avatarImageView
     }()
-
+    
     /// Name label
     private(set) lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()

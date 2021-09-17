@@ -37,8 +37,6 @@ class ProfileViewController: UIViewController {
         postTableView.separatorInset = .zero
         return postTableView
     }()
-    
-    
 }
 
 // MARK: Delegate and Datasource
@@ -68,6 +66,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifire, for: indexPath) as! PhotoTableViewCell
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(arrowButtonAction))
+            PhotoTableViewCell.arrowButton.addGestureRecognizer(gesture)
             return cell
         }
     }
@@ -120,5 +120,11 @@ extension ProfileViewController {
             ProfileViewController.postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             ProfileViewController.postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+    
+    /// Arrow Button Action
+    @objc private func arrowButtonAction() {
+        let photoVC = PhotoViewController()
+        self.navigationController?.pushViewController(photoVC, animated: true)
     }
 }

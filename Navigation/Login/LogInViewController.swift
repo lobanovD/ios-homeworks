@@ -21,7 +21,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         /// скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
-    
+        
     }
     
     // MARK: Setup View
@@ -48,7 +48,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: UI elements
     /// Login Scroll View
-   private lazy var loginScrollView: UIScrollView = {
+    private lazy var loginScrollView: UIScrollView = {
         let loginScrollView = UIScrollView()
         loginScrollView.toAutoLayout()
         return loginScrollView
@@ -194,8 +194,8 @@ extension LogInViewController {
     }
     
     @objc func keyboardHide(_ notification: Notification){
-            loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
-        }
+        loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
     
     /// Login button action
     @objc private func loginButtonPressed() {
@@ -206,7 +206,7 @@ extension LogInViewController {
                 self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
             }
         }
-
+        
         let profileVC = ProfileViewController()
         navigationController?.pushViewController(profileVC, animated: false)
         

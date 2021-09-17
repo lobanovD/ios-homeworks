@@ -22,7 +22,7 @@ class InfoViewController: UIViewController {
         alertButton.setTitle("Alert", for: .normal)
         
         alertButton.addTarget(self, action: #selector(alert), for: .touchUpInside)
-
+        
         view.addSubview(alertButton)
     }
     
