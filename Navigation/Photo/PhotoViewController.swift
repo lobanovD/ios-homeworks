@@ -20,7 +20,9 @@ class PhotoViewController: UIViewController {
         
     }
     
-    // MARK: Photo CollectionView
+    // MARK: UI elements
+    
+    /// Photo CollectionView
     private lazy var photosCollection: UICollectionView = {
         let photoCollectionLayout = UICollectionViewFlowLayout()
         photoCollectionLayout.scrollDirection = .vertical
@@ -30,20 +32,9 @@ class PhotoViewController: UIViewController {
         photosCollection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifire)
         return photosCollection
     }()
-    
-    // MARK: Constraints
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-                        
-            photosCollection.topAnchor.constraint(equalTo: view.topAnchor),
-            photosCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            photosCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            photosCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-        ])
-    }
 }
 
+// MARK: Delegate and Datasource
 extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,4 +67,19 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
+}
+
+//MARK: Actions
+extension PhotoViewController {
+    
+    /// Setup constraints
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            photosCollection.topAnchor.constraint(equalTo: view.topAnchor),
+            photosCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            photosCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            photosCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
 }
