@@ -21,6 +21,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         // скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
+    
     }
     
     
@@ -204,13 +205,4 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
 }
 
-// MARK: Alpha UIImage
-extension UIImage {
-    func image(alpha: CGFloat) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(at: .zero, blendMode: .normal, alpha: alpha)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-}
+

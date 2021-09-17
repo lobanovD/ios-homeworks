@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
-        
+    
     private(set) var statusText: String = ""
     static let identifire = "ProfileHeaderView"
     
@@ -95,7 +95,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingMargin),
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 42),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-
+            
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -6),
             statusLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
@@ -109,13 +109,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     
-// MARK: Add Subviews
+    // MARK: Add Subviews
     func addView() {
         contentView.addSubviews(avatarImageView, fullNameLabel, setStatusButton, statusTextField, statusLabel)
         self.setupConstraints()
     }
     
-// MARK: Button Action
+    // MARK: Button Action
     @objc func pressButton(){
         if statusLabel.text != nil && statusText != "" {
             statusLabel.text = statusText
@@ -125,7 +125,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
     }
     
-//MARK: TF Action
+    //MARK: TF Action
     @objc func statusTextChanged(_ textField: UITextField) {
         guard let text = textField.text else { return }
         statusText = text
@@ -143,19 +143,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
 }
 
-
-public extension UIView {
-    
-    func addSubviews(_ subviews: UIView...) {
-        for subview in subviews {
-            self.addSubview(subview)
-        }
-    }
-    
-    func toAutoLayout() {
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-}
 
 
 

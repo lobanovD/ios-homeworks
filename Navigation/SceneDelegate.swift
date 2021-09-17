@@ -17,24 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
-        // VC
-        //let profileVC = ProfileViewController()
+        // MARK: VC
         let feedVC = FeedViewController()
         let logInVC = LogInViewController()
 
-        // Navigation VC
+        // MARK: Navigation VC
         let profileNavigationVC = UINavigationController(rootViewController: logInVC)
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         
         
-        
-        
-        // Иконки и текст TabBarItems для NavigationVC
+        // MARK: Иконки и текст TabBarItems для NavigationVC
         logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
         
 
-        // создаем TabBar
+        // MARK: TabBar
         let tabBar = UITabBarController()
         
         // помещаем в TabBar VC
@@ -43,6 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // указываем с чего загружаться
         window.rootViewController = tabBar
+        
+        // генерируем массив фотографий
+        createPhotosArray()
         
         window.makeKeyAndVisible()
         self.window = window
