@@ -11,16 +11,19 @@ class PhotoTableViewCell: UITableViewCell {
     
     static let identifire = "PhotosTableViewCell"
     
+    //MARK: Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.toAutoLayout()
         self.selectionStyle = .none
-        contentView.addSubviews(photosLabel, arrowImage, previewStackView)
+        contentView.addSubviews(photosLabel, PhotoTableViewCell.arrowButton, previewStackView)
         previewStackView.addArrangedSubviews(previewImage1, previewImage2, previewImage3, previewImage4)
         setupConstraints()
     }
     
-    // MARK: Label
+    // MARK: UI elements
+    
+    /// Label
     private lazy var photosLabel: UILabel = {
         let photosLabel = UILabel()
         photosLabel.text = "Photos"
@@ -29,18 +32,19 @@ class PhotoTableViewCell: UITableViewCell {
         photosLabel.toAutoLayout()
         return photosLabel
     }()
-
-    // MARK: Arrow
-    private lazy var arrowImage: UIImageView = {
-        let arrowImage = UIImageView()
-        arrowImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        arrowImage.toAutoLayout()
-        return arrowImage
+    
+    /// Arrow Button
+    static var arrowButton: UIButton = {
+        let arrowButton = UIButton()
+        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .highlighted)
+        arrowButton.toAutoLayout()
+        return arrowButton
     }()
     
     
     
-    // MARK: PreviewStackView
+    /// PreviewStackView
     private lazy var previewStackView: UIStackView = {
         let previewStackView = UIStackView()
         previewStackView.toAutoLayout()
@@ -51,7 +55,7 @@ class PhotoTableViewCell: UITableViewCell {
         return previewStackView
     }()
     
-    // MARK: Preview Image 1
+    /// Preview Image 1
     private lazy var previewImage1:UIImageView = {
         let previewImage1 = UIImageView()
         previewImage1.image = photosArray[0]
@@ -61,7 +65,7 @@ class PhotoTableViewCell: UITableViewCell {
         return previewImage1
     }()
     
-    // MARK: Preview Image 2
+    /// Preview Image 2
     private lazy var previewImage2:UIImageView = {
         let previewImage2 = UIImageView()
         previewImage2.image = photosArray[1]
@@ -71,7 +75,7 @@ class PhotoTableViewCell: UITableViewCell {
         return previewImage2
     }()
     
-    // MARK: Preview Image 3
+    /// Preview Image 3
     private lazy var previewImage3:UIImageView = {
         let previewImage3 = UIImageView()
         previewImage3.image = photosArray[2]
@@ -81,7 +85,7 @@ class PhotoTableViewCell: UITableViewCell {
         return previewImage3
     }()
     
-    // MARK: Preview Image 4
+    /// Preview Image 4
     private lazy var previewImage4:UIImageView = {
         let previewImage4 = UIImageView()
         previewImage4.image = photosArray[3]
@@ -90,31 +94,41 @@ class PhotoTableViewCell: UITableViewCell {
         previewImage4.clipsToBounds = true
         return previewImage4
     }()
+    
+    
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+}
 
+// MARK: Actions
+extension PhotoTableViewCell {
+    /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            // комментарий для Алексея
-            // я вынес те константы, как вы написали в замечаниях, в отдельный файл, но тут у нас другие значения... Если и их вынести в еще одну структуру, разве не будет путать это все?
-//            В чем профит тогда от вынесения констант в структуру в отдельном файле?
-//            Разве не удобнее писать как тут - сразу значения и потом при необходимости менять их и понимать, чтоты меняешь...
-    
-            photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PhotoTableViewCellConstants.photosLabelLeading),
+            photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: PhotoTableViewCellConstants.photosLabelTop),
             
-            arrowImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            arrowImage.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
-            arrowImage.heightAnchor.constraint(equalToConstant: 40),
-            arrowImage.widthAnchor.constraint(equalToConstant: 40),
+            PhotoTableViewCell.arrowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: PhotoTableViewCellConstants.arrowButtonTrailing),
+            PhotoTableViewCell.arrowButton.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
+            PhotoTableViewCell.arrowButton.heightAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowButtonHeight),
+            PhotoTableViewCell.arrowButton.widthAnchor.constraint(equalToConstant: PhotoTableViewCellConstants.arrowButtonWidth),
             
-            previewStackView.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: 12),
-            previewStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            previewStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            previewStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            previewStackView.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: PhotoTableViewCellConstants.previewStackViewTop),
+            previewStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PhotoTableViewCellConstants.previewStackViewLeading),
+            previewStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: PhotoTableViewCellConstants.previewStackViewTrailing),
+            previewStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: PhotoTableViewCellConstants.previewStackViewBottom),
             
             previewImage1.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 16) / 4),
             previewImage1.heightAnchor.constraint(equalTo: previewImage1.widthAnchor),
-
+            
             previewImage2.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 16) / 4),
             previewImage2.heightAnchor.constraint(equalTo: previewImage2.widthAnchor),
             
@@ -126,13 +140,5 @@ class PhotoTableViewCell: UITableViewCell {
             
         ])
     }
-
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
 }

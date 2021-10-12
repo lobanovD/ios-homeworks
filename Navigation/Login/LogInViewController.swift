@@ -18,10 +18,21 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.isHidden = true
         setupViews()
         
-        // скрытие клавиатуры по нажатию вне TF
+        /// скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
+        
+    }
     
+    // MARK: Setup View
+    private func setupViews() {
+        view.backgroundColor = .white
+        view.addSubview(loginScrollView)
+        loginScrollView.addSubview(contentView)
+        contentView.addSubviews(VKIcon, loginFormStackView, loginButton)
+        loginFormStackView.addArrangedSubview(loginTF)
+        loginFormStackView.addArrangedSubview(passwordTF)
+        setupConstraints()
     }
     
     
@@ -35,19 +46,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: LoginScrollView
-   private lazy var loginScrollView: UIScrollView = {
+    // MARK: UI elements
+    /// Login Scroll View
+    private lazy var loginScrollView: UIScrollView = {
         let loginScrollView = UIScrollView()
         loginScrollView.toAutoLayout()
         return loginScrollView
     }()
     
+    /// Content View
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.toAutoLayout()
         return contentView
     }()
     
+    /// VK icon
     private lazy var VKIcon: UIImageView = {
         let VKIcon = UIImageView()
         VKIcon.image = UIImage(named: "logo")
@@ -55,6 +69,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return VKIcon
     }()
     
+    /// Login form stack view
     private lazy var loginFormStackView: UIStackView = {
         let loginFormStackView = UIStackView()
         loginFormStackView.toAutoLayout()
@@ -68,6 +83,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return loginFormStackView
     }()
     
+    /// Login Text field
     private lazy var loginTF: UITextField = {
         let loginTF = UITextField()
         loginTF.toAutoLayout()
@@ -84,6 +100,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return loginTF
     }()
     
+    /// Password text field
     private lazy var passwordTF: UITextField = {
         let passwordTF = UITextField()
         passwordTF.toAutoLayout()
@@ -100,6 +117,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return passwordTF
     }()
     
+    /// Login button
     private lazy var loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.toAutoLayout()
@@ -109,7 +127,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .highlighted)
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .disabled)
         }
-        
         loginButton.setTitle("Log In", for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
@@ -118,8 +135,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return loginButton
         
     }()
+}
+
+
+// MARK: Actions
+extension LogInViewController {
     
-    // MARK: Constraints
+    /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
@@ -135,53 +157,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             contentView.centerXAnchor.constraint(equalTo: loginScrollView.centerXAnchor),
             contentView.centerYAnchor.constraint(equalTo: loginScrollView.centerYAnchor),
             
-            VKIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+            VKIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LoginVCConstants.vkIconTop),
             VKIcon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            VKIcon.heightAnchor.constraint(equalToConstant: 100),
-            VKIcon.widthAnchor.constraint(equalToConstant: 100),
+            VKIcon.heightAnchor.constraint(equalToConstant: LoginVCConstants.vkIconHeight),
+            VKIcon.widthAnchor.constraint(equalToConstant: LoginVCConstants.vkIconWidth),
             
-            loginFormStackView.topAnchor.constraint(equalTo: VKIcon.bottomAnchor, constant: 120),
-            loginFormStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
-            loginFormStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
-            loginFormStackView.heightAnchor.constraint(equalToConstant: 100),
+            loginFormStackView.topAnchor.constraint(equalTo: VKIcon.bottomAnchor, constant: LoginVCConstants.loginFormStackViewTop),
+            loginFormStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginFormStackViewLeading),
+            loginFormStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginFormStackViewTrailing),
+            loginFormStackView.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginFormStackViewHeight),
             
-            loginButton.topAnchor.constraint(equalTo: loginFormStackView.bottomAnchor, constant: Constants.indent),
-            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
-            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
-            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.topAnchor.constraint(equalTo: loginFormStackView.bottomAnchor, constant: LoginVCConstants.loginButtonTop),
+            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
+            loginButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
         ])
     }
     
-    // MARK: Setup View
-    private func setupViews() {
-        view.backgroundColor = .white
-        view.addSubview(loginScrollView)
-        loginScrollView.addSubview(contentView)
-        contentView.addSubviews(VKIcon, loginFormStackView, loginButton)
-        loginFormStackView.addArrangedSubview(loginTF)
-        loginFormStackView.addArrangedSubview(passwordTF)
-        setupConstraints()
-    }
-    
-    //MARK: Login button action
-    @objc private func loginButtonPressed() {
-        isLogin = true
-        if let image = UIImage(named: "blue_pixel") {
-            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-                self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
-            }
-        }
-
-        let profileVC = ProfileViewController()
-        navigationController?.pushViewController(profileVC, animated: false)
-        
-        if isLogin {
-            navigationController?.setViewControllers([profileVC], animated: true)
-        }
-    }
-    
-    // MARK: Keyboard
+    /// Keyboard actions
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         loginTF.resignFirstResponder()
         passwordTF.resignFirstResponder()
@@ -196,13 +189,34 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func keyboardShow(_ notification: Notification){
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            loginScrollView.contentOffset.y = keyboardRectangle.height - (loginScrollView.frame.height - loginButton.frame.minY) + Constants.indent
+            loginScrollView.contentOffset.y = keyboardRectangle.height - (loginScrollView.frame.height - loginButton.frame.minY) + LoginVCConstants.indent
         }
     }
     
     @objc func keyboardHide(_ notification: Notification){
-            loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
+        loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
+    /// Login button action
+    @objc private func loginButtonPressed() {
+        isLogin = true
+        if let image = UIImage(named: "blue_pixel") {
+            loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            }
         }
+        
+        let profileVC = ProfileViewController()
+        navigationController?.pushViewController(profileVC, animated: false)
+        
+        if isLogin {
+            navigationController?.setViewControllers([profileVC], animated: true)
+        }
+    }   
 }
+
+
+
 
 

@@ -9,23 +9,26 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(postTableView)
+        view.addSubview(ProfileViewController.postTableView)
         setupConstraints()
-        postTableView.dataSource = self
-        postTableView.delegate = self
-        postTableView.refreshControl = UIRefreshControl()
-        postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
+        ProfileViewController.postTableView.dataSource = self
+        ProfileViewController.postTableView.delegate = self
+        ProfileViewController.postTableView.refreshControl = UIRefreshControl()
+        ProfileViewController.postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
     
-    // MARK: Posts table view
-    private lazy var postTableView: UITableView = {
+    // MARK: UI elements
+    
+    /// Post table view
+    static var postTableView: UITableView = {
         let postTableView = UITableView(frame: .zero, style: .grouped)
         postTableView.toAutoLayout()
         postTableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
@@ -34,19 +37,9 @@ class ProfileViewController: UIViewController {
         postTableView.separatorInset = .zero
         return postTableView
     }()
-    
-    // MARK: Constraints
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-        ])
-    }
 }
 
-
+// MARK: Delegate and Datasource
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +48,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return 1
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,7 +57,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let cell = postTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
+            let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
             cell.configureCell(title: postArray[indexPath.row].title,
                                image: postArray[indexPath.row].image,
                                description: postArray[indexPath.row].description,
@@ -73,7 +65,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                views: postArray[indexPath.row].views)
             return cell
         } else {
-            let cell = postTableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifire, for: indexPath) as! PhotoTableViewCell
+            let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifire, for: indexPath) as! PhotoTableViewCell
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(arrowButtonAction))
+            PhotoTableViewCell.arrowButton.addGestureRecognizer(gesture)
             return cell
         }
     }
@@ -88,7 +82,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
+            
             return headerView
+            
         } else {
             return nil
         }
@@ -104,15 +100,31 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
+// MARK: Actions
 extension ProfileViewController {
+    /// Update data
     @objc func updatePostArray() {
         print("Количество постов в ленте до обновления данных - \(postArray.count)")
         postArray.append(post1)
         print("Количество постов в ленте после обновления данных - \(postArray.count)")
-        postTableView.reloadData()
-        postTableView.refreshControl?.endRefreshing()
+        ProfileViewController.postTableView.reloadData()
+        ProfileViewController.postTableView.refreshControl?.endRefreshing()
         print("данные успешно обновлены")
     }
+    
+    /// Setup constraints
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            ProfileViewController.postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            ProfileViewController.postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ProfileViewController.postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            ProfileViewController.postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+    }
+    
+    /// Arrow Button Action
+    @objc private func arrowButtonAction() {
+        let photoVC = PhotoViewController()
+        self.navigationController?.pushViewController(photoVC, animated: true)
+    }
 }
-
-
