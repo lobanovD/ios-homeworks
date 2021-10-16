@@ -14,7 +14,6 @@ class PhotoTableViewCell: UITableViewCell {
     //MARK: Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.toAutoLayout()
         self.selectionStyle = .none
         contentView.addSubviews(photosLabel, PhotoTableViewCell.arrowButton, previewStackView)
         previewStackView.addArrangedSubviews(previewImage1, previewImage2, previewImage3, previewImage4)
