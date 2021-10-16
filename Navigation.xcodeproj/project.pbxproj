@@ -81,7 +81,7 @@
 		28C09CC426F1215900062B83 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		28C4B18026E4DC3000A799EA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		28FDB599271B34A300208C92 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = Navigation/Podfile; sourceTree = SOURCE_ROOT; };
+		28FDB599271B34A300208C92 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		349881833663942A85584D0B /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		966CFEA11E06A440352E060F /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
 		C26EC00B8508BC5FC7942967 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +131,7 @@
 		28608F4626D42C1100482FD5 = {
 			isa = PBXGroup;
 			children = (
+				28FDB599271B34A300208C92 /* Podfile */,
 				28608F5126D42C1200482FD5 /* Navigation */,
 				280EAB3F2715C52400FD0558 /* StorageService */,
 				28608F5026D42C1200482FD5 /* Products */,
@@ -151,7 +152,6 @@
 		28608F5126D42C1200482FD5 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				28FDB599271B34A300208C92 /* Podfile */,
 				28C09D0626F3DC5700062B83 /* Login */,
 				282BCB3426DAC8A10042DF15 /* Profile */,
 				28C09D0726F3DC8900062B83 /* Photo */,
