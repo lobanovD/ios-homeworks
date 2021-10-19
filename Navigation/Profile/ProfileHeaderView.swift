@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
@@ -133,34 +134,45 @@ extension ProfileHeaderView {
     
     /// Setup constraints
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderViewConstants.avatarWidth),
-            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: ProfileHeaderViewConstants.avatarLeading),
-            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: ProfileHeaderViewConstants.avatarTop),
-            
-            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: ProfileHeaderViewConstants.fullNameLeading),
-            fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: ProfileHeaderViewConstants.fullNameTop),
-            
-            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: ProfileHeaderViewConstants.setStatusButtonLeading),
-            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: ProfileHeaderViewConstants.setStatusButtonTrailing),
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: ProfileHeaderViewConstants.setStatusButtonTop),
-            setStatusButton.heightAnchor.constraint(equalToConstant: ProfileHeaderViewConstants.setStatusButtonHeight),
-            
-            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: ProfileHeaderViewConstants.statusLabelLeading),
-            statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: ProfileHeaderViewConstants.statusLabelBottom),
-            statusLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: ProfileHeaderViewConstants.statusLabelTrailing),
-            
-            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: ProfileHeaderViewConstants.statusTextFieldLeading),
-            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: ProfileHeaderViewConstants.statusTextFieldBottom),
-            statusTextField.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: ProfileHeaderViewConstants.statusTextFieldTrailing),
-            statusTextField.heightAnchor.constraint(equalToConstant: ProfileHeaderViewConstants.statusTextFieldHeight),
-            
-            plagEscButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ProfileHeaderViewConstants.plagEscButtonTop),
-            plagEscButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: ProfileHeaderViewConstants.plagEscButtonTrailing),
-            plagEscButton.widthAnchor.constraint(equalToConstant: ProfileHeaderViewConstants.plagEscButtonWidth),
-            plagEscButton.heightAnchor.constraint(equalToConstant: ProfileHeaderViewConstants.plagEscButtonHeight),
-        ])
+
+        avatarImageView.snp.makeConstraints { constraint in
+            constraint.width.equalTo(ProfileHeaderViewConstants.avatarWidth)
+            constraint.height.equalTo(ProfileHeaderViewConstants.avatarWidth)
+            constraint.leftMargin.equalTo(ProfileHeaderViewConstants.avatarLeading)
+            constraint.topMargin.equalTo(ProfileHeaderViewConstants.avatarTop)
+        }
+
+        fullNameLabel.snp.makeConstraints { constraint in
+            constraint.left.equalTo(avatarImageView.snp.right).offset(ProfileHeaderViewConstants.fullNameLeading)
+            constraint.top.equalTo(self.snp.top).offset(ProfileHeaderViewConstants.fullNameTop)
+        }
+
+        setStatusButton.snp.makeConstraints { constraint in
+            constraint.left.equalTo(self.snp.left).offset(ProfileHeaderViewConstants.setStatusButtonLeading)
+            constraint.right.equalTo(self.snp.right).offset(ProfileHeaderViewConstants.setStatusButtonTrailing)
+            constraint.top.equalTo(avatarImageView.snp.bottom).offset(ProfileHeaderViewConstants.setStatusButtonTop)
+            constraint.height.equalTo(ProfileHeaderViewConstants.setStatusButtonHeight)
+        }
+
+        statusLabel.snp.makeConstraints { constraint in
+            constraint.left.equalTo(avatarImageView.snp.right).offset(ProfileHeaderViewConstants.statusLabelLeading)
+            constraint.bottom.equalTo(statusTextField.snp.top).offset(ProfileHeaderViewConstants.statusLabelBottom)
+            constraint.right.greaterThanOrEqualTo(contentView.snp.right).offset(ProfileHeaderViewConstants.statusLabelTrailing)
+        }
+
+        statusTextField.snp.makeConstraints { constraint in
+            constraint.left.equalTo(avatarImageView.snp.right).offset(ProfileHeaderViewConstants.statusTextFieldLeading)
+            constraint.bottom.equalTo(setStatusButton.snp.top).offset(ProfileHeaderViewConstants.statusTextFieldBottom)
+            constraint.right.greaterThanOrEqualTo(contentView.snp.right).offset(ProfileHeaderViewConstants.statusTextFieldTrailing)
+            constraint.height.equalTo(ProfileHeaderViewConstants.statusTextFieldHeight)
+        }
+
+        plagEscButton.snp.makeConstraints { constraint in
+            constraint.top.equalTo(contentView.snp.top).offset(ProfileHeaderViewConstants.plagEscButtonTop)
+            constraint.right.equalTo(contentView.snp.right).offset(ProfileHeaderViewConstants.plagEscButtonTrailing)
+            constraint.width.equalTo(ProfileHeaderViewConstants.plagEscButtonWidth)
+            constraint.height.equalTo(ProfileHeaderViewConstants.plagEscButtonHeight)
+        }
     }
     
     /// TF Action
@@ -184,45 +196,38 @@ extension ProfileHeaderView {
     @objc func tapOnAvatar() {
         UIImageView.animate(withDuration: 0.5,
                             animations: {
-                                self.defaultAvatarCenter = self.avatarImageView.center
-                                self.avatarImageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-                                self.avatarImageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.avatarImageView.frame.width, y: self.contentView.frame.width / self.avatarImageView.frame.width)
-                                self.avatarImageView.layer.cornerRadius = 0
-                                self.plagView.alpha = 0.9
-                                ProfileViewController.postTableView.isScrollEnabled = false
-                                ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = false
-                                self.avatarImageView.isUserInteractionEnabled = false
-                            },
+            self.defaultAvatarCenter = self.avatarImageView.center
+            self.avatarImageView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+            self.avatarImageView.transform = CGAffineTransform(scaleX: self.contentView.frame.width / self.avatarImageView.frame.width, y: self.contentView.frame.width / self.avatarImageView.frame.width)
+            self.avatarImageView.layer.cornerRadius = 0
+            self.plagView.alpha = 0.9
+            ProfileViewController.postTableView.isScrollEnabled = false
+            ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = false
+            self.avatarImageView.isUserInteractionEnabled = false
+        },
                             completion: { _ in
-                                UIImageView.animate(withDuration: 0.3) {
-                                    self.plagEscButton.alpha = 1
-                                }
-                            })
+            UIImageView.animate(withDuration: 0.3) {
+                self.plagEscButton.alpha = 1
+            }
+        })
     }
     
     /// Plag View Esc Button Action
     @objc func tapPlagEscButton() {
         UIImageView.animate(withDuration: 0.3,
                             animations: {
-                                self.plagEscButton.alpha = 0
-                            },
+            self.plagEscButton.alpha = 0
+        },
                             completion: { _ in
-                                UIImageView.animate(withDuration: 0.5) {
-                                    self.avatarImageView.center = self.defaultAvatarCenter
-                                    self.avatarImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width / 2
-                                    self.plagView.alpha = 0
-                                    ProfileViewController.postTableView.isScrollEnabled = true
-                                    ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = true
-                                    self.avatarImageView.isUserInteractionEnabled = true
-                                }
-                            })
+            UIImageView.animate(withDuration: 0.5) {
+                self.avatarImageView.center = self.defaultAvatarCenter
+                self.avatarImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width / 2
+                self.plagView.alpha = 0
+                ProfileViewController.postTableView.isScrollEnabled = true
+                ProfileViewController.postTableView.cellForRow(at: IndexPath(item: 0, section: 0))?.isUserInteractionEnabled = true
+                self.avatarImageView.isUserInteractionEnabled = true
+            }
+        })
     }
-    
-    
-    
-    
 }
-
-
-
