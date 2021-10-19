@@ -29,18 +29,10 @@ class ProfileViewController: UIViewController {
     }
 
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-
-        #if DEBUG
         view.backgroundColor = .white
-        #else
-        view.backgroundColor = .lightGray
-        #endif
 
         view.addSubview(ProfileViewController.postTableView)
         setupConstraints()
@@ -113,20 +105,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
 
-            #if DEBUG
-            let service = TestUserService()
-            let currentUser = service.getUser(login: login!)
+            let currentUser = userService.getUser(login: login!)
             headerView.fullNameLabel.text = currentUser?.userFullName
             headerView.avatarImageView.image = currentUser?.userAvatar
             headerView.statusLabel.text = currentUser?.userStatus
-
-            #else
-            let service = CurrentUserService()
-            let currentUser = service.getUser(login: login!)
-            headerView.fullNameLabel.text = currentUser?.userFullName
-            headerView.avatarImageView.image = currentUser?.userAvatar
-            headerView.statusLabel.text = currentUser?.userStatus
-            #endif
             
             return headerView
             

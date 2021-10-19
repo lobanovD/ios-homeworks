@@ -198,7 +198,7 @@ extension LogInViewController {
     
     /// Login button action
     @objc private func loginButtonPressed() {
-        isLogin = true
+//        isLogin = true
         if let image = UIImage(named: "blue_pixel") {
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
@@ -206,10 +206,42 @@ extension LogInViewController {
             }
         }
 
-        let currentUserService = CurrentUserService()
+        #if DEBUG
 
+        let currentUserService = TestUserService()
         let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
-        navigationController?.pushViewController(profileVC, animated: false)
+        profileVC.userService = currentUserService
+        if loginTF.text == currentUserService.user.login {
+            isLogin = true
+            navigationController?.pushViewController(profileVC, animated: false)
+        } else {
+            let alert = UIAlertController(title: "DEBUG mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+
+        #else
+
+        let currentUserService = CurrentUserService()
+        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
+        profileVC.userService = currentUserService
+        if loginTF.text == currentUserService.user.login {
+            isLogin = true
+            navigationController?.pushViewController(profileVC, animated: false)
+        } else {
+            let alert = UIAlertController(title: "RELEASE mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+
+        #endif
+
+
+
         
         if isLogin {
             navigationController?.setViewControllers([profileVC], animated: true)
