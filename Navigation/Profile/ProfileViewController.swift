@@ -8,11 +8,33 @@
 import UIKit
 import StorageService
 
+//В классе ProfileViewController добавить свойство с типом UserService и инициализатор, который принимает объект UserService и имя пользователя, введённое на экране LogInViewController. При инициализации объекта ProfileViewController передать объект CurrentUserService.
+
+//В классе ProfileViewController добавить получение пользователя из объекта UserService и отображение информации из объекта User.
+
 class ProfileViewController: UIViewController {
-    
+
+    var userService: UserServiceProtocol
+
+    var login: String?
+
+    init(userService: UserServiceProtocol, login: String) {
+        self.userService = userService
+        self.login = login
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
 
         #if DEBUG
         view.backgroundColor = .white
@@ -90,6 +112,21 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
+
+            #if DEBUG
+            let service = TestUserService()
+            let currentUser = service.getUser(login: login!)
+            headerView.fullNameLabel.text = currentUser?.userFullName
+            headerView.avatarImageView.image = currentUser?.userAvatar
+            headerView.statusLabel.text = currentUser?.userStatus
+
+            #else
+            let service = CurrentUserService()
+            let currentUser = service.getUser(login: login!)
+            headerView.fullNameLabel.text = currentUser?.userFullName
+            headerView.avatarImageView.image = currentUser?.userAvatar
+            headerView.statusLabel.text = currentUser?.userStatus
+            #endif
             
             return headerView
             

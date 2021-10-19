@@ -137,7 +137,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
 }
 
-
 // MARK: Actions
 extension LogInViewController {
     
@@ -206,8 +205,10 @@ extension LogInViewController {
                 self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
             }
         }
-        
-        let profileVC = ProfileViewController()
+
+        let currentUserService = CurrentUserService()
+
+        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
         navigationController?.pushViewController(profileVC, animated: false)
         
         if isLogin {
@@ -215,8 +216,3 @@ extension LogInViewController {
         }
     }   
 }
-
-
-
-
-
