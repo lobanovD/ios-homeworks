@@ -8,8 +8,10 @@
 import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
-    
+
     var isLogin: Bool = false
+
+    var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
         setupViews()
+
         
         /// скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
@@ -198,7 +201,7 @@ extension LogInViewController {
     
     /// Login button action
     @objc private func loginButtonPressed() {
-//        isLogin = true
+
         if let image = UIImage(named: "blue_pixel") {
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
@@ -206,45 +209,92 @@ extension LogInViewController {
             }
         }
 
-        #if DEBUG
+//        #if DEBUG
+//
+//        let currentUserService = TestUserService()
+//        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
+//        profileVC.userService = currentUserService
+//        if loginTF.text == currentUserService.user.login {
+//            isLogin = true
+//            navigationController?.pushViewController(profileVC, animated: false)
+//        } else {
+//            let alert = UIAlertController(title: "DEBUG mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+//            NSLog("The \"OK\" alert occured.")
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//
+//        #else
+//
+//        let currentUserService = CurrentUserService()
+//        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
+//        profileVC.userService = currentUserService
+//        if loginTF.text == currentUserService.user.login {
+//            isLogin = true
+//            navigationController?.pushViewController(profileVC, animated: false)
+//        } else {
+//            let alert = UIAlertController(title: "RELEASE mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+//            NSLog("The \"OK\" alert occured.")
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//
+//        #endif
 
-        let currentUserService = TestUserService()
-        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
-        profileVC.userService = currentUserService
-        if loginTF.text == currentUserService.user.login {
+
+        // проверка на заполнение полей
+        guard loginTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return}
+
+        guard passwordTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return}
+
+
+        guard let login = loginTF.text else { return }
+        guard let password = passwordTF.text else { return }
+        guard let delegate = delegate else { return }
+        let result = delegate.check(login: login.hash, password: password.hash)
+
+        if result {
             isLogin = true
-            navigationController?.pushViewController(profileVC, animated: false)
-        } else {
-            let alert = UIAlertController(title: "DEBUG mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-            }))
-            self.present(alert, animated: true, completion: nil)
         }
-
-        #else
-
-        let currentUserService = CurrentUserService()
-        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
-        profileVC.userService = currentUserService
-        if loginTF.text == currentUserService.user.login {
-            isLogin = true
-            navigationController?.pushViewController(profileVC, animated: false)
-        } else {
-            let alert = UIAlertController(title: "RELEASE mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-            }))
-            self.present(alert, animated: true, completion: nil)
+        else {
+            isLogin = false
+            let alertVC = UIAlertController(title: "Ошибка", message: "Такого пользователя не существует", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
         }
-
-        #endif
-
-
-
         
         if isLogin {
-            navigationController?.setViewControllers([profileVC], animated: true)
+            print("переходим в Profile")
+            let profileVC = ProfileViewController()
+            navigationController?.pushViewController(profileVC, animated: false)
+
+//            navigationController?.setViewControllers([profileVC], animated: true)
         }
     }   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

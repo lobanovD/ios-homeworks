@@ -22,6 +22,9 @@
 		28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6E26D5A8E100482FD5 /* InfoViewController.swift */; };
 		2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */; };
 		287F34BD271F767F00A9E426 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34BC271F767F00A9E426 /* TestUserService.swift */; };
+		287F34D82727480100A9E426 /* LoginChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D72727480100A9E426 /* LoginChecker.swift */; };
+		287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */; };
+		287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DB27274CF700A9E426 /* LoginInspector.swift */; };
 		28AD02AE271F52DB0009B0F8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD02AD271F52DB0009B0F8 /* User.swift */; };
 		28AD02B0271F535B0009B0F8 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD02AF271F535B0009B0F8 /* UserServiceProtocol.swift */; };
 		28AD02B2271F53E60009B0F8 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD02B1271F53E60009B0F8 /* CurrentUserService.swift */; };
@@ -80,6 +83,9 @@
 		28608F6E26D5A8E100482FD5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		287F34BC271F767F00A9E426 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
+		287F34D72727480100A9E426 /* LoginChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginChecker.swift; sourceTree = "<group>"; };
+		287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
+		287F34DB27274CF700A9E426 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		28AD02AD271F52DB0009B0F8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		28AD02AF271F535B0009B0F8 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
 		28AD02B1271F53E60009B0F8 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
@@ -205,6 +211,9 @@
 			isa = PBXGroup;
 			children = (
 				28C4B18026E4DC3000A799EA /* LogInViewController.swift */,
+				287F34D72727480100A9E426 /* LoginChecker.swift */,
+				287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */,
+				287F34DB27274CF700A9E426 /* LoginInspector.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -444,9 +453,12 @@
 				28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */,
 				28AD02B2271F53E60009B0F8 /* CurrentUserService.swift in Sources */,
 				287F34BD271F767F00A9E426 /* TestUserService.swift in Sources */,
+				287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */,
 				28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */,
 				28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */,
 				28C09CC326F11EFF00062B83 /* Extension.swift in Sources */,
+				287F34D82727480100A9E426 /* LoginChecker.swift in Sources */,
+				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,
 				28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */,
 				2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */,
 				28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */,
