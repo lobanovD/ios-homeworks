@@ -209,41 +209,6 @@ extension LogInViewController {
             }
         }
 
-//        #if DEBUG
-//
-//        let currentUserService = TestUserService()
-//        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
-//        profileVC.userService = currentUserService
-//        if loginTF.text == currentUserService.user.login {
-//            isLogin = true
-//            navigationController?.pushViewController(profileVC, animated: false)
-//        } else {
-//            let alert = UIAlertController(title: "DEBUG mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//            NSLog("The \"OK\" alert occured.")
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//
-//        #else
-//
-//        let currentUserService = CurrentUserService()
-//        let profileVC = ProfileViewController(userService: currentUserService, login: loginTF.text!)
-//        profileVC.userService = currentUserService
-//        if loginTF.text == currentUserService.user.login {
-//            isLogin = true
-//            navigationController?.pushViewController(profileVC, animated: false)
-//        } else {
-//            let alert = UIAlertController(title: "RELEASE mode", message: "Такой пользователь не зарегистрирован!", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//            NSLog("The \"OK\" alert occured.")
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//
-//        #endif
-
-
         // проверка на заполнение полей
         guard loginTF.text?.isEmpty == false else {
             let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
@@ -280,21 +245,6 @@ extension LogInViewController {
             print("переходим в Profile")
             let profileVC = ProfileViewController()
             navigationController?.pushViewController(profileVC, animated: false)
-
-//            navigationController?.setViewControllers([profileVC], animated: true)
         }
     }   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

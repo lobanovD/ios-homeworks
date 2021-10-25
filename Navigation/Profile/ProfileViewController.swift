@@ -10,20 +10,7 @@ import StorageService
 
 class ProfileViewController: UIViewController {
 
-//    var userService: UserServiceProtocol
-
     var login: String?
-
-//    init(userService: UserServiceProtocol, login: String) {
-//        self.userService = userService
-//        self.login = login
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,11 +87,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
-
-//            let currentUser = userService.getUser(login: login!)
-//            headerView.fullNameLabel.text = currentUser?.userFullName
-//            headerView.avatarImageView.image = currentUser?.userAvatar
-//            headerView.statusLabel.text = currentUser?.userStatus
             
             return headerView
             
