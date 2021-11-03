@@ -16,6 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
+
+
         
         // MARK: VC
         let feedVC = FeedViewController()
@@ -44,10 +46,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         // указываем с чего загружаться
-        window.rootViewController = tabBar
-        
+//        window.rootViewController = tabBar
+
         // генерируем массив фотографий
         createPhotosArray()
+
+        let tempVC = PhotoViewController()
+        window.rootViewController = tempVC
         
         window.makeKeyAndVisible()
         self.window = window

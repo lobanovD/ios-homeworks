@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
+
     static let identifire = "PhotoCollectionViewCell"
     
     // MARK: Init

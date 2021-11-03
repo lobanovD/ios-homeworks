@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotoViewController: UIViewController {
-    
+
+let facade = ImagePublisherFacade()
+
+    var newPhotoArray: [UIImage] = []
+
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         photosCollection.dataSource = self
         photosCollection.delegate = self
@@ -17,9 +23,11 @@ class PhotoViewController: UIViewController {
         setupConstraints()
         navigationController?.navigationBar.isHidden = false
         self.title = "Photo Gallery"
-        
+
+        facade.subscribe(self)
+        facade.addImagesWithTimer(time: 1, repeat: 30, userImages: photosArray)
     }
-    
+
     // MARK: UI elements
     
     /// Photo CollectionView
@@ -35,16 +43,17 @@ class PhotoViewController: UIViewController {
 }
 
 // MARK: Delegate and Datasource
-extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photosArray.count
+        return newPhotoArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifire, for: indexPath) as! PhotoCollectionViewCell
-        cell.configureCell(image: photosArray[indexPath.row])
-        
+
+        cell.configureCell(image: newPhotoArray[indexPath.item])
+
         return cell
     }
     
@@ -70,7 +79,17 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
 }
 
 //MARK: Actions
-extension PhotoViewController {
+extension PhotoViewController: ImageLibrarySubscriber{
+
+    func receive(images: [UIImage]) {
+
+
+        for i in images {
+            facade.rechargeImageLibrary()
+            newPhotoArray.append(i)
+        }
+        photosCollection.reloadData()
+    }
     
     /// Setup constraints
     private func setupConstraints() {
@@ -81,5 +100,4 @@ extension PhotoViewController {
             photosCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
 }
