@@ -11,8 +11,10 @@ class FeedViewController: UIViewController {
     
     //    let post = Post(title: "Post")
     
-    lazy private var firstButton: UIButton = {
-        var firstButton = UIButton()
+    lazy private var firstButton: MyCustomButton = {
+        var firstButton = MyCustomButton(title: "234", titleColor: .black)
+        firstButton.buttonTapped()
+        
         firstButton.toAutoLayout()
         firstButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
         firstButton.layer.shadowColor = UIColor.black.cgColor
@@ -21,7 +23,7 @@ class FeedViewController: UIViewController {
         firstButton.layer.shadowRadius = 4
         firstButton.setTitle("First Button", for: .normal)
         firstButton.setTitleColor(.lightGray, for: .highlighted)
-        firstButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
+        //firstButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
         return firstButton
     }()
     

@@ -21,6 +21,7 @@
 		28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6A26D43B2F00482FD5 /* PostViewController.swift */; };
 		28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6E26D5A8E100482FD5 /* InfoViewController.swift */; };
 		2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */; };
+		2877F9872735FAF700873101 /* MyCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2877F9862735FAF700873101 /* MyCustomButton.swift */; };
 		287F34D82727480100A9E426 /* LoginChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D72727480100A9E426 /* LoginChecker.swift */; };
 		287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */; };
 		287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DB27274CF700A9E426 /* LoginInspector.swift */; };
@@ -79,6 +80,7 @@
 		28608F6C26D5A2A000482FD5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		28608F6E26D5A8E100482FD5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		2877F9862735FAF700873101 /* MyCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomButton.swift; sourceTree = "<group>"; };
 		287F34D72727480100A9E426 /* LoginChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginChecker.swift; sourceTree = "<group>"; };
 		287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		287F34DB27274CF700A9E426 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				282BCB3426DAC8A10042DF15 /* Profile */,
 				28C09D0726F3DC8900062B83 /* Photo */,
 				28C09CBF26F00D4C00062B83 /* SupportFiles */,
+				2877F9862735FAF700873101 /* MyCustomButton.swift */,
 				28608F5226D42C1200482FD5 /* AppDelegate.swift */,
 				28608F5426D42C1200482FD5 /* SceneDelegate.swift */,
 				28608F6626D439E800482FD5 /* FeedViewController.swift */,
@@ -441,6 +444,7 @@
 				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,
 				28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */,
 				2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */,
+				2877F9872735FAF700873101 /* MyCustomButton.swift in Sources */,
 				28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */,
 				282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */,
 			);
