@@ -45,8 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
         
         // указываем с чего загружаться
-//        window.rootViewController = tabBar
-        window.rootViewController = feedVC
+        window.rootViewController = tabBar
+//        window.rootViewController = feedVC
 
         // генерируем массив фотографий
         createPhotosArray()

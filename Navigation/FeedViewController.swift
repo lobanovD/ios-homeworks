@@ -8,36 +8,22 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
-    //    let post = Post(title: "Post")
-    
+
     lazy private var firstButton: MyCustomButton = {
-        var firstButton = MyCustomButton(title: "234", titleColor: .black)
-        firstButton.buttonTapped()
-        
-        firstButton.toAutoLayout()
-        firstButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
-        firstButton.layer.shadowColor = UIColor.black.cgColor
-        firstButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        firstButton.layer.shadowOpacity = 0.7
-        firstButton.layer.shadowRadius = 4
-        firstButton.setTitle("First Button", for: .normal)
-        firstButton.setTitleColor(.lightGray, for: .highlighted)
-        //firstButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
+        var firstButton = MyCustomButton(title: "First Button", titleColor: .red) {
+            let postVC = PostViewController()
+            self.navigationController?.pushViewController(postVC, animated: true)
+            postVC.postTitle = "First Button"
+        }
         return firstButton
     }()
     
-    lazy private var secondButton: UIButton = {
-        var secondButton = UIButton()
-        secondButton.toAutoLayout()
-        secondButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
-        secondButton.layer.shadowColor = UIColor.black.cgColor
-        secondButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        secondButton.layer.shadowOpacity = 0.7
-        secondButton.layer.shadowRadius = 4
-        secondButton.setTitle("Second Button", for: .normal)
-        secondButton.setTitleColor(.lightGray, for: .highlighted)
-        secondButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
+    lazy private var secondButton: MyCustomButton = {
+        var secondButton = MyCustomButton(title: "Second Button", titleColor: .yellow) {
+            let postVC = PostViewController()
+            self.navigationController?.pushViewController(postVC, animated: true)
+            postVC.postTitle = "Second Button"
+        }
         return secondButton
     }()
     
@@ -77,7 +63,7 @@ class FeedViewController: UIViewController {
     @objc private func openPostVC() {
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
-        //        postVC.postTitle = post.title
+//                postVC.postTitle = post.title
     }
     
 }
