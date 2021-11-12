@@ -8,8 +8,10 @@
 import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
-    
+
     var isLogin: Bool = false
+
+    var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
         setupViews()
+
         
         /// скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
@@ -137,7 +140,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
 }
 
-
 // MARK: Actions
 extension LogInViewController {
     
@@ -199,24 +201,45 @@ extension LogInViewController {
     
     /// Login button action
     @objc private func loginButtonPressed() {
-        isLogin = true
+
         if let image = UIImage(named: "blue_pixel") {
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
             }
         }
+
+        // проверка на заполнение полей
+        guard loginTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return }
         
-        let profileVC = ProfileViewController()
-        navigationController?.pushViewController(profileVC, animated: false)
-        
-        if isLogin {
-            navigationController?.setViewControllers([profileVC], animated: true)
+        guard passwordTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return }
+
+        guard let login = loginTF.text else { return }
+        guard let password = passwordTF.text else { return }
+        guard let delegate = delegate else { return }
+        let result = delegate.check(login: login, password: password)
+
+        if result {
+            isLogin = true
+            print("переходим в Profile")
+            let profileVC = ProfileViewController()
+            navigationController?.pushViewController(profileVC, animated: false)
+        } else {
+            isLogin = false
+            let alertVC = UIAlertController(title: "Ошибка", message: "Такого пользователя не существует", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
         }
     }   
 }
-
-
-
-
-

@@ -20,6 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: VC
         let feedVC = FeedViewController()
         let logInVC = LogInViewController()
+
+        let factory = MyLoginFactory()
+        let inspector = factory.createLoginInspector()
+        logInVC.delegate = inspector
+        
         
         // MARK: Navigation VC
         let profileNavigationVC = UINavigationController(rootViewController: logInVC)

@@ -9,16 +9,13 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
-    
-    
+
+    var login: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        #if DEBUG
         view.backgroundColor = .white
-        #else
-        view.backgroundColor = .lightGray
-        #endif
 
         view.addSubview(ProfileViewController.postTableView)
         setupConstraints()
