@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 
 final class MyCustomButton: UIButton {
+    
     var buttonTap: () -> Void
-
+    
     init(buttonTap: @escaping () -> Void) {
-
-
         self.buttonTap = buttonTap
         super.init(frame: .zero)
         self.addTarget(self, action: #selector(tapForCheck), for: .touchUpInside)
@@ -26,18 +25,16 @@ final class MyCustomButton: UIButton {
         self.setTitle("Проверить пароль", for: .normal)
         self.setTitleColor(.black, for: .normal)
     }
-
+    
     required init?(coder: NSCoder) {
         nil
     }
-
+    
     @objc
     private func tapForCheck() {
         self.buttonTap()
-        let vc = FeedViewController()
-        print(vc.myCustomTF.passwordText)
-
+        if MyModel.shared.gettingPassword != "" {
+            MyModel.shared.check()
+        }
     }
-
-
 }
