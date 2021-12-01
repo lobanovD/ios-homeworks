@@ -11,7 +11,7 @@ class MyModel {
 
     static let shared = MyModel()
 
-    let password: String = "Password"
+    let password: String = "passw"
     var gettingPassword: String = ""
 
     init() {}

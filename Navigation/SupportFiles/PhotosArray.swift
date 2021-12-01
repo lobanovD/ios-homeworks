@@ -17,9 +17,9 @@ func createPhotosArray() {
 
     photosArray = (0...19).compactMap { UIImage(named: "IMG\($0)")?.resizeWithWidth(width: 300) }
 
-    let methodStart = NSDate()
+//    let methodStart = NSDate()
 
-    processor.processImagesOnThread(sourceImages: photosArray, filter: .colorInvert, qos: .utility) { images in
+    processor.processImagesOnThread(sourceImages: photosArray, filter: .colorInvert, qos: .background) { images in
 
         DispatchQueue.main.async {
             photosArray = []
@@ -28,10 +28,10 @@ func createPhotosArray() {
                 photosArray.append(UIImage(cgImage: image))
             }
 
-            let methodFinish = NSDate()
+//            let methodFinish = NSDate()
 
-            let executionTime = methodFinish.timeIntervalSince(methodStart as Date)
-            print("Время выполнения метода: \(executionTime)")
+//            let executionTime = methodFinish.timeIntervalSince(methodStart as Date)
+//            print("Время выполнения метода: \(executionTime)")
 
             NotificationCenter.default.post(name: NSNotification.Name("notification"), object: nil)
 

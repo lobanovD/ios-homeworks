@@ -32,7 +32,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
-        contentView.addSubviews(VKIcon, loginFormStackView, loginButton)
+        contentView.addSubviews(VKIcon, loginFormStackView, loginButton, brutPasswordButton, activityIndicator)
         loginFormStackView.addArrangedSubview(loginTF)
         loginFormStackView.addArrangedSubview(passwordTF)
         setupConstraints()
@@ -136,7 +136,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 10
         loginButton.clipsToBounds = true
         return loginButton
-        
+    }()
+
+    private lazy var brutPasswordButton: UIButton = {
+        let brutPasswordButton = UIButton()
+        brutPasswordButton.toAutoLayout()
+        if let image = UIImage(named: "blue_pixel") {
+            brutPasswordButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .selected)
+            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .highlighted)
+            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .disabled)
+        }
+        brutPasswordButton.setTitle("Подобрать пароль", for: .normal)
+        brutPasswordButton.setTitleColor(.white, for: .normal)
+        brutPasswordButton.addTarget(self, action: #selector(brutPasswordButtonPressed), for: .touchUpInside)
+        brutPasswordButton.layer.cornerRadius = 10
+        brutPasswordButton.clipsToBounds = true
+        return brutPasswordButton
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.toAutoLayout()
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        return activityIndicator
     }()
 }
 
@@ -173,6 +196,13 @@ extension LogInViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
             loginButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
+
+            brutPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: LoginVCConstants.loginButtonTop),
+            brutPasswordButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
+            brutPasswordButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
+            brutPasswordButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
+            activityIndicator.centerXAnchor.constraint(equalTo: brutPasswordButton.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: brutPasswordButton.centerYAnchor),
         ])
     }
     
@@ -246,5 +276,41 @@ extension LogInViewController {
             let profileVC = ProfileViewController()
             navigationController?.pushViewController(profileVC, animated: false)
         }
-    }   
+    }
+
+
+    // метод кнопки брутфорса
+    @objc
+    private func brutPasswordButtonPressed() {
+
+        let passwordLengh = 4
+
+        // блокируем кнопку
+        self.brutPasswordButton.isEnabled = false
+        self.activityIndicator.startAnimating()
+
+        DispatchQueue.global().async {
+
+            // генерируем пароль
+            GeneratePassword.shared.generatePass(count: passwordLengh)
+            print(GeneratePassword.shared.generatedPassword)
+
+            // брутфорс пароля
+            let passwordsArray = Brutforce.shared.generate(length: passwordLengh)
+            for password in passwordsArray {
+                if password == GeneratePassword.shared.generatedPassword {
+
+                    DispatchQueue.main.async {
+                        self.passwordTF.text = password
+                        self.passwordTF.isSecureTextEntry = false
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                        self.brutPasswordButton.isEnabled = true
+                    }
+                    print("пароль найден - \(password)")
+                    break
+                }
+            }
+        }
+    }
 }

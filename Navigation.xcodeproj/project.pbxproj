@@ -11,6 +11,8 @@
 		280EAB442715C52400FD0558 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; };
 		280EAB452715C52400FD0558 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		280EAB4A2715C5CC00FD0558 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6C26D5A2A000482FD5 /* Post.swift */; };
+		281E45012749BDBB00D432C0 /* Brutforce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E45002749BDBB00D432C0 /* Brutforce.swift */; };
+		281E4503275301D000D432C0 /* GeneratePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E4502275301D000D432C0 /* GeneratePassword.swift */; };
 		282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */; };
 		28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F5226D42C1200482FD5 /* AppDelegate.swift */; };
 		28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F5426D42C1200482FD5 /* SceneDelegate.swift */; };
@@ -71,6 +73,8 @@
 		1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB3E2715C52400FD0558 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB402715C52400FD0558 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		281E45002749BDBB00D432C0 /* Brutforce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brutforce.swift; sourceTree = "<group>"; };
+		281E4502275301D000D432C0 /* GeneratePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePassword.swift; sourceTree = "<group>"; };
 		282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		28608F4F26D42C1200482FD5 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28608F5226D42C1200482FD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 				28C09CBB26EFFC3A00062B83 /* Constants.swift */,
 				28C09CBD26F00C9300062B83 /* PhotosArray.swift */,
 				28C09CC226F11EFF00062B83 /* Extension.swift */,
+				281E45002749BDBB00D432C0 /* Brutforce.swift */,
+				281E4502275301D000D432C0 /* GeneratePassword.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -450,6 +456,7 @@
 				28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */,
 				28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */,
 				287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */,
+				281E4503275301D000D432C0 /* GeneratePassword.swift in Sources */,
 				28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */,
 				28763D422739E61700826191 /* MyCustomButton.swift in Sources */,
 				28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */,
@@ -463,6 +470,7 @@
 				28763D3E2739DE8800826191 /* MyModel.swift in Sources */,
 				28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */,
 				282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */,
+				281E45012749BDBB00D432C0 /* Brutforce.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
