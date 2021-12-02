@@ -107,6 +107,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return statusTextField
     }()
+
+    // Timer Label
+    static var timerLabel: UILabel = {
+        let timerLabel = UILabel()
+        timerLabel.text = "20"
+        return timerLabel
+    }()
     
     // MARK: Init
     override init(reuseIdentifier: String?) {
@@ -116,7 +123,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Add Subviews
     func addView() {
-        contentView.addSubviews(fullNameLabel, setStatusButton, statusTextField, statusLabel, plagView, plagEscButton, avatarImageView, plagEscButton)
+        contentView.addSubviews(fullNameLabel, setStatusButton, statusTextField, statusLabel, plagView, plagEscButton, avatarImageView, plagEscButton, ProfileHeaderView.timerLabel)
         self.setupConstraints()
         
         
@@ -172,6 +179,11 @@ extension ProfileHeaderView {
             constraint.right.equalTo(contentView.snp.right).offset(ProfileHeaderViewConstants.plagEscButtonTrailing)
             constraint.width.equalTo(ProfileHeaderViewConstants.plagEscButtonWidth)
             constraint.height.equalTo(ProfileHeaderViewConstants.plagEscButtonHeight)
+        }
+
+        ProfileHeaderView.timerLabel.snp.makeConstraints { constraint in
+            constraint.top.equalTo(contentView.snp.top).offset(20)
+            constraint.right.equalTo(contentView.snp.right).offset(-30)
         }
     }
     
