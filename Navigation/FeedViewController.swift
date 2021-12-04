@@ -11,7 +11,7 @@ class FeedViewController: UIViewController {
     
     var passwordText: String = ""
     
-    lazy private var firstButton: CustomButton = {
+    private lazy var firstButton: CustomButton = {
         var firstButton = CustomButton(title: "First Button", titleColor: .red) {
             let postVC = PostViewController()
             self.navigationController?.pushViewController(postVC, animated: true)
@@ -20,7 +20,7 @@ class FeedViewController: UIViewController {
         return firstButton
     }()
     
-    lazy private var secondButton: CustomButton = {
+    private lazy var secondButton: CustomButton = {
         var secondButton = CustomButton(title: "Second Button", titleColor: .yellow) {
             let postVC = PostViewController()
             self.navigationController?.pushViewController(postVC, animated: true)
@@ -29,7 +29,7 @@ class FeedViewController: UIViewController {
         return secondButton
     }()
     
-    lazy private var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.axis = .vertical
@@ -43,7 +43,7 @@ class FeedViewController: UIViewController {
         return myCustomTF
     }()
     
-    lazy private var passwordCheckButton: MyCustomButton = {
+    private lazy var passwordCheckButton: MyCustomButton = {
         var passwordCheckButton = MyCustomButton {}
         return passwordCheckButton
     }()

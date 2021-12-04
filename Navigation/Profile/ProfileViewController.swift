@@ -23,8 +23,6 @@ class ProfileViewController: UIViewController {
         ProfileViewController.postTableView.delegate = self
         ProfileViewController.postTableView.refreshControl = UIRefreshControl()
         ProfileViewController.postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePosts), name: NSNotification.Name("timerIsNull"), object: nil)
         timer()
     }
     
@@ -137,14 +135,6 @@ extension ProfileViewController {
         self.navigationController?.pushViewController(photoVC, animated: true)
     }
 
-    // метод наблюдателя
-    @objc
-    private func updatePosts() {
-        DispatchQueue.main.async {
-            self.updatePostArray()
-        }
-    }
-
     // метод таймера
     private func timer() {
         var timerData = 20
@@ -162,7 +152,9 @@ extension ProfileViewController {
                         ProfileHeaderView.timerLabel.text = "\(timerData)"
                     }
                     print("обновление данных")
-                    NotificationCenter.default.post(name: NSNotification.Name("timerIsNull"), object: nil)
+                    DispatchQueue.main.async {
+                        self.updatePostArray()
+                    }
                 }
             }
             RunLoop.current.add(timer, forMode: .common)
