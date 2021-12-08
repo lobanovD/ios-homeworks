@@ -245,25 +245,26 @@ extension LogInViewController {
             let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
-            return}
-
+            return }
+        
         guard passwordTF.text?.isEmpty == false else {
             let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
             let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
-            return}
-
+            return }
 
         guard let login = loginTF.text else { return }
         guard let password = passwordTF.text else { return }
         guard let delegate = delegate else { return }
-        let result = delegate.check(login: login.hash, password: password.hash)
+        let result = delegate.check(login: login, password: password)
 
         if result {
             isLogin = true
-        }
-        else {
+            print("переходим в Profile")
+            let profileVC = ProfileViewController()
+            navigationController?.pushViewController(profileVC, animated: false)
+        } else {
             isLogin = false
             let alertVC = UIAlertController(title: "Ошибка", message: "Такого пользователя не существует", preferredStyle: .alert)
             let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
@@ -277,7 +278,6 @@ extension LogInViewController {
             navigationController?.pushViewController(profileVC, animated: false)
         }
     }
-
 
     // метод кнопки брутфорса
     @objc
@@ -313,4 +313,5 @@ extension LogInViewController {
             }
         }
     }
+    }   
 }

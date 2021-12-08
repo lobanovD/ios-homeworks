@@ -12,6 +12,4 @@ class MyLoginFactory: LoginFactoryProtocol {
         let inspector = LoginInspector()
         return inspector
     }
-
-
 }
