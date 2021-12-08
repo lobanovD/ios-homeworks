@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
+
     static let identifire = "PhotoCollectionViewCell"
     
     // MARK: Init
@@ -41,7 +42,7 @@ extension PhotoCollectionViewCell {
     
     /// Cell config
     public func configureCell(image: UIImage) {
-        self.photo.image = image
+            self.photo.image = image
     }
     
     /// Setup constraints

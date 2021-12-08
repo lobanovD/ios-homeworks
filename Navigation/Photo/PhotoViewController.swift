@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotoViewController: UIViewController {
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         photosCollection.dataSource = self
         photosCollection.delegate = self
@@ -17,6 +19,12 @@ class PhotoViewController: UIViewController {
         setupConstraints()
         navigationController?.navigationBar.isHidden = false
         self.title = "Photo Gallery"
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("notification"), object: nil)
+    }
+
+    @objc
+    private func reloadTable() {
+        self.photosCollection.reloadData()
         
     }
     
@@ -35,7 +43,7 @@ class PhotoViewController: UIViewController {
 }
 
 // MARK: Delegate and Datasource
-extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photosArray.count
@@ -43,8 +51,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifire, for: indexPath) as! PhotoCollectionViewCell
-        cell.configureCell(image: photosArray[indexPath.row])
-        
+        cell.configureCell(image: photosArray[indexPath.item])
         return cell
     }
     
@@ -67,11 +74,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
-}
 
-//MARK: Actions
-extension PhotoViewController {
-    
     /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -81,5 +84,4 @@ extension PhotoViewController {
             photosCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
 }

@@ -16,6 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
+
+
         
         // MARK: VC
         let feedVC = FeedViewController()
@@ -42,13 +44,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // помещаем в TabBar VC
         tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
         
-        
         // указываем с чего загружаться
-        window.rootViewController = tabBar
-        
+//        window.rootViewController = tabBar
+        let profileVC = ProfileViewController()
+        window.rootViewController = profileVC
+
         // генерируем массив фотографий
-        createPhotosArray()
-        
+            createPhotosArray()
+
+
         window.makeKeyAndVisible()
         self.window = window
         
@@ -91,4 +95,3 @@ extension UIColor {
         return color
     }
 }
-

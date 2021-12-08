@@ -9,45 +9,49 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    //    let post = Post(title: "Post")
+    var passwordText: String = ""
     
-    lazy private var firstButton: UIButton = {
-        var firstButton = UIButton()
-        firstButton.toAutoLayout()
-        firstButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
-        firstButton.layer.shadowColor = UIColor.black.cgColor
-        firstButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        firstButton.layer.shadowOpacity = 0.7
-        firstButton.layer.shadowRadius = 4
-        firstButton.setTitle("First Button", for: .normal)
-        firstButton.setTitleColor(.lightGray, for: .highlighted)
-        firstButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
+    private lazy var firstButton: CustomButton = {
+        var firstButton = CustomButton(title: "First Button", titleColor: .red) {
+            let postVC = PostViewController()
+            self.navigationController?.pushViewController(postVC, animated: true)
+            postVC.postTitle = "First Button"
+        }
         return firstButton
     }()
     
-    lazy private var secondButton: UIButton = {
-        var secondButton = UIButton()
-        secondButton.toAutoLayout()
-        secondButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
-        secondButton.layer.shadowColor = UIColor.black.cgColor
-        secondButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        secondButton.layer.shadowOpacity = 0.7
-        secondButton.layer.shadowRadius = 4
-        secondButton.setTitle("Second Button", for: .normal)
-        secondButton.setTitleColor(.lightGray, for: .highlighted)
-        secondButton.addTarget(self, action: #selector(openPostVC), for: .touchUpInside)
+    private lazy var secondButton: CustomButton = {
+        var secondButton = CustomButton(title: "Second Button", titleColor: .yellow) {
+            let postVC = PostViewController()
+            self.navigationController?.pushViewController(postVC, animated: true)
+            postVC.postTitle = "Second Button"
+        }
         return secondButton
     }()
     
-    lazy private var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.axis = .vertical
         stackView.spacing = 10
-        
-        
         stackView.backgroundColor = .lightGray
         return stackView
+    }()
+    
+    var myCustomTF: MyCustomTextField = {
+        let myCustomTF = MyCustomTextField {}
+        return myCustomTF
+    }()
+    
+    private lazy var passwordCheckButton: MyCustomButton = {
+        var passwordCheckButton = MyCustomButton {}
+        return passwordCheckButton
+    }()
+    
+    lazy var stateLabel: UILabel = {
+        let stateLabel = UILabel()
+        stateLabel.isHidden = true
+        return stateLabel
     }()
     
     
@@ -55,12 +59,29 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Feed"
         self.view.addSubview(stackView)
-        stackView.addArrangedSubview(firstButton)
-        stackView.addArrangedSubview(secondButton)
+        stackView.addArrangedSubviews(firstButton, secondButton, myCustomTF, passwordCheckButton, stateLabel)
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.backgroundColor = .white
         setupConstraints()
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(passwordIsRight), name: Notification.Name("passwordIsRight"), object: nil)
+        nc.addObserver(self, selector: #selector(passwordIsNotRight), name: Notification.Name("passwordIsNotRight"), object: nil)
+
+    }
+
+    @objc
+    private func passwordIsRight() {
+        stateLabel.text = "Пароль верный"
+        stateLabel.textColor = .green
+        stateLabel.isHidden = false
+    }
+
+    @objc
+    private func passwordIsNotRight() {
+        stateLabel.text = "Пароль неверный"
+        stateLabel.textColor = .red
+        stateLabel.isHidden = false
     }
     
     private func setupConstraints() {
@@ -71,13 +92,4 @@ class FeedViewController: UIViewController {
             stackView.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 4),
         ])
     }
-    
-    @objc private func openPostVC() {
-        let postVC = PostViewController()
-        navigationController?.pushViewController(postVC, animated: true)
-        //        postVC.postTitle = post.title
-    }
-    
 }
-
-

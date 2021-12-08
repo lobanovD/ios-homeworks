@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
         ProfileViewController.postTableView.delegate = self
         ProfileViewController.postTableView.refreshControl = UIRefreshControl()
         ProfileViewController.postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
+        timer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +117,8 @@ extension ProfileViewController {
         ProfileViewController.postTableView.refreshControl?.endRefreshing()
         print("данные успешно обновлены")
     }
-    
+
+
     /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -131,5 +133,32 @@ extension ProfileViewController {
     @objc private func arrowButtonAction() {
         let photoVC = PhotoViewController()
         self.navigationController?.pushViewController(photoVC, animated: true)
+    }
+
+    // метод таймера
+    private func timer() {
+        var timerData = 20
+        ProfileHeaderView.timerLabel.text = "\(timerData)"
+
+        DispatchQueue.global().async {
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                timerData -= 1
+                DispatchQueue.main.async {
+                    ProfileHeaderView.timerLabel.text = "\(timerData)"
+                }
+                if timerData == -1 {
+                    timerData = 20
+                    DispatchQueue.main.async {
+                        ProfileHeaderView.timerLabel.text = "\(timerData)"
+                    }
+                    print("обновление данных")
+                    DispatchQueue.main.async {
+                        self.updatePostArray()
+                    }
+                }
+            }
+            RunLoop.current.add(timer, forMode: .common)
+            RunLoop.current.run()
+        }
     }
 }
