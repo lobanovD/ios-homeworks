@@ -10,7 +10,7 @@ import iOSIntPackage
 
 class PhotoViewController: UIViewController {
 
-let facade = ImagePublisherFacade()
+    let facade = ImagePublisherFacade()
 
     var newPhotoArray: [UIImage] = []
 
@@ -26,6 +26,10 @@ let facade = ImagePublisherFacade()
 
         facade.subscribe(self)
         facade.addImagesWithTimer(time: 1, repeat: 30, userImages: photosArray)
+    }
+
+    deinit {
+        facade.rechargeImageLibrary()
     }
 
     // MARK: UI elements
@@ -56,6 +60,8 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
 
         return cell
     }
+
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 3
@@ -79,13 +85,11 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
 }
 
 //MARK: Actions
-extension PhotoViewController: ImageLibrarySubscriber{
+extension PhotoViewController: ImageLibrarySubscriber {
 
     func receive(images: [UIImage]) {
-
-
+        newPhotoArray = []
         for i in images {
-            facade.rechargeImageLibrary()
             newPhotoArray.append(i)
         }
         photosCollection.reloadData()
