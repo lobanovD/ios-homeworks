@@ -23,7 +23,6 @@ class PhotoViewController: UIViewController {
         setupConstraints()
         navigationController?.navigationBar.isHidden = false
         self.title = "Photo Gallery"
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("notification"), object: nil)
     }
 
     deinit {
