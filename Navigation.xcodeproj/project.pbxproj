@@ -11,6 +11,8 @@
 		280EAB442715C52400FD0558 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; };
 		280EAB452715C52400FD0558 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		280EAB4A2715C5CC00FD0558 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6C26D5A2A000482FD5 /* Post.swift */; };
+		281E45012749BDBB00D432C0 /* Brutforce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E45002749BDBB00D432C0 /* Brutforce.swift */; };
+		281E4503275301D000D432C0 /* GeneratePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281E4502275301D000D432C0 /* GeneratePassword.swift */; };
 		282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */; };
 		28402643275C0C8D00B65A50 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 28402642275C0C8D00B65A50 /* iOSIntPackage */; };
 		28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F5226D42C1200482FD5 /* AppDelegate.swift */; };
@@ -22,6 +24,10 @@
 		28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6A26D43B2F00482FD5 /* PostViewController.swift */; };
 		28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28608F6E26D5A8E100482FD5 /* InfoViewController.swift */; };
 		2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */; };
+		28763D3E2739DE8800826191 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28763D3D2739DE8800826191 /* MyModel.swift */; };
+		28763D402739DED700826191 /* MyCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28763D3F2739DED700826191 /* MyCustomTextField.swift */; };
+		28763D422739E61700826191 /* MyCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28763D412739E61700826191 /* MyCustomButton.swift */; };
+		2877F9872735FAF700873101 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2877F9862735FAF700873101 /* CustomButton.swift */; };
 		287F34D82727480100A9E426 /* LoginChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D72727480100A9E426 /* LoginChecker.swift */; };
 		287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */; };
 		287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DB27274CF700A9E426 /* LoginInspector.swift */; };
@@ -34,6 +40,7 @@
 		28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC426F1215900062B83 /* PhotoViewController.swift */; };
 		28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */; };
 		28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C4B18026E4DC3000A799EA /* LogInViewController.swift */; };
+		28F704A4273DC22100D2B542 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 28F704A3273DC22100D2B542 /* iOSIntPackage */; };
 		28FDB59A271B34A300208C92 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 28FDB599271B34A300208C92 /* Podfile */; };
 		AE4559C15E8DA20119586987 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E681F99A184DB00D4E5E0EE3 /* Pods_StorageService.framework */; };
 		C190F6E7C6ED74FC51AE7028 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */; };
@@ -67,6 +74,8 @@
 		1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB3E2715C52400FD0558 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB402715C52400FD0558 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		281E45002749BDBB00D432C0 /* Brutforce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brutforce.swift; sourceTree = "<group>"; };
+		281E4502275301D000D432C0 /* GeneratePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePassword.swift; sourceTree = "<group>"; };
 		282BCB3526DAC8D20042DF15 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		28608F4F26D42C1200482FD5 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28608F5226D42C1200482FD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +89,10 @@
 		28608F6C26D5A2A000482FD5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		28608F6E26D5A8E100482FD5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		2865233B26E7E7CD00B8DCA7 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		28763D3D2739DE8800826191 /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
+		28763D3F2739DED700826191 /* MyCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTextField.swift; sourceTree = "<group>"; };
+		28763D412739E61700826191 /* MyCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomButton.swift; sourceTree = "<group>"; };
+		2877F9862735FAF700873101 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		287F34D72727480100A9E426 /* LoginChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginChecker.swift; sourceTree = "<group>"; };
 		287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		287F34DB27274CF700A9E426 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -168,9 +181,13 @@
 				282BCB3426DAC8A10042DF15 /* Profile */,
 				28C09D0726F3DC8900062B83 /* Photo */,
 				28C09CBF26F00D4C00062B83 /* SupportFiles */,
+				2877F9862735FAF700873101 /* CustomButton.swift */,
 				28608F5226D42C1200482FD5 /* AppDelegate.swift */,
 				28608F5426D42C1200482FD5 /* SceneDelegate.swift */,
 				28608F6626D439E800482FD5 /* FeedViewController.swift */,
+				28763D3D2739DE8800826191 /* MyModel.swift */,
+				28763D3F2739DED700826191 /* MyCustomTextField.swift */,
+				28763D412739E61700826191 /* MyCustomButton.swift */,
 				28608F6A26D43B2F00482FD5 /* PostViewController.swift */,
 				28608F6E26D5A8E100482FD5 /* InfoViewController.swift */,
 				28608F5B26D42C2700482FD5 /* Assets.xcassets */,
@@ -187,6 +204,8 @@
 				28C09CBB26EFFC3A00062B83 /* Constants.swift */,
 				28C09CBD26F00C9300062B83 /* PhotosArray.swift */,
 				28C09CC226F11EFF00062B83 /* Extension.swift */,
+				281E45002749BDBB00D432C0 /* Brutforce.swift */,
+				281E4502275301D000D432C0 /* GeneratePassword.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -438,15 +457,21 @@
 				28608F6F26D5A8E100482FD5 /* InfoViewController.swift in Sources */,
 				28608F5526D42C1200482FD5 /* SceneDelegate.swift in Sources */,
 				287F34DA272748D900A9E426 /* LoginViewControllerDelegate.swift in Sources */,
+				281E4503275301D000D432C0 /* GeneratePassword.swift in Sources */,
 				28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */,
+				28763D422739E61700826191 /* MyCustomButton.swift in Sources */,
 				28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */,
 				28C09CC326F11EFF00062B83 /* Extension.swift in Sources */,
 				287F34D82727480100A9E426 /* LoginChecker.swift in Sources */,
+				28763D402739DED700826191 /* MyCustomTextField.swift in Sources */,
 				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,
 				28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */,
 				2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */,
+				2877F9872735FAF700873101 /* CustomButton.swift in Sources */,
+				28763D3E2739DE8800826191 /* MyModel.swift in Sources */,
 				28608F6B26D43B2F00482FD5 /* PostViewController.swift in Sources */,
 				282BCB3626DAC8D20042DF15 /* ProfileHeaderView.swift in Sources */,
+				281E45012749BDBB00D432C0 /* Brutforce.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,7 +42,7 @@ extension PhotoCollectionViewCell {
     
     /// Cell config
     public func configureCell(image: UIImage) {
-        self.photo.image = image
+            self.photo.image = image
     }
     
     /// Setup constraints

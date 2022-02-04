@@ -44,16 +44,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // помещаем в TabBar VC
         tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
         
-        
         // указываем с чего загружаться
 //        window.rootViewController = tabBar
+        let profileVC = ProfileViewController()
+        window.rootViewController = profileVC
 
         // генерируем массив фотографий
-        createPhotosArray()
+            createPhotosArray()
 
-        let tempVC = PhotoViewController()
-        window.rootViewController = tempVC
-        
+
         window.makeKeyAndVisible()
         self.window = window
         
@@ -96,4 +95,3 @@ extension UIColor {
         return color
     }
 }
-

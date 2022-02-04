@@ -11,16 +11,14 @@ class LoginChecker {
 
     private let login = "lobanov"
     private let pswd = "lobanov"
-
     static let shared = LoginChecker()
 
-    func check(login: Int, password: Int) -> (login: Int, password: Int) {
-        if login == self.login.hash && password == self.pswd.hash {
+    func check(login: String, password: String) -> Bool {
+        if login.hash == self.login.hash && password.hash == self.pswd.hash {
             print("данные верны")
-            return (self.login.hash, self.pswd.hash)
-        }
-        else {
-            return (0, 0)
+            return true
+        } else {
+            return false
         }
     }
 }

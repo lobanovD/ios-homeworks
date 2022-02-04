@@ -23,9 +23,7 @@ class PhotoViewController: UIViewController {
         setupConstraints()
         navigationController?.navigationBar.isHidden = false
         self.title = "Photo Gallery"
-
-        facade.subscribe(self)
-        facade.addImagesWithTimer(time: 1, repeat: 30, userImages: photosArray)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("notification"), object: nil)
     }
 
     deinit {
@@ -50,14 +48,12 @@ class PhotoViewController: UIViewController {
 extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return newPhotoArray.count
+        return photosArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifire, for: indexPath) as! PhotoCollectionViewCell
-
-        cell.configureCell(image: newPhotoArray[indexPath.item])
-
+        cell.configureCell(image: photosArray[indexPath.item])
         return cell
     }
 

@@ -9,9 +9,9 @@ import Foundation
 
 class LoginInspector: LoginViewControllerDelegate {
 
-    func check(login: Int, password: Int) -> Bool {
+    func check(login: String, password: String) -> Bool {
         let data = LoginChecker.shared.check(login: login, password: password)
-        if (login, password) == data {
+        if data {
             print("Такой пользователь существует")
             return true
         } else {
