@@ -9,7 +9,11 @@ import UIKit
 import iOSIntPackage
 
 class PhotoViewController: UIViewController {
-    
+
+    let facade = ImagePublisherFacade()
+
+    var newPhotoArray: [UIImage] = []
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -22,12 +26,10 @@ class PhotoViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("notification"), object: nil)
     }
 
-    @objc
-    private func reloadTable() {
-        self.photosCollection.reloadData()
-        
+    deinit {
+        facade.rechargeImageLibrary()
     }
-    
+
     // MARK: UI elements
     
     /// Photo CollectionView
@@ -54,6 +56,8 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         cell.configureCell(image: photosArray[indexPath.item])
         return cell
     }
+
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 3
@@ -74,7 +78,19 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
+}
 
+//MARK: Actions
+extension PhotoViewController: ImageLibrarySubscriber {
+
+    func receive(images: [UIImage]) {
+        newPhotoArray = []
+        for i in images {
+            newPhotoArray.append(i)
+        }
+        photosCollection.reloadData()
+    }
+    
     /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
