@@ -33,6 +33,8 @@
 		287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DB27274CF700A9E426 /* LoginInspector.swift */; };
 		287F34DE2727781400A9E426 /* LoginFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DD2727781300A9E426 /* LoginFactoryProtocol.swift */; };
 		287F34E0272778D300A9E426 /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DF272778D300A9E426 /* MyLoginFactory.swift */; };
+		288D5CA727AF10C100D8C875 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D5CA627AF10C100D8C875 /* NetworkManager.swift */; };
+		288D5CAA27AF114700D8C875 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D5CA927AF114700D8C875 /* Config.swift */; };
 		28C09CBC26EFFC3A00062B83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CBB26EFFC3A00062B83 /* Constants.swift */; };
 		28C09CBE26F00C9300062B83 /* PhotosArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CBD26F00C9300062B83 /* PhotosArray.swift */; };
 		28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */; };
@@ -40,7 +42,6 @@
 		28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC426F1215900062B83 /* PhotoViewController.swift */; };
 		28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */; };
 		28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C4B18026E4DC3000A799EA /* LogInViewController.swift */; };
-		28F704A4273DC22100D2B542 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 28F704A3273DC22100D2B542 /* iOSIntPackage */; };
 		28FDB59A271B34A300208C92 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 28FDB599271B34A300208C92 /* Podfile */; };
 		AE4559C15E8DA20119586987 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E681F99A184DB00D4E5E0EE3 /* Pods_StorageService.framework */; };
 		C190F6E7C6ED74FC51AE7028 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */; };
@@ -98,6 +99,8 @@
 		287F34DB27274CF700A9E426 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		287F34DD2727781300A9E426 /* LoginFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactoryProtocol.swift; sourceTree = "<group>"; };
 		287F34DF272778D300A9E426 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
+		288D5CA627AF10C100D8C875 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		288D5CA927AF114700D8C875 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		28C09CBB26EFFC3A00062B83 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		28C09CBD26F00C9300062B83 /* PhotosArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosArray.swift; sourceTree = "<group>"; };
 		28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		28608F5126D42C1200482FD5 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				288D5CA827AF10CA00D8C875 /* Network */,
 				28C09D0626F3DC5700062B83 /* Login */,
 				282BCB3426DAC8A10042DF15 /* Profile */,
 				28C09D0726F3DC8900062B83 /* Photo */,
@@ -195,6 +199,15 @@
 				28608F6026D42C2700482FD5 /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		288D5CA827AF10CA00D8C875 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				288D5CA627AF10C100D8C875 /* NetworkManager.swift */,
+				288D5CA927AF114700D8C875 /* Config.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		28C09CBF26F00D4C00062B83 /* SupportFiles */ = {
@@ -446,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				288D5CA727AF10C100D8C875 /* NetworkManager.swift in Sources */,
 				28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */,
 				28C09CBC26EFFC3A00062B83 /* Constants.swift in Sources */,
 				287F34DE2727781400A9E426 /* LoginFactoryProtocol.swift in Sources */,
@@ -462,6 +476,7 @@
 				28763D422739E61700826191 /* MyCustomButton.swift in Sources */,
 				28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */,
 				28C09CC326F11EFF00062B83 /* Extension.swift in Sources */,
+				288D5CAA27AF114700D8C875 /* Config.swift in Sources */,
 				287F34D82727480100A9E426 /* LoginChecker.swift in Sources */,
 				28763D402739DED700826191 /* MyCustomTextField.swift in Sources */,
 				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,
