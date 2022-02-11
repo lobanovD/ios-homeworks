@@ -23,14 +23,19 @@ class InfoViewController: UIViewController {
         
         alertButton.addTarget(self, action: #selector(alert), for: .touchUpInside)
         
-        view.addSubview(alertButton)
-        view.addSubviews(titleLable)
+        view.addSubviews(alertButton, titleLable, orbitalPeriodLable)
     }
     
     var titleLable: UILabel {
         let titleLable = UILabel(frame: CGRect(x: view.frame.width/4, y: view.frame.height/10, width: 200, height: 50))
         titleLable.text = NetworkManager.title
         return titleLable
+    }
+    
+    var orbitalPeriodLable: UILabel {
+        let orbitalPeriodLable = UILabel(frame: CGRect(x: view.frame.width/4, y: view.frame.height/4, width: 200, height: 50))
+        orbitalPeriodLable.text = NetworkManager.orbitalPeriod
+        return orbitalPeriodLable
     }
 
     @objc func alert() {
