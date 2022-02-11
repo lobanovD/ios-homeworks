@@ -13,11 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let url = AppConfiguration.randomURL()
-        
-        print(url)
-        
-        NetworkManager.shared.getData(url: url)
+        NetworkManager.shared.getDataFromJsonplaceholder()
+        NetworkManager.shared.getDataAboutPlanet()
+        NetworkManager.shared.getNamesArray()
         
         return true
     }

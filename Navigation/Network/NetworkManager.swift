@@ -11,23 +11,99 @@ struct NetworkManager {
     
     static let shared = NetworkManager()
     
-    func getData(url: String) {
+    static var title = ""
+    static var orbitalPeriod = ""
+    static var namesArray: [String] = []
+    
+    // ДЗ 1.2 п.1
+    func getDataFromJsonplaceholder() {
         
-        guard let URL = URL(string: url) else { return }
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
+            print("не удалось получить URL")
+            return }
+
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: url) { data, responce, error in
+            guard let data = data else { return }
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                    
+                    guard let title = json["title"] as? String else { return }
+                    NetworkManager.title = title
+                    
+                } else {
+                    print("Не удалось сериализовать")
+                }
+            }
+        }.resume()
+    }
+    
+    func getDataAboutPlanet() {
+        
+        guard let url = URL(string: "https://swapi.dev/api/planets/1") else {
+            print("не удалось получить URL")
+            return }
+
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: url) { data, responce, error in
+            guard let data = data else { return }
+            do {
+                if let json = try? JSONDecoder().decode(PlanetModel.self, from: data) {
+                    NetworkManager.orbitalPeriod = json.orbitalPeriod
+                } else {
+                    print("Не удалось сериализовать")
+                }
+            }
+        }.resume()
+    }
+    
+    func getNamesArray() {
+        
+        guard let url = URL(string: "https://swapi.dev/api/planets/1") else {
+            print("не удалось получить URL")
+            return }
+
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: url) { data, responce, error in
+            guard let data = data else { return }
+            do {
+                if let json = try? JSONDecoder().decode(PlanetModel.self, from: data) {
+                    let peopleArray = json.residents
+                    
+                    for people in peopleArray {
+                        getNames(url: people)
+                    }
+                    
+                } else {
+                    print("Не удалось сериализовать")
+                }
+            }
+        }.resume()
+        
+    }
+    
+    func getNames(url: String) {
+        guard let url = URL(string: url) else {
+            print("не удалось получить URL")
+            return }
         
         let session = URLSession(configuration: .default)
         
-        session.dataTask(with: URL) { data, responce, error in
-            
-            guard let data = data, let responce = responce as? HTTPURLResponse else {
-                guard let error = error else { return }
-                print(error.localizedDescription)
-                return }
-            
-            print(String(decoding: data, as: UTF8.self))
-            print("allHeaderFields - \(responce.allHeaderFields)")
-            print("statusCode - \(responce.statusCode)")
-            
+        session.dataTask(with: url) { data, responce, error in
+            guard let data = data else { return }
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                    
+                    guard let name = json["name"] as? String else { return }
+                    NetworkManager.namesArray.append(name)
+                } else {
+                    print("Не удалось сериализовать")
+                }
+            }
         }.resume()
+        
     }
 }
