@@ -11,23 +11,31 @@ struct NetworkManager {
     
     static let shared = NetworkManager()
     
-    func getData(url: String) {
+    static var title = ""
+    
+    // ДЗ 1.2 п.1
+    func getDataFromJsonplaceholder() {
         
-        guard let URL = URL(string: url) else { return }
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
+            print("не удалось получить URL")
+            return }
+        
+        print(url)
         
         let session = URLSession(configuration: .default)
         
-        session.dataTask(with: URL) { data, responce, error in
-            
-            guard let data = data, let responce = responce as? HTTPURLResponse else {
-                guard let error = error else { return }
-                print(error.localizedDescription)
-                return }
-            
-            print(String(decoding: data, as: UTF8.self))
-            print("allHeaderFields - \(responce.allHeaderFields)")
-            print("statusCode - \(responce.statusCode)")
-            
+        session.dataTask(with: url) { data, responce, error in
+            guard let data = data else { return }
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                    
+                    guard let title = json["title"] as? String else { return }
+                    NetworkManager.title = title
+                    
+                } else {
+                    print("Не удалось сериализовать")
+                }
+            }
         }.resume()
     }
 }
