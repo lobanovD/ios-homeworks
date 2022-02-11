@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetworkManager.shared.getDataFromJsonplaceholder()
         NetworkManager.shared.getDataAboutPlanet()
+        NetworkManager.shared.getNamesArray()
         
         return true
     }
