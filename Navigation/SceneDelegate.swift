@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: VC
         let feedVC = FeedViewController()
-        let logInVC = LogInViewController()
+        let logInVC = LoginViewController()
 
         let factory = MyLoginFactory()
         let inspector = factory.createLoginInspector()

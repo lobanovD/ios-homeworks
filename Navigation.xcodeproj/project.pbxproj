@@ -39,8 +39,8 @@
 		28C09CC326F11EFF00062B83 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC226F11EFF00062B83 /* Extension.swift */; };
 		28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC426F1215900062B83 /* PhotoViewController.swift */; };
 		28C09CC726F1268A00062B83 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */; };
-		28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C4B18026E4DC3000A799EA /* LogInViewController.swift */; };
-		28F704A4273DC22100D2B542 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 28F704A3273DC22100D2B542 /* iOSIntPackage */; };
+		28C4B18126E4DC3000A799EA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C4B18026E4DC3000A799EA /* LoginViewController.swift */; };
+		28CEC4BF27B829A500789AFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28CEC4BE27B829A500789AFD /* GoogleService-Info.plist */; };
 		28FDB59A271B34A300208C92 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 28FDB599271B34A300208C92 /* Podfile */; };
 		AE4559C15E8DA20119586987 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E681F99A184DB00D4E5E0EE3 /* Pods_StorageService.framework */; };
 		C190F6E7C6ED74FC51AE7028 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */; };
@@ -104,7 +104,8 @@
 		28C09CC226F11EFF00062B83 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		28C09CC426F1215900062B83 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		28C09CC626F1268A00062B83 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		28C4B18026E4DC3000A799EA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		28C4B18026E4DC3000A799EA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		28CEC4BE27B829A500789AFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28FDB599271B34A300208C92 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		349881833663942A85584D0B /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		966CFEA11E06A440352E060F /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 				28608F5B26D42C2700482FD5 /* Assets.xcassets */,
 				28608F5D26D42C2700482FD5 /* LaunchScreen.storyboard */,
 				28608F6026D42C2700482FD5 /* Info.plist */,
+				28CEC4BE27B829A500789AFD /* GoogleService-Info.plist */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -213,7 +215,7 @@
 		28C09D0626F3DC5700062B83 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				28C4B18026E4DC3000A799EA /* LogInViewController.swift */,
+				28C4B18026E4DC3000A799EA /* LoginViewController.swift */,
 				287F34D72727480100A9E426 /* LoginChecker.swift */,
 				287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */,
 				287F34DB27274CF700A9E426 /* LoginInspector.swift */,
@@ -362,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28FDB59A271B34A300208C92 /* Podfile in Resources */,
+				28CEC4BF27B829A500789AFD /* GoogleService-Info.plist in Resources */,
 				28608F5F26D42C2700482FD5 /* LaunchScreen.storyboard in Resources */,
 				28608F5C26D42C2700482FD5 /* Assets.xcassets in Resources */,
 			);
@@ -450,7 +453,7 @@
 				28C09CBC26EFFC3A00062B83 /* Constants.swift in Sources */,
 				287F34DE2727781400A9E426 /* LoginFactoryProtocol.swift in Sources */,
 				28608F6926D43A0400482FD5 /* ProfileViewController.swift in Sources */,
-				28C4B18126E4DC3000A799EA /* LogInViewController.swift in Sources */,
+				28C4B18126E4DC3000A799EA /* LoginViewController.swift in Sources */,
 				287F34E0272778D300A9E426 /* MyLoginFactory.swift in Sources */,
 				28C09CBE26F00C9300062B83 /* PhotosArray.swift in Sources */,
 				28608F6726D439E800482FD5 /* FeedViewController.swift in Sources */,

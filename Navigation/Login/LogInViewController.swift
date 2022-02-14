@@ -1,16 +1,17 @@
 //
-//  LogInViewController.swift
+//  LoginViewController.swift
 //  Navigation
 //
 //  Created by Dmitrii Lobanov on 05.09.2021.
 //
 
 import UIKit
+import FirebaseAuth
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
-
+class LoginViewController: UIViewController, UITextFieldDelegate {
+    
     var isLogin: Bool = false
-
+    
     var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -19,9 +20,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
         setupViews()
-
         
-        /// скрытие клавиатуры по нажатию вне TF
+        // скрытие клавиатуры по нажатию вне TF
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
         
@@ -32,7 +32,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
-        contentView.addSubviews(VKIcon, loginFormStackView, loginButton, brutPasswordButton, activityIndicator)
+        contentView.addSubviews(VKIcon, loginFormStackView, loginButton, signInButton) //, brutPasswordButton, activityIndicator)
         loginFormStackView.addArrangedSubview(loginTF)
         loginFormStackView.addArrangedSubview(passwordTF)
         setupConstraints()
@@ -50,21 +50,21 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: UI elements
-    /// Login Scroll View
+    // Login Scroll View
     private lazy var loginScrollView: UIScrollView = {
         let loginScrollView = UIScrollView()
         loginScrollView.toAutoLayout()
         return loginScrollView
     }()
     
-    /// Content View
+    // Content View
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.toAutoLayout()
         return contentView
     }()
     
-    /// VK icon
+    // VK icon
     private lazy var VKIcon: UIImageView = {
         let VKIcon = UIImageView()
         VKIcon.image = UIImage(named: "logo")
@@ -72,7 +72,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return VKIcon
     }()
     
-    /// Login form stack view
+    // Login form stack view
     private lazy var loginFormStackView: UIStackView = {
         let loginFormStackView = UIStackView()
         loginFormStackView.toAutoLayout()
@@ -86,12 +86,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return loginFormStackView
     }()
     
-    /// Login Text field
+    // Login Text field
     private lazy var loginTF: UITextField = {
         let loginTF = UITextField()
         loginTF.toAutoLayout()
         loginTF.leftViewMode = .always
-        loginTF.placeholder = "Email or phone"
+        loginTF.placeholder = "Email"
         loginTF.layer.borderColor = UIColor.lightGray.cgColor
         loginTF.layer.borderWidth = 0.25
         loginTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: loginTF.frame.height))
@@ -103,7 +103,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return loginTF
     }()
     
-    /// Password text field
+    // Password text field
     private lazy var passwordTF: UITextField = {
         let passwordTF = UITextField()
         passwordTF.toAutoLayout()
@@ -120,7 +120,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return passwordTF
     }()
     
-    /// Login button
+    // Login button
     private lazy var loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.toAutoLayout()
@@ -137,34 +137,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginButton.clipsToBounds = true
         return loginButton
     }()
-
-    private lazy var brutPasswordButton: UIButton = {
-        let brutPasswordButton = UIButton()
-        brutPasswordButton.toAutoLayout()
+    
+    // Login button
+    private lazy var signInButton: UIButton = {
+        let signInButton = UIButton()
+        signInButton.toAutoLayout()
         if let image = UIImage(named: "blue_pixel") {
-            brutPasswordButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
-            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .selected)
-            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .highlighted)
-            brutPasswordButton.setBackgroundImage(image.image(alpha: 0.8), for: .disabled)
+            signInButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            signInButton.setBackgroundImage(image.image(alpha: 0.8), for: .selected)
+            signInButton.setBackgroundImage(image.image(alpha: 0.8), for: .highlighted)
+            signInButton.setBackgroundImage(image.image(alpha: 0.8), for: .disabled)
         }
-        brutPasswordButton.setTitle("Подобрать пароль", for: .normal)
-        brutPasswordButton.setTitleColor(.white, for: .normal)
-        brutPasswordButton.addTarget(self, action: #selector(brutPasswordButtonPressed), for: .touchUpInside)
-        brutPasswordButton.layer.cornerRadius = 10
-        brutPasswordButton.clipsToBounds = true
-        return brutPasswordButton
-    }()
-
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.toAutoLayout()
-        activityIndicator.style = UIActivityIndicatorView.Style.large
-        return activityIndicator
+        signInButton.setTitle("Sign in", for: .normal)
+        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
+        signInButton.layer.cornerRadius = 10
+        signInButton.clipsToBounds = true
+        return signInButton
     }()
 }
 
 // MARK: Actions
-extension LogInViewController {
+extension LoginViewController {
     
     /// Setup constraints
     private func setupConstraints() {
@@ -196,17 +190,16 @@ extension LogInViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
             loginButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
-
-            brutPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: LoginVCConstants.loginButtonTop),
-            brutPasswordButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
-            brutPasswordButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
-            brutPasswordButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
-            activityIndicator.centerXAnchor.constraint(equalTo: brutPasswordButton.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: brutPasswordButton.centerYAnchor),
+            
+            signInButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: LoginVCConstants.loginButtonTop),
+            signInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LoginVCConstants.loginButtonLeading),
+            signInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LoginVCConstants.loginButtonTrailing),
+            signInButton.heightAnchor.constraint(equalToConstant: LoginVCConstants.loginButtonHeight),
+            
         ])
     }
     
-    /// Keyboard actions
+    // Keyboard actions
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         loginTF.resignFirstResponder()
         passwordTF.resignFirstResponder()
@@ -229,16 +222,16 @@ extension LogInViewController {
         loginScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
-    /// Login button action
+    // Login button action
     @objc private func loginButtonPressed() {
-
+        
         if let image = UIImage(named: "blue_pixel") {
             loginButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
             }
         }
-
+        
         // проверка на заполнение полей
         guard loginTF.text?.isEmpty == false else {
             let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
@@ -253,65 +246,68 @@ extension LogInViewController {
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
             return }
-
+        
         guard let login = loginTF.text else { return }
         guard let password = passwordTF.text else { return }
-        guard let delegate = delegate else { return }
-        let result = delegate.check(login: login, password: password)
-
-        if result {
-            isLogin = true
-            print("переходим в Profile")
-            let profileVC = ProfileViewController()
-            navigationController?.pushViewController(profileVC, animated: false)
-        } else {
-            isLogin = false
-            let alertVC = UIAlertController(title: "Ошибка", message: "Такого пользователя не существует", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-        }
         
-        if isLogin {
-            print("переходим в Profile")
-            let profileVC = ProfileViewController()
-            navigationController?.pushViewController(profileVC, animated: false)
-        }
-    }
-
-    // метод кнопки брутфорса
-    @objc
-    private func brutPasswordButtonPressed() {
-
-        let passwordLengh = 4
-
-        // блокируем кнопку
-        self.brutPasswordButton.isEnabled = false
-        self.activityIndicator.startAnimating()
-
-        DispatchQueue.global().async {
-
-            // генерируем пароль
-            GeneratePassword.shared.generatePass(count: passwordLengh)
-            print(GeneratePassword.shared.generatedPassword)
-
-            // брутфорс пароля
-            let passwordsArray = Brutforce.shared.generate(length: passwordLengh)
-            for password in passwordsArray {
-                if password == GeneratePassword.shared.generatedPassword {
-
-                    DispatchQueue.main.async {
-                        self.passwordTF.text = password
-                        self.passwordTF.isSecureTextEntry = false
-                        self.activityIndicator.stopAnimating()
-                        self.activityIndicator.isHidden = true
-                        self.brutPasswordButton.isEnabled = true
-                    }
-                    print("пароль найден - \(password)")
-                    break
-                }
+        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
+          guard let strongSelf = self else { return }
+            
+            // обработка ошибок
+            if let error = error {
+                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
+                strongSelf.present(alertVC, animated: true, completion: nil)
+            } else {
+                strongSelf.isLogin = true
+                let profileVC = ProfileViewController()
+                strongSelf.navigationController?.pushViewController(profileVC, animated: false)
             }
         }
     }
-    }   
-
+    
+    // Sign in button action
+    @objc private func signInButtonPressed() {
+        
+        if let image = UIImage(named: "blue_pixel") {
+            signInButton.setBackgroundImage(image.image(alpha: 0.8), for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.signInButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+            }
+        }
+        
+        // проверка на заполнение полей
+        guard loginTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return }
+        
+        guard passwordTF.text?.isEmpty == false else {
+            let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+            return }
+        
+        guard let login = loginTF.text else { return }
+        guard let password = passwordTF.text else { return }
+        
+        Auth.auth().createUser(withEmail: login, password: password) { result, error in
+           // обработка ошибок
+            if let error = error {
+                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
+                self.present(alertVC, animated: true, completion: nil)
+            } else {
+                let alertVC = UIAlertController(title: "Поздравляем!", message: "аккаунт успешно зарегистрирован", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
+                self.present(alertVC, animated: true, completion: nil)
+            }
+        }
+    }
+}
