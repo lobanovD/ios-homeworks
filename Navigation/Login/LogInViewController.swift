@@ -249,22 +249,9 @@ extension LoginViewController {
         
         guard let login = loginTF.text else { return }
         guard let password = passwordTF.text else { return }
+        guard let delegate = delegate else { return }
         
-        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
-            
-            // обработка ошибок
-            if let error = error {
-                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-                strongSelf.present(alertVC, animated: true, completion: nil)
-            } else {
-                strongSelf.isLogin = true
-                let profileVC = ProfileViewController()
-                strongSelf.navigationController?.pushViewController(profileVC, animated: false)
-            }
-        }
+        delegate.logIn(login: login, password: password, vc: self)
     }
     
     // Sign in button action
@@ -294,20 +281,8 @@ extension LoginViewController {
         
         guard let login = loginTF.text else { return }
         guard let password = passwordTF.text else { return }
+        guard let delegate = delegate else { return }
         
-        Auth.auth().createUser(withEmail: login, password: password) { result, error in
-           // обработка ошибок
-            if let error = error {
-                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-                self.present(alertVC, animated: true, completion: nil)
-            } else {
-                let alertVC = UIAlertController(title: "Поздравляем!", message: "аккаунт успешно зарегистрирован", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-                self.present(alertVC, animated: true, completion: nil)
-            }
-        }
+        delegate.signIn(login: login, password: password, vc: self)
     }
 }

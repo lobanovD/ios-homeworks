@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
-protocol LoginViewControllerDelegate{
-    func check(login: String, password: String) -> Bool
+protocol LoginViewControllerDelegate {
+    func signIn(login: String, password: String, vc: UIViewController) -> Void
+    func logIn(login: String, password: String, vc: UIViewController) -> Void
 }

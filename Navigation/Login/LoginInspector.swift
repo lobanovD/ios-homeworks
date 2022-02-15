@@ -6,17 +6,49 @@
 //
 
 import Foundation
+import FirebaseAuth
+import UIKit
 
 class LoginInspector: LoginViewControllerDelegate {
+    
+    
+    func signIn(login: String, password: String, vc: UIViewController) -> Void {
+        Auth.auth().createUser(withEmail: login, password: password) { result, error in
+            // обработка ошибок
+            
+            
+            if let error = error {
+                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
+                
+                vc.present(alertVC, animated: true, completion: nil)
+            } else {
+                let alertVC = UIAlertController(title: "Поздравляем!", message: "аккаунт успешно зарегистрирован", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
 
-    func check(login: String, password: String) -> Bool {
-        let data = LoginChecker.shared.check(login: login, password: password)
-        if data {
-            print("Такой пользователь существует")
-            return true
-        } else {
-            print("Такого пользователя не существует")
-            return false
+                vc.present(alertVC, animated: true, completion: nil)
+            }
         }
+    }
+    
+    func logIn(login: String, password: String, vc: UIViewController) -> Void {
+        
+        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
+            guard self != nil else { return }
+            
+            // обработка ошибок
+            if let error = error {
+                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                alertVC.addAction(action)
+                vc.present(alertVC, animated: true, completion: nil)
+            } else {
+                let profileVC = ProfileViewController()
+                vc.navigationController?.pushViewController(profileVC, animated: false)
+            }
+        }
+        
     }
 }
