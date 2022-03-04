@@ -11,44 +11,30 @@ import UIKit
 
 class LoginInspector: LoginViewControllerDelegate {
     
-    
-    func signIn(login: String, password: String, vc: UIViewController) -> Void {
+    func signIn(login: String, password: String) {
+        
         Auth.auth().createUser(withEmail: login, password: password) { result, error in
-            // обработка ошибок
-            
             
             if let error = error {
-                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-                
-                vc.present(alertVC, animated: true, completion: nil)
+                LoginViewController.signInError = error.localizedDescription
+                NotificationCenter.default.post(name: Notification.Name("signInError"), object: nil)
             } else {
-                let alertVC = UIAlertController(title: "Поздравляем!", message: "аккаунт успешно зарегистрирован", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-
-                vc.present(alertVC, animated: true, completion: nil)
+                NotificationCenter.default.post(name: Notification.Name("signInSuccess"), object: nil)
             }
         }
     }
     
-    func logIn(login: String, password: String, vc: UIViewController) -> Void {
+    
+    func logIn(login: String, password: String) {
         
-        Auth.auth().signIn(withEmail: login, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
+        Auth.auth().signIn(withEmail: login, password: password) { authResult, error in
             
-            // обработка ошибок
             if let error = error {
-                let alertVC = UIAlertController(title: "Ошибка", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-                alertVC.addAction(action)
-                vc.present(alertVC, animated: true, completion: nil)
+                LoginViewController.logInError = error.localizedDescription
+                NotificationCenter.default.post(name: Notification.Name("logInError"), object: nil)
             } else {
-                let profileVC = ProfileViewController()
-                vc.navigationController?.pushViewController(profileVC, animated: false)
+                NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
             }
         }
-        
     }
 }
