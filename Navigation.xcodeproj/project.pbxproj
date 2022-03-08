@@ -33,6 +33,7 @@
 		287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DB27274CF700A9E426 /* LoginInspector.swift */; };
 		287F34DE2727781400A9E426 /* LoginFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DD2727781300A9E426 /* LoginFactoryProtocol.swift */; };
 		287F34E0272778D300A9E426 /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F34DF272778D300A9E426 /* MyLoginFactory.swift */; };
+		288E281C27D56D7500E0F2E8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E281B27D56D7400E0F2E8 /* UserModel.swift */; };
 		28C09CBC26EFFC3A00062B83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CBB26EFFC3A00062B83 /* Constants.swift */; };
 		28C09CBE26F00C9300062B83 /* PhotosArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CBD26F00C9300062B83 /* PhotosArray.swift */; };
 		28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */; };
@@ -98,6 +99,7 @@
 		287F34DB27274CF700A9E426 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		287F34DD2727781300A9E426 /* LoginFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactoryProtocol.swift; sourceTree = "<group>"; };
 		287F34DF272778D300A9E426 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
+		288E281B27D56D7400E0F2E8 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		28C09CBB26EFFC3A00062B83 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		28C09CBD26F00C9300062B83 /* PhotosArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosArray.swift; sourceTree = "<group>"; };
 		28C09CC026F00F2000062B83 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				287F34DB27274CF700A9E426 /* LoginInspector.swift */,
 				287F34DD2727781300A9E426 /* LoginFactoryProtocol.swift */,
 				287F34DF272778D300A9E426 /* MyLoginFactory.swift */,
+				288E281B27D56D7400E0F2E8 /* UserModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				28763D422739E61700826191 /* MyCustomButton.swift in Sources */,
 				28C09CC526F1215900062B83 /* PhotoViewController.swift in Sources */,
 				28C09CC326F11EFF00062B83 /* Extension.swift in Sources */,
+				288E281C27D56D7500E0F2E8 /* UserModel.swift in Sources */,
 				287F34D82727480100A9E426 /* LoginChecker.swift in Sources */,
 				28763D402739DED700826191 /* MyCustomTextField.swift in Sources */,
 				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,

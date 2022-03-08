@@ -10,6 +10,7 @@ target 'Navigation' do
 pod 'SnapKit', '~> 5.0.0'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
+pod 'RealmSwift'
 end
 
 target 'StorageService' do
