@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: VC
         let feedVC = FeedViewController()
         let logInVC = LoginViewController()
+        let favouritePostsVC = FavouritePostsVC()
 
         let factory = MyLoginFactory()
         let inspector = factory.createLoginInspector()
@@ -31,18 +32,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: Navigation VC
         let profileNavigationVC = UINavigationController(rootViewController: logInVC)
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
+        let favouritePostsNavigationVC = UINavigationController(rootViewController: favouritePostsVC)
         
         
         // MARK: Иконки и текст TabBarItems для NavigationVC
         logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
+        favouritePostsNavigationVC.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "suit.heart.fill"), tag: 0)
         
         
         // MARK: TabBar
         let tabBar = UITabBarController()
         
         // помещаем в TabBar VC
-        tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
+        tabBar.viewControllers = [profileNavigationVC, feedNavigationVC, favouritePostsNavigationVC]
         
         // указываем с чего загружаться
         window.rootViewController = tabBar

@@ -20,6 +20,8 @@ class PostTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
+    
+    
     // MARK: UI elements
     /// Post title
     private lazy var postTitle: UILabel = {
@@ -87,30 +89,30 @@ extension PostTableViewCell {
         self.postImage.image = UIImage(named: image)
 
         // применяем рандомный фильтр к изображению
-        let randomInt = Int.random(in: 1...8)
-        let filter: ColorFilter?
+//        let randomInt = Int.random(in: 1...8)
+//        let filter: ColorFilter?
+//
+//        switch randomInt {
+//        case 1: filter = .posterize
+//        case 2: filter = .colorInvert
+//        case 3: filter = .transfer
+//        case 4: filter = .noir
+//        case 5: filter = .tonal
+//        case 6: filter = .process
+//        case 7: filter = .chrome
+//        case 8: filter = .fade
+//        default: filter = nil
+//        }
+//
+//        let processor = ImageProcessor()
+//        guard let filter = filter else { return }
+//        guard let image = postImage.image else { return }
 
-        switch randomInt {
-        case 1: filter = .posterize
-        case 2: filter = .colorInvert
-        case 3: filter = .transfer
-        case 4: filter = .noir
-        case 5: filter = .tonal
-        case 6: filter = .process
-        case 7: filter = .chrome
-        case 8: filter = .fade
-        default: filter = nil
-        }
+//        processor.processImage(sourceImage: image, filter: filter) { filteredImage in
+//            postImage.image = filteredImage
+//        }
 
-        let processor = ImageProcessor()
-        guard let filter = filter else { return }
-        guard let image = postImage.image else { return }
-
-        processor.processImage(sourceImage: image, filter: filter) { filteredImage in
-            postImage.image = filteredImage
-        }
-
-        print("К изображению поста \(String(describing: postTitle.text)) применен фильтр \(filter)")
+//        print("К изображению поста \(String(describing: postTitle.text)) применен фильтр \(filter)")
 
         self.postDescription.text = description
         self.postLikes.text = "Likes: \(likes)"

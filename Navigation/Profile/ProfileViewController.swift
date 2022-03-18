@@ -11,6 +11,8 @@ import StorageService
 class ProfileViewController: UIViewController {
 
     var login: String?
+    
+    var cellIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class ProfileViewController: UIViewController {
         ProfileViewController.postTableView.delegate = self
         ProfileViewController.postTableView.refreshControl = UIRefreshControl()
         ProfileViewController.postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
-        timer()
+//        timer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +71,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                description: postArray[indexPath.row].description,
                                likes: postArray[indexPath.row].likes,
                                views: postArray[indexPath.row].views)
+            let doubleTap = UITapGestureRecognizer()
+            doubleTap.numberOfTapsRequired = 2
+            cellIndex = indexPath.row
+            doubleTap.addTarget(self, action: #selector(doubleTapped))
+            cell.addGestureRecognizer(doubleTap)
             return cell
         } else {
             let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifire, for: indexPath) as! PhotoTableViewCell
@@ -78,12 +85,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    @objc func doubleTapped() {
+        CoreDataManager.shared.addPostInFavourite(postIndex: self.cellIndex)
+                    NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
+
+    }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let photoVC = PhotoViewController()
             navigationController?.pushViewController(photoVC, animated: true)
+        } else {
+            
+            }
+            
+            
         }
-    }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
