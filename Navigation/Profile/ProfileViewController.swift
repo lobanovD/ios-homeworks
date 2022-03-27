@@ -9,23 +9,23 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
-
+    
     var login: String?
     
     var cellIndex = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
-
+        
         view.addSubview(ProfileViewController.postTableView)
         setupConstraints()
         ProfileViewController.postTableView.dataSource = self
         ProfileViewController.postTableView.delegate = self
         ProfileViewController.postTableView.refreshControl = UIRefreshControl()
         ProfileViewController.postTableView.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
-//        timer()
+        //        timer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +65,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 1 {
             let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
-
+            
             cell.configureCell(title: postArray[indexPath.row].title,
                                image: postArray[indexPath.row].image,
                                description: postArray[indexPath.row].description,
@@ -87,8 +87,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func doubleTapped() {
         CoreDataManager.shared.addPostInFavourite(postIndex: self.cellIndex)
-                    NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
-
+        NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
+        
     }
     
     
@@ -98,10 +98,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(photoVC, animated: true)
         } else {
             
-            }
-            
-            
         }
+        
+        
+    }
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -136,8 +136,8 @@ extension ProfileViewController {
         ProfileViewController.postTableView.refreshControl?.endRefreshing()
         print("данные успешно обновлены")
     }
-
-
+    
+    
     /// Setup constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -153,12 +153,12 @@ extension ProfileViewController {
         let photoVC = PhotoViewController()
         self.navigationController?.pushViewController(photoVC, animated: true)
     }
-
+    
     // метод таймера
     private func timer() {
         var timerData = 20
         ProfileHeaderView.timerLabel.text = "\(timerData)"
-
+        
         DispatchQueue.global().async {
             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 timerData -= 1
