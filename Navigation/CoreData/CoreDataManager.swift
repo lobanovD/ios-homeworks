@@ -38,22 +38,27 @@ class CoreDataManager {
     
     // метод сохранения поста в избранное
     func addPostInFavourite(postIndex: Int) {
-        
-        if let newFavouritePost = NSEntityDescription.insertNewObject(forEntityName: "FavouritePosts", into: context) as? FavouritePosts {
-            newFavouritePost.post_id = UUID()
-            newFavouritePost.post_title = postArray[postIndex].title
-            newFavouritePost.post_image = postArray[postIndex].image
-            newFavouritePost.post_description = postArray[postIndex].description
-            newFavouritePost.post_likes = Int16(postArray[postIndex].likes)
-            newFavouritePost.post_views = Int16(postArray[postIndex].views)
-        } else {
-            fatalError()
-        }
-        
-        do {
-            try context.save()
-        } catch {
-            print(error)
+         
+        context.perform { [weak self] in
+            
+            guard let self = self else { return }
+            
+            if let newFavouritePost = NSEntityDescription.insertNewObject(forEntityName: "FavouritePosts", into: self.context) as? FavouritePosts {
+                newFavouritePost.post_id = UUID()
+                newFavouritePost.post_title = postArray[postIndex].title
+                newFavouritePost.post_image = postArray[postIndex].image
+                newFavouritePost.post_description = postArray[postIndex].description
+                newFavouritePost.post_likes = Int16(postArray[postIndex].likes)
+                newFavouritePost.post_views = Int16(postArray[postIndex].views)
+            } else {
+                fatalError()
+            }
+            
+            do {
+                try self.context.save()
+            } catch {
+                print(error)
+            }
         }
     }
     
