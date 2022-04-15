@@ -71,9 +71,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                description: postArray[indexPath.row].description,
                                likes: postArray[indexPath.row].likes,
                                views: postArray[indexPath.row].views)
+            cell.tag = indexPath.row
             let doubleTap = UITapGestureRecognizer()
             doubleTap.numberOfTapsRequired = 2
-            cellIndex = indexPath.row
+//            cellIndex = indexPath.row
+            
             doubleTap.addTarget(self, action: #selector(doubleTapped))
             cell.addGestureRecognizer(doubleTap)
             return cell
@@ -86,6 +88,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func doubleTapped() {
+        
+        print(cellIndex)
         CoreDataManager.shared.addPostInFavourite(postIndex: self.cellIndex)
         NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
         
@@ -97,6 +101,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let photoVC = PhotoViewController()
             navigationController?.pushViewController(photoVC, animated: true)
         } else {
+            
+            self.cellIndex = indexPath.row
             
         }
         
