@@ -98,6 +98,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(photoVC, animated: true)
         } else {
             
+            self.cellIndex = indexPath.row
+            
             }
             
             
