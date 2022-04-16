@@ -23,7 +23,6 @@ class FavouritePostsVC: UIViewController {
     
     
     @objc func updateFavouritePosts() {
-        print(11)
         CoreDataManager.shared.getPostFromFavourite()
         self.favouritePostsTableView.reloadData()
         self.favouritePostsTableView.refreshControl?.endRefreshing()
