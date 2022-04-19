@@ -62,4 +62,18 @@ extension FavouritePostsVC: UITableViewDelegate, UITableViewDataSource {
                            views: CoreDataManager.favouritePostsArray[indexPath.row].views)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let action = UIContextualAction(style: .destructive, title: "Delete", handler: { (_, _, completionHandler) in
+            completionHandler(true)
+            
+            CoreDataManager.shared.deletePostFromFavourite(postIndex: indexPath.row)
+            
+        })
+        
+     
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }

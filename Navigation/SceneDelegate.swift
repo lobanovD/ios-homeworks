@@ -34,6 +34,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         let favouritePostsNavigationVC = UINavigationController(rootViewController: favouritePostsVC)
         
+        let addFilterFavouritePostsButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        
+        favouritePostsNavigationVC.navigationItem.leftBarButtonItem = addFilterFavouritePostsButton
+        
         
         // MARK: Иконки и текст TabBarItems для NavigationVC
         logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)

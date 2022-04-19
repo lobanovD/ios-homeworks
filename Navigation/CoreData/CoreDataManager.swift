@@ -38,7 +38,7 @@ class CoreDataManager {
     
     // метод сохранения поста в избранное
     func addPostInFavourite(postIndex: Int) {
-         
+        
         context.perform { [weak self] in
             
             guard let self = self else { return }
@@ -56,9 +56,38 @@ class CoreDataManager {
             
             do {
                 try self.context.save()
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
+                }
+                
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    // метод удаления поста из избранного
+    func deletePostFromFavourite(postIndex: Int) {
+        
+        let fetchRequest = FavouritePosts.fetchRequest()
+        do {
+            let favouritePosts = try context.fetch(fetchRequest)
+            for i in favouritePosts.indices {
+                
+                if i == postIndex {
+                    context.delete(favouritePosts[i])
+                    
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
+                    }
+                }
+            }
+            
+            try context.save()
+            
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

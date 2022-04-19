@@ -13,7 +13,6 @@ public struct Post {
     public var image: String
     public var likes: Int
     public var views: Int
-    
 }
 
 

@@ -91,7 +91,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         print(cellIndex)
         CoreDataManager.shared.addPostInFavourite(postIndex: self.cellIndex)
-        NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
+//        NotificationCenter.default.post(name: Notification.Name("updateFavouritePosts"), object: nil)
         
     }
     
