@@ -72,6 +72,7 @@ extension FavouritePostsVC: UITableViewDelegate, UITableViewDataSource {
             
         })
         
+        
      
         
         return UISwipeActionsConfiguration(actions: [action])
