@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavouritePosts" representedClassName="FavouritePosts" syncable="YES" codeGenerationType="class">
+        <attribute name="post_author" optional="YES" attributeType="String"/>
         <attribute name="post_description" optional="YES" attributeType="String"/>
         <attribute name="post_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="post_image" optional="YES" attributeType="String"/>
         <attribute name="post_likes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="post_title" optional="YES" attributeType="String"/>
         <attribute name="post_views" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>

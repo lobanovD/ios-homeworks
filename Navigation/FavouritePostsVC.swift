@@ -9,20 +9,52 @@ import UIKit
 
 class FavouritePostsVC: UIViewController {
     
+    var author: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        CoreDataManager.shared.getPostFromFavourite()
+        CoreDataManager.shared.getPostsFromFavourite()
         view.addSubviews(favouritePostsTableView)
         setupConstraints()
         favouritePostsTableView.delegate = self
         favouritePostsTableView.dataSource = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFavouritePosts), name: NSNotification.Name.init(rawValue: "updateFavouritePosts"), object: nil)
+        
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem:.search, target: self, action: #selector(authorFilter))
+        navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem:.trash, target: self, action: #selector(updateFavouritePosts))
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func authorFilter() {
+        
+        let alertVC = UIAlertController(title: "Фильтр", message: "", preferredStyle: .alert)
+        alertVC.addTextField { [self] textField in
+            textField.placeholder = "Имя автора"
+            textField.addTarget(self, action: #selector(changeAuthorFilterTF(_:)), for: .editingChanged)
+        }
+        
+        let alertAction = UIAlertAction(title: "Применить", style: .default) { _ in
+            CoreDataManager.shared.getAuthorFilterPostsFromFavourite(author: self.author)
+            self.favouritePostsTableView.reloadData()
+            self.favouritePostsTableView.refreshControl?.endRefreshing()
+        }
+        
+        alertVC.addAction(alertAction)
+        
+        self.present(alertVC, animated: true)
+    }
+    
+    @objc func changeAuthorFilterTF(_ textField: UITextField) {
+        guard let authorTF = textField.text else { return }
+        author = authorTF
     }
     
     @objc func updateFavouritePosts() {
-        CoreDataManager.shared.getPostFromFavourite()
+        CoreDataManager.shared.getPostsFromFavourite()
         self.favouritePostsTableView.reloadData()
         self.favouritePostsTableView.refreshControl?.endRefreshing()
     }
@@ -54,7 +86,7 @@ extension FavouritePostsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favouritePostsTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
         
-        cell.configureCell(title: CoreDataManager.favouritePostsArray[indexPath.row].title,
+        cell.configureCell(title: CoreDataManager.favouritePostsArray[indexPath.row].author,
                            image: CoreDataManager.favouritePostsArray[indexPath.row].image,
                            description: CoreDataManager.favouritePostsArray[indexPath.row].description,
                            likes: CoreDataManager.favouritePostsArray[indexPath.row].likes,

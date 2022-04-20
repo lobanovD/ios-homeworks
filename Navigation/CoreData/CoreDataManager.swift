@@ -10,7 +10,7 @@ import CoreData
 import StorageService
 
 struct FavouritePost {
-    var title: String
+    var author: String
     var description: String
     var image: String
     var likes: Int
@@ -45,7 +45,7 @@ class CoreDataManager {
             
             if let newFavouritePost = NSEntityDescription.insertNewObject(forEntityName: "FavouritePosts", into: self.context) as? FavouritePosts {
                 newFavouritePost.post_id = UUID()
-                newFavouritePost.post_title = postArray[postIndex].author
+                newFavouritePost.post_author = postArray[postIndex].author
                 newFavouritePost.post_image = postArray[postIndex].image
                 newFavouritePost.post_description = postArray[postIndex].description
                 newFavouritePost.post_likes = Int16(postArray[postIndex].likes)
@@ -92,7 +92,7 @@ class CoreDataManager {
     }
     
     // метод получения
-    func getPostFromFavourite() {
+    func getPostsFromFavourite() {
         
         CoreDataManager.favouritePostsArray = []
         
@@ -104,11 +104,41 @@ class CoreDataManager {
             
             for i in favouritePosts {
                 
-                guard let post_title = i.post_title else { return }
+                guard let post_author = i.post_author else { return }
                 guard let post_description = i.post_description else { return }
                 guard let post_image = i.post_image else { return }
                 
-                let tempPost = FavouritePost(title: post_title, description: post_description, image: post_image, likes: Int(i.post_likes), views: Int(i.post_views))
+                let tempPost = FavouritePost(author: post_author, description: post_description, image: post_image, likes: Int(i.post_likes), views: Int(i.post_views))
+                
+                CoreDataManager.favouritePostsArray.append(tempPost)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    // метод получения с фильтром по автору
+    func getAuthorFilterPostsFromFavourite(author: String) {
+        
+        CoreDataManager.favouritePostsArray = []
+        
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(FavouritePosts.post_author), "\(author)" )
+        
+        do {
+            
+            let fetchRequest = FavouritePosts.fetchRequest()
+            fetchRequest.predicate = predicate
+            
+            let favouritePosts = try context.fetch(fetchRequest)
+            
+            for i in favouritePosts {
+                
+                guard let post_author = i.post_author else { return }
+                guard let post_description = i.post_description else { return }
+                guard let post_image = i.post_image else { return }
+                
+                let tempPost = FavouritePost(author: post_author, description: post_description, image: post_image, likes: Int(i.post_likes), views: Int(i.post_views))
                 
                 CoreDataManager.favouritePostsArray.append(tempPost)
             }
