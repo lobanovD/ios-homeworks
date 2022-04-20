@@ -8,7 +8,7 @@
 import UIKit
 
 class FavouritePostsVC: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -20,7 +20,6 @@ class FavouritePostsVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateFavouritePosts), name: NSNotification.Name.init(rawValue: "updateFavouritePosts"), object: nil)
     }
-    
     
     @objc func updateFavouritePosts() {
         CoreDataManager.shared.getPostFromFavourite()
@@ -54,7 +53,7 @@ extension FavouritePostsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favouritePostsTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
-
+        
         cell.configureCell(title: CoreDataManager.favouritePostsArray[indexPath.row].title,
                            image: CoreDataManager.favouritePostsArray[indexPath.row].image,
                            description: CoreDataManager.favouritePostsArray[indexPath.row].description,
@@ -71,10 +70,6 @@ extension FavouritePostsVC: UITableViewDelegate, UITableViewDataSource {
             CoreDataManager.shared.deletePostFromFavourite(postIndex: indexPath.row)
             
         })
-        
-        
-     
-        
         return UISwipeActionsConfiguration(actions: [action])
     }
 }
