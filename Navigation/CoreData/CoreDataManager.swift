@@ -45,7 +45,7 @@ class CoreDataManager {
             
             if let newFavouritePost = NSEntityDescription.insertNewObject(forEntityName: "FavouritePosts", into: self.context) as? FavouritePosts {
                 newFavouritePost.post_id = UUID()
-                newFavouritePost.post_title = postArray[postIndex].title
+                newFavouritePost.post_title = postArray[postIndex].author
                 newFavouritePost.post_image = postArray[postIndex].image
                 newFavouritePost.post_description = postArray[postIndex].description
                 newFavouritePost.post_likes = Int16(postArray[postIndex].likes)

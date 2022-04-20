@@ -16,21 +16,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-
-
+        
+        
         
         // MARK: VC
         let feedVC = FeedViewController()
         let logInVC = LoginViewController()
         let favouritePostsVC = FavouritePostsVC()
-
+        let profileVC = ProfileViewController()
+        
         let factory = MyLoginFactory()
         let inspector = factory.createLoginInspector()
         logInVC.delegate = inspector
         
         
         // MARK: Navigation VC
-        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
+        
+        var profileNavigationVC = UINavigationController()
+        if UserDefaults.standard.bool(forKey: "isLogin") {
+            profileNavigationVC = UINavigationController(rootViewController: profileVC)
+        } else {
+            profileNavigationVC = UINavigationController(rootViewController: logInVC)
+        }
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         let favouritePostsNavigationVC = UINavigationController(rootViewController: favouritePostsVC)
         
@@ -41,6 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: Иконки и текст TabBarItems для NavigationVC
         logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
         favouritePostsNavigationVC.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "suit.heart.fill"), tag: 0)
         
@@ -53,13 +61,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // указываем с чего загружаться
         window.rootViewController = tabBar
-//        let profileVC = ProfileViewController()
-//        window.rootViewController = profileVC
-
+        //        let profileVC = ProfileViewController()
+        //        window.rootViewController = profileVC
+        
         // генерируем массив фотографий
-            createPhotosArray()
-
-
+        createPhotosArray()
+        
+        
         window.makeKeyAndVisible()
         self.window = window
         

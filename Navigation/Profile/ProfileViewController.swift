@@ -66,7 +66,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 1 {
             let cell = ProfileViewController.postTableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
             
-            cell.configureCell(title: postArray[indexPath.row].title,
+            cell.configureCell(title: postArray[indexPath.row].author,
                                image: postArray[indexPath.row].image,
                                description: postArray[indexPath.row].description,
                                likes: postArray[indexPath.row].likes,

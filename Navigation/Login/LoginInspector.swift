@@ -73,6 +73,7 @@ class LoginInspector: LoginViewControllerDelegate {
                 
                 NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
                 
+                
             } else {
                 // пароль неверный
                 NotificationCenter.default.post(name: Notification.Name("passwordIsWrong"), object: nil)
