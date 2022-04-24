@@ -19,19 +19,32 @@ class LoginInspector: LoginViewControllerDelegate {
         newUser.password = password
         newUser.isLogin = false
         
-        let realm = try! Realm()
+        guard let key = UserDefaults.standard.object(forKey: "RealmKey") else { return }
         
-        // проверка, существует ли пользователь
-        let currentUser = realm.objects(Users.self).filter("login == '\(login)'").first
+        let config = Realm.Configuration(encryptionKey: (key as! Data))
         
-        if currentUser == nil {
-            try! realm.write {
-                realm.add(newUser)
-                NotificationCenter.default.post(name: Notification.Name("signInSuccess"), object: nil)
+        do {
+            
+            let realm = try Realm(configuration: config)
+            
+            // проверка, существует ли пользователь
+            let currentUser = realm.objects(Users.self).filter("login == '\(login)'").first
+            
+            if currentUser == nil {
+                try! realm.write {
+                    realm.add(newUser)
+                    NotificationCenter.default.post(name: Notification.Name("signInSuccess"), object: nil)
+                }
+            } else {
+                NotificationCenter.default.post(name: Notification.Name("userExists"), object: nil)
             }
-        } else {
-            NotificationCenter.default.post(name: Notification.Name("userExists"), object: nil)
+            
+        } catch {
+            fatalError("Error opening realm: \(error.localizedDescription)")
         }
+        
+        
+     
         
         //        print(Realm.Configuration.defaultConfiguration.fileURL)
         /* Finish Realm Auth */
@@ -53,31 +66,45 @@ class LoginInspector: LoginViewControllerDelegate {
     func logIn(login: String, password: String) {
         
         /* Real Auth */
-        let realm = try! Realm()
         
-        let currentUser = realm.objects(Users.self).filter("login == '\(login)'").first
+        guard let key = UserDefaults.standard.object(forKey: "RealmKey") else { return }
         
-        if currentUser == nil {
-            // пользователя не существует
-            print(1)
-            NotificationCenter.default.post(name: Notification.Name("userNotExists"), object: nil)
-        } else {
-            // пользователь существует
-            if currentUser?.password == password {
-                // пароль верный
-                try! realm.write {
-                    currentUser?.isLogin = true
-                }
-                
-                UserDefaults.standard.set(true, forKey: "isLogin")
-                
-                NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
-                
+        let config = Realm.Configuration(encryptionKey: (key as! Data))
+      
+        do {
+        
+            let realm = try Realm(configuration: config)
+            
+            let currentUser = realm.objects(Users.self).filter("login == '\(login)'").first
+            
+            if currentUser == nil {
+                // пользователя не существует
+                print(1)
+                NotificationCenter.default.post(name: Notification.Name("userNotExists"), object: nil)
             } else {
-                // пароль неверный
-                NotificationCenter.default.post(name: Notification.Name("passwordIsWrong"), object: nil)
+                // пользователь существует
+                if currentUser?.password == password {
+                    // пароль верный
+                    try! realm.write {
+                        currentUser?.isLogin = true
+                    }
+                    
+                    UserDefaults.standard.set(true, forKey: "isLogin")
+                    
+                    NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
+                    
+                } else {
+                    // пароль неверный
+                    NotificationCenter.default.post(name: Notification.Name("passwordIsWrong"), object: nil)
+                }
             }
+        } catch {
+                    fatalError("Error opening realm: \(error.localizedDescription)")
+                }
+            
         }
+       
+        
         
         /* Finish Realm Auth */
         
@@ -93,4 +120,4 @@ class LoginInspector: LoginViewControllerDelegate {
          //        }
          */
     }
-}
+

@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
         
         // указываем с чего загружаться
-        window.rootViewController = tabBar
+        window.rootViewController = logInVC
 //        let profileVC = ProfileViewController()
 //        window.rootViewController = profileVC
 

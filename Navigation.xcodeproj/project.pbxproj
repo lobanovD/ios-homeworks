@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A50D2FF28160B2700DCAE20 /* RealmEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50D2FE28160B2700DCAE20 /* RealmEncrypt.swift */; };
 		280EAB412715C52400FD0558 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 280EAB402715C52400FD0558 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		280EAB442715C52400FD0558 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; };
 		280EAB452715C52400FD0558 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -72,6 +73,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A50D2FE28160B2700DCAE20 /* RealmEncrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEncrypt.swift; sourceTree = "<group>"; };
 		1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB3E2715C52400FD0558 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB402715C52400FD0558 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				28C4B18026E4DC3000A799EA /* LoginViewController.swift */,
+				1A50D2FE28160B2700DCAE20 /* RealmEncrypt.swift */,
 				287F34D72727480100A9E426 /* LoginChecker.swift */,
 				287F34D9272748D900A9E426 /* LoginViewControllerDelegate.swift */,
 				287F34DB27274CF700A9E426 /* LoginInspector.swift */,
@@ -471,6 +474,7 @@
 				288E281C27D56D7500E0F2E8 /* UserModel.swift in Sources */,
 				287F34D82727480100A9E426 /* LoginChecker.swift in Sources */,
 				28763D402739DED700826191 /* MyCustomTextField.swift in Sources */,
+				1A50D2FF28160B2700DCAE20 /* RealmEncrypt.swift in Sources */,
 				287F34DC27274CF700A9E426 /* LoginInspector.swift in Sources */,
 				28C09CC126F00F2000062B83 /* PhotoTableViewCell.swift in Sources */,
 				2865233C26E7E7CD00B8DCA7 /* PostTableViewCell.swift in Sources */,
