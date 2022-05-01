@@ -31,7 +31,7 @@ class LoginInspector: LoginViewControllerDelegate {
             let currentUser = realm.objects(Users.self).filter("login == '\(login)'").first
             
             if currentUser == nil {
-                try! realm.write {
+                try realm.write {
                     realm.add(newUser)
                     NotificationCenter.default.post(name: Notification.Name("signInSuccess"), object: nil)
                 }
