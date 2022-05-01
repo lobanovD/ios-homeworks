@@ -6,90 +6,197 @@
 //
 
 import UIKit
+import MapKit
 
 class FeedViewController: UIViewController {
     
-    var passwordText: String = ""
-    
-    private lazy var firstButton: CustomButton = {
-        var firstButton = CustomButton(title: "First Button", titleColor: .red) {
-            let postVC = PostViewController()
-            self.navigationController?.pushViewController(postVC, animated: true)
-            postVC.postTitle = "First Button"
-        }
-        return firstButton
-    }()
-    
-    private lazy var secondButton: CustomButton = {
-        var secondButton = CustomButton(title: "Second Button", titleColor: .yellow) {
-            let postVC = PostViewController()
-            self.navigationController?.pushViewController(postVC, animated: true)
-            postVC.postTitle = "Second Button"
-        }
-        return secondButton
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        var stackView = UIStackView()
-        stackView.toAutoLayout()
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.backgroundColor = .lightGray
-        return stackView
-    }()
-    
-    var myCustomTF: MyCustomTextField = {
-        let myCustomTF = MyCustomTextField {}
-        return myCustomTF
-    }()
-    
-    private lazy var passwordCheckButton: MyCustomButton = {
-        var passwordCheckButton = MyCustomButton {}
-        return passwordCheckButton
-    }()
-    
-    lazy var stateLabel: UILabel = {
-        let stateLabel = UILabel()
-        stateLabel.isHidden = true
-        return stateLabel
-    }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Feed"
-        self.view.addSubview(stackView)
-        stackView.addArrangedSubviews(firstButton, secondButton, myCustomTF, passwordCheckButton, stateLabel)
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
+        self.title = "Map"
         view.backgroundColor = .white
+        
+        locationManager.delegate = self
+        
+        view.addSubview(mapView)
         setupConstraints()
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(passwordIsRight), name: Notification.Name("passwordIsRight"), object: nil)
-        nc.addObserver(self, selector: #selector(passwordIsNotRight), name: Notification.Name("passwordIsNotRight"), object: nil)
-
+        configureMap()
+        checkUserLocationPermission()
+        createPin(title: "Custom Pin", coordinate: CLLocationCoordinate2D(latitude: 55.581705, longitude: 37.1046726))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPins))
+       
+        
     }
 
-    @objc
-    private func passwordIsRight() {
-        stateLabel.text = "Пароль верный"
-        stateLabel.textColor = .green
-        stateLabel.isHidden = false
-    }
-
-    @objc
-    private func passwordIsNotRight() {
-        stateLabel.text = "Пароль неверный"
-        stateLabel.textColor = .red
-        stateLabel.isHidden = false
+    // MARK: Свойства
+    
+    // Свойство для хранения координат пользователя
+    private lazy var myCoordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    
+    // Карта
+    private lazy var mapView:MKMapView = {
+        let mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.delegate = self
+        return mapView
+    }()
+    
+    // LocationManager
+    private lazy var locationManager = CLLocationManager()
+    
+    
+    
+    // MARK: Методы
+    
+    // Метод удаления всех пинов с карты
+    @objc private func removeAllPins() {
+        self.mapView.removeAnnotations(mapView.annotations)
+        self.mapView.removeOverlays(mapView.overlays)
     }
     
+    // Метод построения маршрута
+    private func addRoute(sourceLocation: CLLocationCoordinate2D, destinationLocation:CLLocationCoordinate2D) {
+               
+        let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
+        let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
+        
+        let directionRequest = MKDirections.Request()
+        
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        
+        directionRequest.transportType = .walking
+        
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate { [self] (responce, error) in
+            guard let directionsResponce = responce else {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                return
+            }
+            let route = directionsResponce.routes[0]
+            self.mapView.removeOverlays(mapView.overlays)
+            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
+    }
+    
+
+    
+    // Метод настройки внешнего вида карты
+    private func configureMap() {
+        // тип карты
+        mapView.mapType = .standard
+        addPinGesture()
+    }
+    
+    // Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 1.1),
-            stackView.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 4),
+            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    // Метод, проверяющий уровень разрешения к геолокации пользователя
+    private func checkUserLocationPermission() {
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = 10
+        locationManager.startUpdatingLocation()
+        
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedAlways, .authorizedWhenInUse:
+            mapView.showsUserLocation = true
+        case .denied, .restricted:
+            print("Необходимо изменить настройки")
+        default:
+            print("Неизвестный статус")
+        }
+    }
+    
+    // Метод, создающий пин на карте по координатам
+    private func createPin(title: String, coordinate: CLLocationCoordinate2D) {
+        let pin = MKPointAnnotation()
+        pin.title = title
+        pin.coordinate = coordinate
+        mapView.addAnnotation(pin)
+    }
+
+    // Метод, добавляющий пин на карту по длительному нажатию в нужное место
+    private func addPinGesture() {
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(tapOnMap(gestureRecognizer:)))
+        longTap.minimumPressDuration = 1.0
+        mapView.addGestureRecognizer(longTap)
+    }
+    
+    @objc private func tapOnMap(gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        let point = gestureRecognizer.location(in: mapView)
+        let coordinates = mapView.convert(point, toCoordinateFrom: mapView)
+        
+        let alertVC = UIAlertController(title: "Введите описание", message: "", preferredStyle: .alert)
+        
+        let alertAction = UIAlertAction(title: "Применить", style: .default) { _ in
+            guard let title = alertVC.textFields?.first?.text else { return }
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates
+            annotation.title = "\(title)\n\(coordinates.latitude)\n\(coordinates.longitude)"
+            self.mapView.addAnnotation(annotation)
+        }
+        
+        alertVC.addTextField()
+        alertVC.addAction(alertAction)
+        self.present(alertVC, animated: true)
+    }
+    
+  
 }
+
+// MARK: Extensions
+
+extension FeedViewController: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkUserLocationPermission()
+    }
+    
+    // Метод, срабатывающий при обновлении геолокации более чем на 20 метров
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let location = locations.first else { return }
+        
+        manager.distanceFilter = 20
+        
+        self.mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
+    
+        self.myCoordinates = location.coordinate
+    }
+}
+
+extension FeedViewController: MKMapViewDelegate {
+
+    // Метод настройки внешнего вида маршрута
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = .green
+        renderer.lineWidth = 4
+        return renderer
+    }
+    
+    // Метод, срабатывающий при нажатии на пин
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let viewCoordinates = view.annotation?.coordinate else { return }
+        addRoute(sourceLocation: self.myCoordinates, destinationLocation: viewCoordinates)
+    }
+}
+
+ 
+
