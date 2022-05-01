@@ -79,13 +79,12 @@ class LoginInspector: LoginViewControllerDelegate {
             
             if currentUser == nil {
                 // пользователя не существует
-                print(1)
                 NotificationCenter.default.post(name: Notification.Name("userNotExists"), object: nil)
             } else {
                 // пользователь существует
                 if currentUser?.password == password {
                     // пароль верный
-                    try! realm.write {
+                    try realm.write {
                         currentUser?.isLogin = true
                     }
                     

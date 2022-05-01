@@ -62,6 +62,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @objc func logInSuccess() {
         let profileVC = ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: false)
+        let loginVC = LoginViewController()
+        loginVC.dismiss(animated: true)
     }
     
     @objc func signInError() {
