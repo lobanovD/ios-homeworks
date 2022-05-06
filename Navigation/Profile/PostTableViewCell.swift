@@ -110,11 +110,13 @@ extension PostTableViewCell {
             postImage.image = filteredImage
         }
 
-        print("К изображению поста \(String(describing: postTitle.text)) применен фильтр \(filter)")
+        //print("К изображению поста \(String(describing: postTitle.text)) применен фильтр \(filter)")
 
         self.postDescription.text = description
+        
         self.postLikes.text = "Likes: \(likes)"
-        self.postViews.text = "Views: \(views)"
+        let viewsLableText = "views_lable_text".localized(file: "Localizable_ProfileView")
+        self.postViews.text = "\(viewsLableText) : \(views)"
     }
     
     /// Setup constraints

@@ -1,0 +1,10 @@
+/* 
+  Localizable_Map.strings
+  Navigation
+
+  Created by Dmitrii Lobanov on 07.05.2022.
+  
+*/
+
+"new_pin_alert_title" = "Введите описание";
+"new_pin_alert_button" = "Применить";

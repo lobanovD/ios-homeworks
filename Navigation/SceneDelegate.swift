@@ -34,8 +34,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         // MARK: Иконки и текст TabBarItems для NavigationVC
-        logInVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 0)
-        feedNavigationVC.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "note.text"), tag: 0)
+        
+        let loginVCTabbarTitle = "login_vc_tabbar_title".localized(file: "Localizable_TabBar")
+        let feedVCTabbarTitle = "feed_vc_tabbar_title".localized(file: "Localizable_TabBar")
+        
+        logInVC.tabBarItem = UITabBarItem(title: loginVCTabbarTitle, image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        feedNavigationVC.tabBarItem = UITabBarItem(title: feedVCTabbarTitle, image: UIImage(systemName: "note.text"), tag: 0)
         
         
         // MARK: TabBar

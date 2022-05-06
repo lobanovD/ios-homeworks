@@ -30,6 +30,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
         
+
+        addNotification()
+        
+        // проверка состояния логина при запуске
+        isLogin = UserDefaults.standard.bool(forKey: "isLogin")
+        if isLogin {
+            NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
+        }
+    }
+    
+    @objc func logInError() {
+        if let logInError = LoginViewController.logInError {
+            let alertVC = UIAlertController(title: "Error", message: "\(String(describing: logInError))", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            alertVC.addAction(action)
+            self.present(alertVC, animated: true, completion: nil)
+        }
+    }
+    
+    private func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.signInError), name: Notification.Name("signInError"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.signInSuccess), name: Notification.Name("signInSuccess"), object: nil)
         
@@ -41,22 +61,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.userNotExists), name: Notification.Name("userNotExists"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.passwordIsWrong), name: Notification.Name("passwordIsWrong"), object: nil)
-        
-        
-        // проверка состояния логина при запуске
-        isLogin = UserDefaults.standard.bool(forKey: "isLogin")
-        if isLogin {
-            NotificationCenter.default.post(name: Notification.Name("logInSuccess"), object: nil)
-        }
-    }
-    
-    @objc func logInError() {
-        if let logInError = LoginViewController.logInError {
-            let alertVC = UIAlertController(title: "Ошибка", message: "\(String(describing: logInError))", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-        }
     }
     
     @objc func logInSuccess() {
@@ -76,8 +80,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func signInSuccess() {
-        let alertVC = UIAlertController(title: "Поздравляем!", message: "Аккаунт успешно зарегистрирован", preferredStyle: .alert)
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        let signInSuccesTitle = "sign_in_succes_allert_title".localized(file: "Localizable_LoginVC")
+        let signInSuccesMessage = "sign_in_succes_allert_message".localized(file: "Localizable_LoginVC")
+        let signInSuccesResult = "sign_in_succes_allert_result".localized(file: "Localizable_LoginVC")
+        let alertVC = UIAlertController(title: signInSuccesTitle, message: signInSuccesMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: signInSuccesResult, style: .default, handler: nil)
         alertVC.addAction(action)
         self.present(alertVC, animated: true, completion: nil)
         self.loginTF.text?.removeAll()
@@ -85,22 +92,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func userExists() {
-        let alertVC = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        let userExistAlertTitle = "user_exist_allert_title".localized(file: "Localizable_LoginVC")
+        let userExistAlertMessage = "user_exist_allert_message".localized(file: "Localizable_LoginVC")
+        let userExistAlertResult = "user_exist_allert_result".localized(file: "Localizable_LoginVC")
+        let alertVC = UIAlertController(title: userExistAlertTitle, message: userExistAlertMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: userExistAlertResult, style: .default, handler: nil)
         alertVC.addAction(action)
         self.present(alertVC, animated: true, completion: nil)
     }
     
     @objc func userNotExists() {
-        let alertVC = UIAlertController(title: "Ошибка", message: "Такого пользователя не существует!", preferredStyle: .alert)
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        let userNotExistAlertTitle = "user_not_exist_allert_title".localized(file: "Localizable_LoginVC")
+        let userNotExistAlertMessage = "user_not_exist_allert_message".localized(file: "Localizable_LoginVC")
+        let userNotExistAlertResult = "user_not_exist_allert_result".localized(file: "Localizable_LoginVC")
+        let alertVC = UIAlertController(title: userNotExistAlertTitle, message: userNotExistAlertMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: userNotExistAlertResult, style: .default, handler: nil)
         alertVC.addAction(action)
         self.present(alertVC, animated: true, completion: nil)
     }
     
     @objc func passwordIsWrong() {
-        let alertVC = UIAlertController(title: "Ошибка", message: "Пароль не верный!", preferredStyle: .alert)
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        let passwordIsWrongAlertTitle = "password_is_wrong_allert_title".localized(file: "Localizable_LoginVC")
+        let passwordIsWrongAlertMessage = "password_is_wrong_allert_message".localized(file: "Localizable_LoginVC")
+        let passwordIsWrongAlertResult = "password_is_wrong_allert_result".localized(file: "Localizable_LoginVC")
+        let alertVC = UIAlertController(title: passwordIsWrongAlertTitle, message: passwordIsWrongAlertMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: passwordIsWrongAlertResult, style: .default, handler: nil)
         alertVC.addAction(action)
         self.present(alertVC, animated: true, completion: nil)
     }
@@ -171,7 +187,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let loginTF = UITextField()
         loginTF.toAutoLayout()
         loginTF.leftViewMode = .always
-        loginTF.placeholder = "Email"
+        let placeholder = "email_placeholder".localized(file: "Localizable_LoginVC")
+        loginTF.placeholder = placeholder
         loginTF.layer.borderColor = UIColor.lightGray.cgColor
         loginTF.layer.borderWidth = 0.25
         loginTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: loginTF.frame.height))
@@ -188,7 +205,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let passwordTF = UITextField()
         passwordTF.toAutoLayout()
         passwordTF.leftViewMode = .always
-        passwordTF.placeholder = "Password"
+        let placeholder = "password_placeholder".localized(file: "Localizable_LoginVC")
+        passwordTF.placeholder = placeholder
         passwordTF.layer.borderColor = UIColor.lightGray.cgColor
         passwordTF.layer.borderWidth = 0.25
         passwordTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: passwordTF.frame.height))
@@ -213,7 +231,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .focused)
             loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
         }
-        loginButton.setTitle("Log In", for: .normal)
+        let title = "log_in".localized(file: "Localizable_LoginVC")
+        loginButton.setTitle(title, for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         loginButton.layer.cornerRadius = 10
@@ -235,8 +254,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
             
         }
-        
-        signInButton.setTitle("Sign in", for: .normal)
+        let title = "sign_in".localized(file: "Localizable_LoginVC")
+        signInButton.setTitle(title, for: .normal)
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         signInButton.layer.cornerRadius = 10
@@ -323,15 +342,21 @@ extension LoginViewController {
         
         // проверка на заполнение полей
         guard loginTF.text?.isEmpty == false else {
-            let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            let alertTitle = "no_login_error_title".localized(file: "Localizable_LoginVC")
+            let alertMessage = "no_login_error_message".localized(file: "Localizable_LoginVC")
+            let alertButtonText = "no_login_error_button_text".localized(file: "Localizable_LoginVC")
+            let alertVC = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let action = UIAlertAction(title: alertButtonText, style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
             return }
         
         guard passwordTF.text?.isEmpty == false else {
-            let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            let alertTitle = "no_password_error_title".localized(file: "Localizable_LoginVC")
+            let alertMessage = "no_password_error_message".localized(file: "Localizable_LoginVC")
+            let alertButtonText = "no_password_error_button_text".localized(file: "Localizable_LoginVC")
+            let alertVC = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let action = UIAlertAction(title: alertButtonText, style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
             return }
@@ -347,16 +372,20 @@ extension LoginViewController {
     @objc private func signInButtonPressed() {
         
         // проверка на заполнение полей
+        let checkEmptyFieldTitle = "check_empty_field_title".localized(file: "Localizable_LoginVC")
+        let checkEmptyFieldLoginMessage = "check_empty_field_login_message".localized(file: "Localizable_LoginVC")
+        let checkEmptyFieldPasswordMessage = "check_empty_field_password_message".localized(file: "Localizable_LoginVC")
+        let checkEmptyFieldResult = "check_empty_field_result".localized(file: "Localizable_LoginVC")
         guard loginTF.text?.isEmpty == false else {
-            let alertVC = UIAlertController(title: "Ошибка", message: "Введите логин!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            let alertVC = UIAlertController(title: checkEmptyFieldTitle, message: checkEmptyFieldLoginMessage, preferredStyle: .alert)
+            let action = UIAlertAction(title: checkEmptyFieldResult, style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
             return }
         
         guard passwordTF.text?.isEmpty == false else {
-            let alertVC = UIAlertController(title: "Ошибка", message: "Введите пароль!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
+            let alertVC = UIAlertController(title: checkEmptyFieldTitle, message: checkEmptyFieldPasswordMessage, preferredStyle: .alert)
+            let action = UIAlertAction(title: checkEmptyFieldResult, style: .default, handler: nil)
             alertVC.addAction(action)
             self.present(alertVC, animated: true, completion: nil)
             return }

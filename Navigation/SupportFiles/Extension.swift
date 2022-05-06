@@ -57,3 +57,10 @@ public extension UIView {
 }
 
 
+// MARK: String
+
+extension String {
+    func localized(file: String) -> String {
+        NSLocalizedString(self, tableName: file, bundle: Bundle.main, value: self, comment: "")
+    }
+}

@@ -1,0 +1,10 @@
+/* 
+  Localizable_TabBar.strings
+  Navigation
+
+  Created by Dmitrii Lobanov on 07.05.2022.
+  
+*/
+
+"login_vc_tabbar_title" = "Профиль";
+"feed_vc_tabbar_title" = "Карта";

@@ -22,7 +22,8 @@ class PhotoViewController: UIViewController {
         view.addSubview(photosCollection)
         setupConstraints()
         navigationController?.navigationBar.isHidden = false
-        self.title = "Photo Gallery"
+        let photoGalleryTitle = "photo_gallery_title".localized(file: "Localizable_ProfileView")
+        self.title = photoGalleryTitle
     }
 
     deinit {

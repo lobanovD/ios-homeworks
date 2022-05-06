@@ -12,9 +12,8 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Map"
         view.backgroundColor = .white
-        
+        self.title = "feed_vc_tabbar_title".localized(file: "Localizable_TabBar")
         locationManager.delegate = self
         
         view.addSubview(mapView)
@@ -142,13 +141,16 @@ class FeedViewController: UIViewController {
         let point = gestureRecognizer.location(in: mapView)
         let coordinates = mapView.convert(point, toCoordinateFrom: mapView)
         
-        let alertVC = UIAlertController(title: "Введите описание", message: "", preferredStyle: .alert)
+        let newPinAlertTitle = "new_pin_alert_title".localized(file: "Localizable_Map")
+        let newPinAlertButton = "new_pin_alert_button".localized(file: "Localizable_Map")
         
-        let alertAction = UIAlertAction(title: "Применить", style: .default) { _ in
+        let alertVC = UIAlertController(title: newPinAlertTitle, message: "", preferredStyle: .alert)
+        
+        let alertAction = UIAlertAction(title: newPinAlertButton, style: .default) { _ in
             guard let title = alertVC.textFields?.first?.text else { return }
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinates
-            annotation.title = "\(title)\n\(coordinates.latitude)\n\(coordinates.longitude)"
+            annotation.title = "\(title)"
             self.mapView.addAnnotation(annotation)
         }
         

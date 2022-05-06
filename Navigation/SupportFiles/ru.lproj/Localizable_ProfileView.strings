@@ -1,0 +1,13 @@
+/* 
+  Localizable_ProfileView.strings
+  Navigation
+
+  Created by Dmitrii Lobanov on 07.05.2022.
+  
+*/
+
+"set_status_text" = "Установить новый статус";
+"status_tf_placeholder_text" = "введите свой статус";
+"photos_lable_title" = "Фотографии";
+"photo_gallery_title" = "Галлерея фотографий";
+"views_lable_text" = "Просмотров";

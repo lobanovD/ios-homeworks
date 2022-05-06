@@ -25,7 +25,8 @@ class PhotoTableViewCell: UITableViewCell {
     /// Label
     private lazy var photosLabel: UILabel = {
         let photosLabel = UILabel()
-        photosLabel.text = "Photos"
+        let photosLableTitle = "photos_lable_title".localized(file: "Localizable_ProfileView")
+        photosLabel.text = photosLableTitle
         photosLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         photosLabel.textColor = .black
         photosLabel.toAutoLayout()

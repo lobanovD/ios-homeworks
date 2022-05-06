@@ -1,0 +1,38 @@
+/* 
+  Localizable_LoginVC.strings
+  Navigation
+
+  Created by Dmitrii Lobanov on 05.05.2022.
+  
+*/
+
+"email_placeholder" = "Введите почту";
+"password_placeholder" = "Введите пароль";
+"log_in" = "Войти";
+"sign_in" = "Зарегистрироваться";
+"no_login_error_title" = "Ошибка авторизации";
+"no_login_error_message" = "Введите логин!";
+"no_login_error_button_text" = "OК";
+"no_password_error_title" = "Ошибка";
+"no_password_error_message" = "Введите пароль!";
+"no_password_error_button_text" = "OК";
+"check_empty_field_title" = "Ошибка";
+"check_empty_field_login_message" = "Введите логин!";
+"check_empty_field_password_message" = "Введите пароль!";
+"check_empty_field_result" = "OК";
+
+"sign_in_succes_allert_title" = "Поздравляем!";
+"sign_in_succes_allert_message" = "Аккаунт зарегистрирован";
+"sign_in_succes_allert_result" = "ОК";
+
+"user_not_exist_allert_title" = "Ошибка";
+"user_not_exist_allert_message" = "Пользователь не существует";
+"user_not_exist_allert_result" = "ОК";
+
+"password_is_wrong_allert_title" = "Ошибка";
+"password_is_wrong_allert_message" = "Пароль неверный!";
+"password_is_wrong_allert_result" = "OК";
+
+"user_exist_allert_title" = "Ошибка";
+"user_exist_allert_message" = "Такой пользователь уже существует";
+"user_exist_allert_result" = "ОК";

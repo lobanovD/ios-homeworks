@@ -74,7 +74,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.layer.shadowRadius = 4
-        setStatusButton.setTitle("Set status", for: .normal)
+        let setStatusText = "set_status_text".localized(file: "Localizable_ProfileView")
+        setStatusButton.setTitle(setStatusText, for: .normal)
         setStatusButton.setTitleColor(.lightGray, for: .highlighted)
         setStatusButton.addTarget(self, action: #selector(setStatus), for: .touchUpInside)
         return setStatusButton
@@ -84,7 +85,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private(set) lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.toAutoLayout()
-        statusLabel.text = "Waiting for something"
+        statusLabel.text = ""
         statusLabel.numberOfLines = 2
         statusLabel.textColor = .gray
         statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -103,16 +104,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusTextField.textColor = .black
         statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
         statusTextField.leftViewMode = .always
-        statusTextField.placeholder = "Set status"
+        let statusTFPlaceholderText = "status_tf_placeholder_text".localized(file: "Localizable_ProfileView")
+        statusTextField.placeholder = statusTFPlaceholderText
         statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return statusTextField
-    }()
-
-    // Timer Label
-    static var timerLabel: UILabel = {
-        let timerLabel = UILabel()
-        timerLabel.text = "20"
-        return timerLabel
     }()
     
     // MARK: Init
@@ -123,7 +118,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Add Subviews
     func addView() {
-        contentView.addSubviews(fullNameLabel, setStatusButton, statusTextField, statusLabel, plagView, plagEscButton, avatarImageView, plagEscButton, ProfileHeaderView.timerLabel)
+        contentView.addSubviews(fullNameLabel, setStatusButton, statusTextField, statusLabel, plagView, plagEscButton, avatarImageView, plagEscButton)
         self.setupConstraints()
         
         
@@ -139,7 +134,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
 // MARK: Actions
 extension ProfileHeaderView {
     
-    /// Setup constraints
+    // Setup constraints
     private func setupConstraints() {
 
         avatarImageView.snp.makeConstraints { constraint in
@@ -180,20 +175,15 @@ extension ProfileHeaderView {
             constraint.width.equalTo(ProfileHeaderViewConstants.plagEscButtonWidth)
             constraint.height.equalTo(ProfileHeaderViewConstants.plagEscButtonHeight)
         }
-
-        ProfileHeaderView.timerLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(contentView.snp.top).offset(20)
-            constraint.right.equalTo(contentView.snp.right).offset(-30)
-        }
     }
     
-    /// TF Action
+    // TF Action
     @objc func statusTextChanged(_ textField: UITextField) {
         guard let text = textField.text else { return }
         statusText = text
     }
     
-    /// Button Action
+    // Button Action
     @objc func setStatus() {
         if statusLabel.text != nil && statusText != "" {
             statusLabel.text = statusText
@@ -202,7 +192,7 @@ extension ProfileHeaderView {
         }
     }
     
-    /// Avatar press action
+    // Avatar press action
     
     
     @objc func tapOnAvatar() {
@@ -224,7 +214,7 @@ extension ProfileHeaderView {
         })
     }
     
-    /// Plag View Esc Button Action
+    // Plag View Esc Button Action
     @objc func tapPlagEscButton() {
         UIImageView.animate(withDuration: 0.3,
                             animations: {

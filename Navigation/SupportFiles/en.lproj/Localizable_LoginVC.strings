@@ -1,0 +1,39 @@
+/* 
+  Localizable_LoginVC.strings
+  Navigation
+
+  Created by Dmitrii Lobanov on 05.05.2022.
+  
+*/
+
+"email_placeholder" = "Email";
+"password_placeholder" = "Password";
+"log_in" = "Log In";
+"sign_in" = "Sign in";
+"no_login_error_title" = "Login error";
+"no_login_error_message" = "Insert your login!";
+"no_login_error_button_text" = "Ok";
+"no_password_error_title" = "Password error";
+"no_password_error_message" = "Insert your password!";
+"no_password_error_button_text" = "Ok";
+"check_empty_field_title" = "Sig In error";
+"check_empty_field_login_message" = "Insert your login!";
+"check_empty_field_password_message" = "Insert your password!";
+"check_empty_field_result" = "Ok";
+
+"sign_in_succes_allert_title" = "Congratulation!";
+"sign_in_succes_allert_message" = "Account registered";
+"sign_in_succes_allert_result" = "Ok";
+
+"user_not_exist_allert_title" = "Error";
+"user_not_exist_allert_message" = "User doesn't exist!";
+"user_not_exist_allert_result" = "Ok";
+
+"password_is_wrong_allert_title" = "Error";
+"password_is_wrong_allert_message" = "Password is wrong!";
+"password_is_wrong_allert_result" = "Ok";
+
+"user_exist_allert_title" = "Error";
+"user_exist_allert_message" = "User already registered";
+"user_exist_allert_result" = "Ok";
+
