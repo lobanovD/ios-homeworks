@@ -129,6 +129,8 @@ class FeedViewController: UIViewController {
         mapView.addAnnotation(pin)
     }
 
+    
+    
     // Метод, добавляющий пин на карту по длительному нажатию в нужное место
     private func addPinGesture() {
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(tapOnMap(gestureRecognizer:)))
