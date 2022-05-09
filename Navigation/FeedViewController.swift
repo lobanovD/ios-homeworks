@@ -23,14 +23,16 @@ class FeedViewController: UIViewController {
         createPin(title: "Custom Pin", coordinate: CLLocationCoordinate2D(latitude: 55.581705, longitude: 37.1046726))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPins))
-       
-        
     }
 
     // MARK: Свойства
     
+    
     // Свойство для хранения координат пользователя
     private lazy var myCoordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    
+    // LocationManager
+    private lazy var locationManager = CLLocationManager()
     
     // Карта
     private lazy var mapView:MKMapView = {
@@ -39,11 +41,6 @@ class FeedViewController: UIViewController {
         mapView.delegate = self
         return mapView
     }()
-    
-    // LocationManager
-    private lazy var locationManager = CLLocationManager()
-    
-    
     
     // MARK: Методы
     
@@ -154,7 +151,6 @@ class FeedViewController: UIViewController {
             self.mapView.addAnnotation(annotation)
         }
         
-        
         alertVC.addTextField()
         alertVC.addAction(alertAction)
         self.present(alertVC, animated: true)
@@ -199,7 +195,5 @@ extension FeedViewController: MKMapViewDelegate {
         guard let viewCoordinates = view.annotation?.coordinate else { return }
         addRoute(sourceLocation: self.myCoordinates, destinationLocation: viewCoordinates)
     }
+    
 }
-
- 
-
