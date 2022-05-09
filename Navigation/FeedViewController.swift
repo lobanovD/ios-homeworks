@@ -121,20 +121,19 @@ class FeedViewController: UIViewController {
         }
     }
     
-
-    // Метод, добавляющий пин на карту по длительному нажатию в нужное место
-    private func addPinGesture() {
-        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(tapOnMap(gestureRecognizer:)))
-        longTap.minimumPressDuration = 1.0
-        mapView.addGestureRecognizer(longTap)
-    }
-    
     // Метод, создающий пин на карте по координатам
     private func createPin(title: String, coordinate: CLLocationCoordinate2D) {
         let pin = MKPointAnnotation()
         pin.title = title
         pin.coordinate = coordinate
         mapView.addAnnotation(pin)
+    }
+
+    // Метод, добавляющий пин на карту по длительному нажатию в нужное место
+    private func addPinGesture() {
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(tapOnMap(gestureRecognizer:)))
+        longTap.minimumPressDuration = 1.0
+        mapView.addGestureRecognizer(longTap)
     }
     
     @objc private func tapOnMap(gestureRecognizer: UILongPressGestureRecognizer) {
