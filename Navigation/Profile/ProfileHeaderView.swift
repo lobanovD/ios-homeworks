@@ -59,7 +59,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let fullNameLabel = UILabel()
         fullNameLabel.toAutoLayout()
         fullNameLabel.text = "Dmitriy Lobanov"
-        fullNameLabel.textColor = .black
+        fullNameLabel.textColor = ColorPallete.nameColor
         fullNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return fullNameLabel
     }()
@@ -68,7 +68,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private(set) lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
         setStatusButton.toAutoLayout()
-        setStatusButton.backgroundColor = UIColor.rgb(2, 122, 255, 1)
+        setStatusButton.backgroundColor = ColorPallete.button
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -87,7 +87,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusLabel.toAutoLayout()
         statusLabel.text = ""
         statusLabel.numberOfLines = 2
-        statusLabel.textColor = .gray
+        statusLabel.textColor = ColorPallete.TFText
         statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return statusLabel
     }()
@@ -99,9 +99,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.borderColor = UIColor.black.cgColor
         statusTextField.layer.cornerRadius = 12
-        statusTextField.backgroundColor = .white
+        statusTextField.backgroundColor = ColorPallete.textFieldBackground
         statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        statusTextField.textColor = .black
+        statusTextField.textColor = ColorPallete.TFText
+        statusTextField.tintColor = ColorPallete.TFCursor
         statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
         statusTextField.leftViewMode = .always
         let statusTFPlaceholderText = "status_tf_placeholder_text".localized(file: "Localizable_ProfileView")
@@ -120,6 +121,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     func addView() {
         contentView.addSubviews(fullNameLabel, setStatusButton, statusTextField, statusLabel, plagView, plagEscButton, avatarImageView, plagEscButton)
         self.setupConstraints()
+        
+        contentView.backgroundColor = ColorPallete.backgroundColor
         
         
     }

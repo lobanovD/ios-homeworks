@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: VC
         let feedVC = FeedViewController()
         let logInVC = LoginViewController()
+        let profileVC = ProfileViewController()
 
         let factory = MyLoginFactory()
         let inspector = factory.createLoginInspector()
@@ -29,7 +30,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         // MARK: Navigation VC
-        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
+//        let profileNavigationVC = UINavigationController(rootViewController: logInVC)
+        var currentVC: UIViewController {
+            if UserDefaults.standard.bool(forKey: "isLogin") {
+                return profileVC
+            } else {
+                return logInVC
+            }
+        }
+        
+        let profileNavigationVC = UINavigationController(rootViewController: currentVC)
+        
         let feedNavigationVC = UINavigationController(rootViewController: feedVC)
         
         
@@ -39,14 +50,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedVCTabbarTitle = "feed_vc_tabbar_title".localized(file: "Localizable_TabBar")
         
         logInVC.tabBarItem = UITabBarItem(title: loginVCTabbarTitle, image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        profileVC.tabBarItem = UITabBarItem(title: loginVCTabbarTitle, image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedNavigationVC.tabBarItem = UITabBarItem(title: feedVCTabbarTitle, image: UIImage(systemName: "note.text"), tag: 0)
         
+        UITabBar.appearance().tintColor = ColorPallete.tabBarItem
+        UINavigationBar.appearance().backgroundColor = ColorPallete.tabBarBackground
         
         // MARK: TabBar
         let tabBar = UITabBarController()
         
         // помещаем в TabBar VC
         tabBar.viewControllers = [profileNavigationVC, feedNavigationVC]
+        
+        window.safeAreaLayoutGuide.owningView?.backgroundColor = ColorPallete.backgroundColor
         
         // указываем с чего загружаться
         window.rootViewController = tabBar
@@ -91,11 +107,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     
-}
-
-extension UIColor {
-    class func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat) -> UIColor {
-        let color = UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: alpha)
-        return color
-    }
 }

@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         self.title = "feed_vc_tabbar_title".localized(file: "Localizable_TabBar")
         locationManager.delegate = self
         
@@ -23,6 +23,11 @@ class FeedViewController: UIViewController {
         createPin(title: "Custom Pin", coordinate: CLLocationCoordinate2D(latitude: 55.581705, longitude: 37.1046726))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPins))
+        
+        navigationController?.navigationBar.tintColor = ColorPallete.tabBarItem
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = ColorPallete.backgroundColor
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 
     // MARK: Свойства
@@ -95,7 +100,7 @@ class FeedViewController: UIViewController {
             mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

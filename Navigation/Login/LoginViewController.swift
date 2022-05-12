@@ -21,6 +21,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         self.loginTF.delegate = self
         self.passwordTF.delegate = self
         navigationController?.navigationBar.isHidden = true
@@ -68,6 +70,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.pushViewController(profileVC, animated: false)
         let loginVC = LoginViewController()
         loginVC.dismiss(animated: true)
+        let feedVC = FeedViewController()
+        
+        let loginVCTabbarTitle = "login_vc_tabbar_title".localized(file: "Localizable_TabBar")
+        let feedVCTabbarTitle = "feed_vc_tabbar_title".localized(file: "Localizable_TabBar")
+        loginVC.tabBarItem = UITabBarItem(title: loginVCTabbarTitle, image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        profileVC.tabBarItem = UITabBarItem(title: loginVCTabbarTitle, image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        let feedNavigationVC = UINavigationController(rootViewController: feedVC)
+        feedNavigationVC.tabBarItem = UITabBarItem(title: feedVCTabbarTitle, image: UIImage(systemName: "note.text"), tag: 0)
+        var currentVC: UIViewController {
+            if UserDefaults.standard.bool(forKey: "isLogin") {
+                return profileVC
+            } else {
+                return loginVC
+            }
+        }
+        let profileNavigationVC = UINavigationController(rootViewController: currentVC)
+        self.tabBarController?.viewControllers = [profileNavigationVC, feedNavigationVC]
     }
     
     @objc func signInError() {
@@ -125,7 +144,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Setup View
     private func setupViews() {
-        view.backgroundColor = .white
+        // view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .blue)
+        loginScrollView.backgroundColor = ColorPallete.backgroundColor
         view.addSubview(loginScrollView)
         loginScrollView.addSubview(contentView)
         contentView.addSubviews(VKIcon, loginFormStackView, loginButton, signInButton) //, brutPasswordButton, activityIndicator)
@@ -177,7 +197,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginFormStackView.layer.borderWidth = 0.5
         loginFormStackView.layer.cornerRadius = 10
         loginFormStackView.distribution = .fillProportionally
-        loginFormStackView.backgroundColor = .systemGray6
+        loginFormStackView.backgroundColor = ColorPallete.textFieldBackground
         loginFormStackView.clipsToBounds = true
         return loginFormStackView
     }()
@@ -193,10 +213,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginTF.layer.borderWidth = 0.25
         loginTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: loginTF.frame.height))
         loginTF.keyboardType = .emailAddress
-        loginTF.textColor = .black
+        loginTF.textColor = ColorPallete.TFText
         loginTF.font = UIFont.systemFont(ofSize: 16)
         loginTF.autocapitalizationType = .none
         loginTF.returnKeyType = .done
+        loginTF.tintColor = ColorPallete.TFCursor
         return loginTF
     }()
     
@@ -211,10 +232,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTF.layer.borderWidth = 0.25
         passwordTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: passwordTF.frame.height))
         passwordTF.isSecureTextEntry = true
-        passwordTF.textColor = .black
+        passwordTF.textColor = ColorPallete.TFText
         passwordTF.font = UIFont.systemFont(ofSize: 16)
         passwordTF.autocapitalizationType = .none
         passwordTF.returnKeyType = .done
+        passwordTF.tintColor = ColorPallete.TFCursor
         return passwordTF
     }()
     
@@ -222,15 +244,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     private lazy var loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.toAutoLayout()
-        if let image = UIImage(named: "blue_pixel") {
-            loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .selected)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .highlighted)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .disabled)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .reserved)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .focused)
-            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
-        }
+//        if let image = UIImage(named: "blue_pixel") {
+//            loginButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .selected)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .highlighted)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .disabled)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .reserved)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .focused)
+//            loginButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
+//        }
+        loginButton.backgroundColor = ColorPallete.button
         let title = "log_in".localized(file: "Localizable_LoginVC")
         loginButton.setTitle(title, for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
@@ -244,16 +267,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     private lazy var signInButton: UIButton = {
         let signInButton = UIButton()
         signInButton.toAutoLayout()
-        if let image = UIImage(named: "blue_pixel") {
-            signInButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .selected)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .highlighted)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .disabled)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .reserved)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .focused)
-            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
-            
-        }
+//        if let image = UIImage(named: "blue_pixel") {
+//            signInButton.setBackgroundImage(image.image(alpha: 1), for: .normal)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .selected)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .highlighted)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .disabled)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .reserved)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .focused)
+//            signInButton.setBackgroundImage(image.image(alpha: 0.1), for: .application)
+//
+//        }
+        signInButton.backgroundColor = ColorPallete.button
         let title = "sign_in".localized(file: "Localizable_LoginVC")
         signInButton.setTitle(title, for: .normal)
         signInButton.setTitleColor(.white, for: .normal)

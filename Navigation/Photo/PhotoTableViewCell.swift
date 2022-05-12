@@ -18,6 +18,7 @@ class PhotoTableViewCell: UITableViewCell {
         contentView.addSubviews(photosLabel, PhotoTableViewCell.arrowButton, previewStackView)
         previewStackView.addArrangedSubviews(previewImage1, previewImage2, previewImage3, previewImage4)
         setupConstraints()
+        contentView.backgroundColor = ColorPallete.backgroundColor
     }
     
     // MARK: UI elements
@@ -28,7 +29,7 @@ class PhotoTableViewCell: UITableViewCell {
         let photosLableTitle = "photos_lable_title".localized(file: "Localizable_ProfileView")
         photosLabel.text = photosLableTitle
         photosLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        photosLabel.textColor = .black
+        photosLabel.textColor = ColorPallete.nameColor
         photosLabel.toAutoLayout()
         return photosLabel
     }()
@@ -36,8 +37,7 @@ class PhotoTableViewCell: UITableViewCell {
     /// Arrow Button
     static var arrowButton: UIButton = {
         let arrowButton = UIButton()
-        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .highlighted)
+        arrowButton.setImage(UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))?.withTintColor(ColorPallete.photoArrow, renderingMode: .alwaysOriginal), for: .normal)
         arrowButton.toAutoLayout()
         return arrowButton
     }()

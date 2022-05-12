@@ -9,11 +9,11 @@ import UIKit
 import iOSIntPackage
 
 class PhotoViewController: UIViewController {
-
+    
     let facade = ImagePublisherFacade()
-
+    
     var newPhotoArray: [UIImage] = []
-
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -24,12 +24,16 @@ class PhotoViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         let photoGalleryTitle = "photo_gallery_title".localized(file: "Localizable_ProfileView")
         self.title = photoGalleryTitle
+        navigationController?.navigationBar.tintColor = ColorPallete.tabBarItem
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = ColorPallete.backgroundColor
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-
+    
     deinit {
         facade.rechargeImageLibrary()
     }
-
+    
     // MARK: UI elements
     
     /// Photo CollectionView
@@ -38,8 +42,8 @@ class PhotoViewController: UIViewController {
         photoCollectionLayout.scrollDirection = .vertical
         let photosCollection = UICollectionView(frame: .zero, collectionViewLayout: photoCollectionLayout)
         photosCollection.toAutoLayout()
-        photosCollection.backgroundColor = .white
         photosCollection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifire)
+        photosCollection.backgroundColor = ColorPallete.backgroundColor
         return photosCollection
     }()
 }
@@ -56,8 +60,8 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         cell.configureCell(image: photosArray[indexPath.item])
         return cell
     }
-
-
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 3
@@ -82,7 +86,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout, UICollectionV
 
 //MARK: Actions
 extension PhotoViewController: ImageLibrarySubscriber {
-
+    
     func receive(images: [UIImage]) {
         newPhotoArray = []
         for i in images {

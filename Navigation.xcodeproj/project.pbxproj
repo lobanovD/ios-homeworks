@@ -12,6 +12,7 @@
 		1A90A1962825E3B20049E2BD /* Localizable_TabBar.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A90A1982825E3B20049E2BD /* Localizable_TabBar.strings */; };
 		1A90A19C2825E5990049E2BD /* Localizable_Map.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A90A19E2825E5990049E2BD /* Localizable_Map.strings */; };
 		1AC0E0742823273D00F77713 /* Localizable_LoginVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AC0E0762823273D00F77713 /* Localizable_LoginVC.strings */; };
+		1AD91D01282B19F000190D39 /* ColorPallete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD91D00282B19F000190D39 /* ColorPallete.swift */; };
 		280EAB412715C52400FD0558 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 280EAB402715C52400FD0558 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		280EAB442715C52400FD0558 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; };
 		280EAB452715C52400FD0558 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 280EAB3E2715C52400FD0558 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -87,6 +88,7 @@
 		1AC0E0732823273300F77713 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		1AC0E0752823273D00F77713 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable_LoginVC.strings; sourceTree = "<group>"; };
 		1AC0E0772823274300F77713 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable_LoginVC.strings; sourceTree = "<group>"; };
+		1AD91D00282B19F000190D39 /* ColorPallete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallete.swift; sourceTree = "<group>"; };
 		1FB24B16E4C2D3954F03D284 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB3E2715C52400FD0558 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280EAB402715C52400FD0558 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				1A90A1982825E3B20049E2BD /* Localizable_TabBar.strings */,
 				1A90A1922825DE330049E2BD /* Localizable_ProfileView.strings */,
 				1AC0E0762823273D00F77713 /* Localizable_LoginVC.strings */,
+				1AD91D00282B19F000190D39 /* ColorPallete.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AD91D01282B19F000190D39 /* ColorPallete.swift in Sources */,
 				28608F5326D42C1200482FD5 /* AppDelegate.swift in Sources */,
 				28C09CBC26EFFC3A00062B83 /* Constants.swift in Sources */,
 				287F34DE2727781400A9E426 /* LoginFactoryProtocol.swift in Sources */,

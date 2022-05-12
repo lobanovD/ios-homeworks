@@ -64,3 +64,23 @@ extension String {
         NSLocalizedString(self, tableName: file, bundle: Bundle.main, value: self, comment: "")
     }
 }
+
+// MARK: UIImage for light/dark theme
+extension UIColor {
+    static func createThemeColor(lightMode: UIColor, darkMode: UIColor) -> UIColor {
+        
+        guard #available(iOS 13.0, *) else { return lightMode }
+        return UIColor { traitCollection -> UIColor in
+            return traitCollection.userInterfaceStyle == .light ? lightMode : darkMode
+        }
+        
+    }
+}
+
+
+extension UIColor {
+    class func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat) -> UIColor {
+        let color = UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: alpha)
+        return color
+    }
+}

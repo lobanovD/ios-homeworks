@@ -17,11 +17,12 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubviews(postTitle, postImage, postDescription, postLikes, postViews)
         self.selectionStyle = .none
+        contentView.backgroundColor = ColorPallete.backgroundColor
         setupConstraints()
     }
     
     // MARK: UI elements
-    /// Post title
+    // Post title
     private lazy var postTitle: UILabel = {
         let postTitle = UILabel()
         postTitle.toAutoLayout()
@@ -30,40 +31,39 @@ class PostTableViewCell: UITableViewCell {
         return postTitle
     }()
     
-    /// Post image
+    // Post image
     private lazy var postImage: UIImageView = {
         let postImage = UIImageView()
         postImage.toAutoLayout()
-        postImage.backgroundColor = .black
-        postImage.contentMode = .scaleAspectFit
+        postImage.contentMode = .scaleToFill
         return postImage
     }()
     
-    /// Post description
+    // Post description
     private lazy var postDescription: UILabel = {
         let postDescription = UILabel()
         postDescription.toAutoLayout()
         postDescription.font = UIFont.systemFont(ofSize: 14)
-        postDescription.textColor = .systemGray
+        postDescription.textColor = ColorPallete.cellText
         postDescription.numberOfLines = 0
         return postDescription
     }()
     
-    /// Post likes
+    // Post likes
     private lazy var postLikes: UILabel = {
         let postLikes = UILabel()
         postLikes.toAutoLayout()
         postLikes.font = UIFont.systemFont(ofSize: 16)
-        postLikes.textColor = .black
+//        postLikes.textColor = .black
         return postLikes
     }()
     
-    /// Post views
+    // Post views
     private lazy var postViews: UILabel = {
         let postViews = UILabel()
         postViews.toAutoLayout()
-        postLikes.font = UIFont.systemFont(ofSize: 16)
-        postLikes.textColor = .black
+        postViews.font = UIFont.systemFont(ofSize: 16)
+//        postViews.textColor = .black
         return postViews
     }()
     
@@ -81,7 +81,7 @@ class PostTableViewCell: UITableViewCell {
 // MARK: Actions
 extension PostTableViewCell {
     
-    /// Cell config
+    // Cell config
     public func configureCell(title: String, image: String, description: String, likes: Int, views: Int) {
         self.postTitle.text = title
         self.postImage.image = UIImage(named: image)
@@ -110,16 +110,14 @@ extension PostTableViewCell {
             postImage.image = filteredImage
         }
 
-        //print("К изображению поста \(String(describing: postTitle.text)) применен фильтр \(filter)")
-
         self.postDescription.text = description
         
-        self.postLikes.text = "Likes: \(likes)"
+        self.postLikes.text = "\("likes_lable_text".localized(file: "Localizable_ProfileView")): \(likes)"
         let viewsLableText = "views_lable_text".localized(file: "Localizable_ProfileView")
         self.postViews.text = "\(viewsLableText) : \(views)"
     }
     
-    /// Setup constraints
+    // Setup constraints
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             
@@ -130,7 +128,7 @@ extension PostTableViewCell {
             postTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: PostTableViewCellConstants.postTitleTrailing),
             
             postImage.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            postImage.heightAnchor.constraint(equalTo: postImage.widthAnchor),
+            postImage.heightAnchor.constraint(equalToConstant: CGFloat(contentView.frame.width / 1.5) ),
             postImage.topAnchor.constraint(equalTo: postTitle.bottomAnchor, constant: PostTableViewCellConstants.postImageTop),
             
             postDescription.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: PostTableViewCellConstants.postDescriptionTop),

@@ -15,8 +15,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-
         view.addSubview(ProfileViewController.postTableView)
         setupConstraints()
         ProfileViewController.postTableView.dataSource = self
@@ -39,7 +37,11 @@ class ProfileViewController: UIViewController {
         postTableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
         postTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
         postTableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: PhotoTableViewCell.identifire)
-        postTableView.separatorInset = .zero
+//        postTableView.separatorInset = .zero
+        postTableView.backgroundColor = ColorPallete.backgroundColor
+        postTableView.sectionHeaderHeight = 0
+        postTableView.sectionFooterHeight = 0
+        postTableView.separatorColor = ColorPallete.separator
         return postTableView
     }()
 }
@@ -88,7 +90,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
-            
             return headerView
             
         } else {
